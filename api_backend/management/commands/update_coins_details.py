@@ -1,29 +1,29 @@
 import json
 import time
-from django.conf import settings
+import logging
 from django.core.management.base import BaseCommand
 import requests
 from api_backend.models import Coins
 from . import coins_set
 
-COINGECKO = "https://api.coingecko.com/api/v3"
 
+COINGECKO = "https://api.coingecko.com/api/v3"
+logger = logging.getLogger(__name__)
 
 class Command(BaseCommand):
+    
     help = "Update the crypto databases"
-
     def handle(self, *args, **kwargs):
         for coin_id in coins_set.coins:
+            logger.debug(f"Data for {coin_id}")
+            print(coin_id)
             response = requests.get(
                 COINGECKO +
                 f'/coins/{coin_id}?localization=false&tickers=false&market_data=false&community_data=true&developer_data=true&sparkline=false')
-
             if response.status_code != 200:
-                self.stdout.write(
-                    self.style.ERROR('Failed to retrieve data from the endpoint.'))
-                return
+                logger.warning(f"Coin {coin_id} Not Found!")
+                continue
             coin = response.json()
-            print(coin_id)
             # Extract relevant data from the coin object
             coin_id = coin["id"]
             symbol = coin["symbol"]
