@@ -1,5 +1,6 @@
 from pathlib import Path
 from dotenv import load_dotenv
+import logging
 import dj_database_url
 import os
 
@@ -7,7 +8,6 @@ load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -17,6 +17,13 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEVELOPMENT')
+
+# set logger
+if DEBUG:
+    logger = logging.Logger(name="coinluxe_app", level="DEBUG")
+    logger.info("Running in DEBUG")
+else:
+    logger = logging.Logger(name="coinluxe_app", level="DEBUG")
 
 ALLOWED_HOSTS = ['coinluxe.herokuapp.com', 'localhost', '127.0.0.1']
 
