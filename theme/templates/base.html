@@ -24,7 +24,7 @@
     </head>
 
     <body
-        class="text-gray-800 bg-white border-gray-200 dark:bg-gray-900 dark:border-gray-700 dark:text-gray-200"
+        class="text-gray-800 dark:bg-gray-900 dark:text-gray-200 bg-gradient-to-r from-gray-100 to-gray-300 dark:bg-gradient-to-r dark:from-gray-700 dark:via-gray-900 dark:to-black"
     >
 
         {% include 'messages.html' %}
@@ -33,7 +33,7 @@
         {% include 'footer.html' %}
         
         {% block postloadjs%} 
-        <script src="{% static 'script.js' %}"></script>
+        <script src="{% static 'navbar.js' %}"></script>
         {% endblock%}
         
     </body>

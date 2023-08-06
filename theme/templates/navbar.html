@@ -1,29 +1,29 @@
-<nav class="bg-gray-200">
-    <div class="px-2 mx-auto border">
+<nav class="bg-gray-400 md:bg-gradient-to-l from-gray-400 from-60%  via-gray-300 to-gray-200">
+    <div class="px-2 mx-auto">
         <div class="flex justify-between">
-            <div class="flex items-center py-2 space-x-4">
+            <div class="flex items-center gap-2 p-2">
                 <!--Logo SVG-->
                 <div>
                     <a href="{% url 'home' %}">
-                        <img src="https://coinluxe.s3.eu-west-1.amazonaws.com/media/logo_b.svg" class="w-12 h-12 " alt = "logo coinluxe">
+                        <img src="https://coinluxe.s3.eu-west-1.amazonaws.com/media/logo_b.svg" class="w-12 h-12 drop-shadow-sm" alt = "logo coinluxe">
                     </a>
                 </div>
 
                 <!--Main menu-->
                 <div class="items-center hidden space-x-3 md:flex">
                     <a
-                        class="px-3 py-2 text-gray-700 rounded-md hover:text-gray-800 hover:bg-gray-300"
+                        class="px-3 py-2 font-bold text-gray-700 rounded-md hover:bg-gray-300"
                         href="{% url 'crypto_list' %}"
                         >Cryptocurrencies</a
                     >
                     <a
-                        class="px-3 py-2 text-gray-700 rounded-md hover:text-gray-800 hover:bg-gray-300"
+                        class="px-3 py-2 font-bold text-gray-700 rounded-md hover:bg-gray-300"
                         href="{% url 'product_list' %}"
                         >Products</a
                     >
                     {% if user.is_authenticated %}
                     <a
-                        class="px-3 py-2 text-gray-700 rounded-md hover:text-gray-800 hover:bg-gray-300"
+                        class="px-3 py-2 font-bold text-gray-700 rounded-md hover:bg-gray-300"
                         href="{% url 'portifolio' %}"
                         >Portifolio</a
                     >
@@ -43,23 +43,26 @@
 
             
             <!--Right menu-->
-            <div class="items-center hidden space-x-3 md:flex">
+            <div class="items-center hidden space-x-3 md:flex ">
                 {% if user.is_authenticated %}
-                <a href="{% url 'add_credits' %}" class="text-sm">€
-                    <span class="text-green-600">{{ credits }}</span></a>
+                <div class="justify-center text-center text-green-800 ">
+                <a href="{% url 'add_credits' %}" class="items-center">€
+                    <span class="">{{ credits }}</span>
+                    <div class="text-xs">Add Credits</div></a>
+                </div>
                 <a
-                    class="px-3 py-2 text-gray-700 rounded-md hover:text-gray-800 hover:bg-gray-300"
+                    class="px-3 py-2 font-bold text-gray-700 rounded-md hover:bg-gray-300"
                     href="{% url 'account_logout' %}"
                     >Logout</a
                 >
                 {% else %}
                 <a
-                    class="px-3 py-2 text-gray-700 rounded-md hover:text-gray-800 hover:bg-gray-300"
+                    class="px-3 py-2 font-bold text-gray-700 rounded-md hover:bg-gray-300"
                     href="{% url 'account_login' %}"
                     >Login</a
                 >
                 <a
-                    class="px-3 py-2 bg-yellow-400 rounded-md text-amber-700 shadow-slate-700"
+                    class="px-3 py-2 font-bold text-gray-700 bg-yellow-500 rounded-md shadow-slate-700"
                     href="{% url 'account_signup' %}"
                     >Signup</a
                 >
@@ -71,7 +74,7 @@
                     
                     {% if is_dark_theme %}
                     <i
-                        class="rounded-md fa-solid fa-sun hover:text-gray-800 hover:bg-gray-300"
+                        class="rounded-md fa-solid fa-sun hover:bg-gray-300"
                     ></i>
                     {% else %}
                     <i class="fa-solid fa-moon hover:text-amber-700"></i>
@@ -106,7 +109,7 @@
                     >
                         {% if is_dark_theme %}
                         <i
-                            class="rounded-md fa-solid fa-sun hover:text-gray-800 hover:bg-gray-300"
+                            class="rounded-md fa-solid fa-sun hover:bg-gray-300"
                         ></i>
                         {% else %}
                         <i class="fa-solid fa-moon hover:text-amber-700"></i>
@@ -126,34 +129,34 @@
     <div class="hidden text-gray-800 transition duration-300 mobile-menu md:hidden">
         <a
             href="{% url 'crypto_list' %}"
-            class="block px-4 py-2 text-sm text-right text-gray-800 hover:bg-yellow-500 hover:text-gray-800"
+            class="block px-4 py-2 text-sm font-bold text-right text-gray-800 hover:bg-gray-300 "
             >Cryptocurrencies</a
         >
         <a
         href="{% url 'product_list' %}"
-        class="block px-4 py-2 text-sm text-right text-gray-800 hover:bg-yellow-500 hover:text-gray-800"
+        class="block px-4 py-2 text-sm font-bold text-right text-gray-800 hover:bg-gray-300 "
         >Products</a
         >
         {% if user.is_authenticated %}
         <a
             href ="{% url 'add_credits' %}" 
-            class="block px-4 py-2 text-sm text-right text-gray-800 hover:text-gray-800"
+            class="block px-4 py-2 text-sm font-bold text-right text-gray-800 hover:bg-gray-300"
             >Add Credit</a
         >
         <a
         href="{% url 'portifolio' %}"
-        class="block px-4 py-2 text-sm text-right text-gray-800 hover:bg-yellow-500 hover:text-gray-800"
+        class="block px-4 py-2 text-sm font-bold text-right text-gray-800 hover:bg-gray-300 "
         >Portifolio</a
         >
         <a
             href="{% url 'account_logout' %}"
-            class="block px-4 py-2 text-sm text-right text-gray-800 hover:text-gray-800"
+            class="block px-4 py-2 text-sm font-bold text-right text-gray-800 "
             >Logout</a
         >
         {% else %}
         <a
             href="{% url 'account_login' %}"
-            class="block px-4 py-2 text-sm text-right hover:text-gray-800"
+            class="block px-4 py-2 text-sm font-bold text-right hover:bg-gray-300"
             >Login</a
         >
         {% endif %}

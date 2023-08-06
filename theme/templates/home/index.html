@@ -2,93 +2,99 @@
 {% load static %}
 
 {% block content %}
-<div class="w-full h-full ">
-    <div class="flex text-gray-800 dark:text-gray-200 ">
-        <div class="flex w-1/2 h-1/3">
-            <div class="py-2">
-                <img src="https://coinluxe.s3.eu-west-1.amazonaws.com/media/logo_b.svg" class="w-18 h-18">
-            </div>
-            <div class="ml-4">
-                <div class="py-6 font-serif text-2xl font-extrabold text-left text-gray-800 dark:text-gray-200 md:text-3xl">Perfect Time to Invest in Crypto.</div>
-                <div class="font-serif text-xl font-extrabold text-left text-gray-800 dark:text-gray-200 md:text">Unlock the Potential of Crypto Investments with CoinLuxe</div>
-            </div>
-        </div>
+<div class="w-full h-full p-2">
+    <div class="flex items-center gap-2 mb-4 text-gray-800 dark:text-gray-200">
+            <img src="https://coinluxe.s3.eu-west-1.amazonaws.com/media/logo_b.svg" class="w-16 h-16 md:w-max md:h-max drop-shadow-xl">
+            <div class="font-serif text-xl antialiased font-bold text-left text-gray-800 md:py-8 dark:text-gray-200 md:text-6xl drop-shadow-xl">Perfect Time to Invest in Crypto</div>
+            
     </div>
-    <div class="p-2 py-8 rounded-lg align-center justity-center bg-neutral-50 dark:bg-neutral-300">
-        <p class="font-bold text-gray-700 dark:text-gray-800">CoinLuxe is your gateway to the exciting world of cryptocurrency. 
+    <div class="py-4 mb-4 text-gray-800 dark:text-gray-200 ">
+        <div class="font-serif text-xl font-bold text-left text-gray-800 dark:text-gray-200 md:text">Unlock the Potential of Crypto Investments with CoinLuxe</div>
+    </div>
+
+    <div class="p-4 py-8 rounded-lg bg-gradient-to-l from-transparent to-green-200 align-center justity-center dark:bg-slate-300">
+        <p class="font-bold text-justify text-gray-700 dark:text-gray-800">
+            CoinLuxe is your gateway to the exciting world of cryptocurrency. 
             Whether you're a seasoned investor or just getting started, we provide a comprehensive 
             platform for all your crypto needs. From buying and selling popular cryptocurrencies 
             to staying updated with the latest market trends, CoinLuxe has you covered.</p>
-    </div>
-    
-    <div class="flex mt-8">
-        <table class="w-full shrink">
-            <thead class="border-b border-gray-100 dark:border-gray-700">
-                <tr>
-                    <th class="px-2 py-3 text-sm font-semibold text-left bg-transparent dark:text-gray-200 md:px-4 md:text-2xl"><div class="">Symbol</div></th>
-                    <th class="px-4 py-3 text-sm font-semibold text-left bg-transparent dark:text-gray-200 md:text-2xl"><div class="">Price €</div></th>
-                    <th class="px-4 py-3 text-sm font-semibold text-left bg-transparent dark:text-gray-200 md:text-2xl"><div class="">M Cap</div></th>
-                    <th class="px-4 py-3 text-sm font-semibold text-left bg-transparent dark:text-gray-200 md:text-2xl"><div class="hidden md:flex">Volume</div></th>
-                    <th class="px-4 py-3 text-sm font-semibold text-left bg-transparent dark:text-gray-200 md:text-2xl"><div class="">Daily</div></th>
-                </tr>
-            </thead>
-            <tbody class="shrink">
-                {% for top_gainers in page_obj %}
-                <tr class="cursor-pointer" onclick="location.href='{% url 'coin' pk=top_gainers.id %}'">
-                    
-                    <td class="px-4 py-3 font-medium border-b border-gray-4 dark:border-gray-700 ">
-                        <div class="flex items-start">
-                            <div class="flex flex-col items-center justify-center md:px-4">
-                                <div class="py-0.5">
-                                    <img class="w-10 h-10" src="{{ top_gainers.image }}" alt="{{top_gainers.name}} Logo" />
-                                </div>
-                                <div class="text-xs text-gray-800 md:text-1xl dark:text-gray-200">
-                                    {{ top_gainers.formatted_symbol }}
+        </div>
+        
+        
+        <div class="flex flex-col justify-between gap-8 p-2 mt-4 lg:flex-row">
+            <div class"w-full md:w-1/2">
+                <div class="px-2 font-semibold text-gray-500">Loosers</div>
+                <div>Add content</div>
+            </div>
+            <div class="w-full md:w-1/2">
+            <div class="px-2 font-semibold text-gray-500">Top Coins</div>
+            <table class="">
+                <thead class="">
+                    <tr>
+                        <th class="px-2 py-3 text-sm text-left bg-transparent dark:text-gray-200 md:px-4 md:text-xl"><div class="">Symbol</div></th>
+                        <th class="px-4 py-3 text-sm text-left bg-transparent dark:text-gray-200 md:text-xl"><div class="break-words">Price&nbsp€</div></th>
+                        <th class="px-4 py-3 text-sm text-left bg-transparent dark:text-gray-200 md:text-xl"><div class="">M&nbspCap</div></th>
+                        <th class="px-4 py-3 text-sm text-left bg-transparent dark:text-gray-200 md:text-xl"><div class="hidden lg:flex">Volume</div></th>
+                        <th class="px-4 py-3 text-sm text-left bg-transparent dark:text-gray-200 md:text-xl"><div class="">Daily</div></th>
+                    </tr>
+                </thead>
+                <tbody class="">
+                    {% for top_gainers in page_obj %}
+                    <tr class="cursor-pointer hover:shadow-md" onclick="location.href='{% url 'coin' pk=top_gainers.id %}'">
+                        
+                        <td class="px-4 py-2 font-medium border-b border-gray-100 dark:border-gray-700 ">
+                            <div class="flex items-start">
+                                <div class="flex flex-col items-center justify-center md:px-4">
+                                    <div class="py-0.5">
+                                        <img class="w-10 h-10" src="{{ top_gainers.image }}" alt="{{top_gainers.name}} Logo" />
+                                    </div>
+                                    <div class="text-xs text-gray-800 md:text-1xl dark:text-gray-200 ">
+                                        {{ top_gainers.formatted_symbol }}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </td>
-                
-                    <td class="px-4 py-3 font-medium border-b border-gray-4 dark:border-gray-700 min-w-fit">
-                        <h5 class="text-sm tracking-tight text-gray-800 md:text-1xl dark:text-gray-200">{{ top_gainers.formatted_current_price }}</h5>
-                    </td>
-                
-                    <td class="px-4 py-3 font-medium border-b border-gray-100 dark:border-gray-700">
-                        <h5 class="text-sm tracking-tight text-gray-800 md:text-1xl dark:text-gray-200">{{ top_gainers.formatted_market_cap }}</h5>
-                    </td>
-                
-                    <td class="px-4 py-3 font-medium border-b border-gray-100 dark:border-gray-700">
-                        <h5 class="hidden text-sm tracking-tight text-gray-800 md:text-1xl dark:text-gray-200 md:flex">{{ top_gainers.formatted_total_volume }}</h5>
-                    </td>
-                
-                    <td class="px-4 py-3 font-medium border-b border-gray-100 dark:border-gray-700">
-                        {% if top_gainers.integer_24h_change > 0 %}
-                        <div class="text-green-600">
-                            <h5 class="text-sm tracking-tight md:text-1xl">
-                                +{{ top_gainers.formatted_price_change_24h }}% 
+                        </td>
+                    
+                        <td class="px-4 font-medium border-b border-gray-100 dark:border-gray-700 min-w-fit">
+                            <h5 class="text-sm tracking-tight text-gray-800 md:text-1xl dark:text-gray-200">{{ top_gainers.formatted_current_price }}</h5>
+                        </td>
+                    
+                        <td class="px-4 font-medium border-b border-gray-100 dark:border-gray-700">
+                            <h5 class="text-sm tracking-tight text-gray-800 md:text-1xl dark:text-gray-200">{{ top_gainers.formatted_market_cap }}</h5>
+                        </td>
+                    
+                        <td class="px-4 font-medium border-b border-gray-100 dark:border-gray-700">
+                            <h5 class="hidden text-sm tracking-tight text-gray-800 md:text-1xl dark:text-gray-200 md:flex">{{ top_gainers.formatted_total_volume }}</h5>
+                        </td>
+                    
+                        <td class="px-4 font-medium border-b border-gray-100 dark:border-gray-700">
+                            {% if top_gainers.integer_24h_change > 0 %}
+                            <div class="text-green-600">
+                                <h5 class="text-sm tracking-tight md:text-1xl">
+                                    +{{ top_gainers.formatted_price_change_24h }}% 
+                                </h5>
+                            </div>
+                            {% elif top_gainers.integer_24h_change < 0 %}
+                            <div class="text-red-500">    
+                                <h5 class="text-sm tracking-tight md:text-1xl ">
+                                    {{ top_gainers.formatted_price_change_24h }}%
+                                </h5>
+                            </div>
+                            {% else %}
+                            <h5 class="text-sm tracking-tight md:text-1xl dark:text-gray-200">
+                                {{ top_gainers.formatted_price_change_24h }}
                             </h5>
-                        </div>
-                        {% elif top_gainers.integer_24h_change < 0 %}
-                        <div class="text-red-500">    
-                            <h5 class="text-sm tracking-tight md:text-1xl ">
-                                {{ top_gainers.formatted_price_change_24h }}%
-                            </h5>
-                        </div>
-                        {% else %}
-                        <h5 class="text-sm tracking-tight md:text-1xl dark:text-gray-200">
-                            {{ top_gainers.formatted_price_change_24h }}
-                        </h5>
-                        {% endif %}
-                    </td>
-                
-                    <td class="px-4 py-3 font-medium border-b border-gray-100 dark:border-gray-700">
-                        <h5 class="hidden text-sm tracking-tight text-gray-800 md:text-1xl dark:text-gray-200 md:flex">{{ crypto.formatted_last_updated }}</h5>
-                    </td>
-                </tr>
-                
-                {% endfor %}
-            </tbody>
-        </table>
+                            {% endif %}
+                        </td>
+                    
+                        <td class="px-4 py-3 font-medium border-b border-gray-100 dark:border-gray-700">
+                            <h5 class="hidden text-sm tracking-tight text-gray-800 md:text-1xl dark:text-gray-200 md:flex">{{ crypto.formatted_last_updated }}</h5>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 {% endblock %}
