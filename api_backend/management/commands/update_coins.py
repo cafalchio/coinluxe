@@ -1,8 +1,8 @@
 from django.core.management.base import BaseCommand
 import requests
 from django.core.exceptions import ObjectDoesNotExist
-
 from api_backend.models import CryptoCurrency
+from . import coins_set
 
 coingecko = "https://api.coingecko.com/api/v3"
 coins = '/coins/markets?vs_currency=eur&order=market_cap_desc&per_page=250&page=1&sparkline=false&locale=en'
@@ -12,7 +12,6 @@ class Command(BaseCommand):
     help = "Update the crypto databases"
 
     def handle(self, *args, **kwargs):
-
         response = requests.get(coingecko + coins)
         if response.status_code != 200:
             self.stdout.write(self.style.ERROR(
@@ -20,6 +19,8 @@ class Command(BaseCommand):
             return
         coin_data = response.json()
         for coin in coin_data:
+            if coin["id"] not in coins_set.coins:
+                continue
             # Extract relevant data from the coin object
             coin_id = coin['id']
             symbol = coin['symbol']

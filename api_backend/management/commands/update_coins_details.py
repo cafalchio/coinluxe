@@ -4,34 +4,26 @@ from django.conf import settings
 from django.core.management.base import BaseCommand
 import requests
 from api_backend.models import Coins
+from . import coins_set
 
-coingecko = "https://api.coingecko.com/api/v3"
-coins = '/coins/markets?vs_currency=eur&order=market_cap_desc&per_page=250&page=1&sparkline=false&locale=en'
+COINGECKO = "https://api.coingecko.com/api/v3"
 
 
 class Command(BaseCommand):
     help = "Update the crypto databases"
 
     def handle(self, *args, **kwargs):
-
-        response = requests.get(coingecko + coins)
-        if response.status_code != 200:
-            self.stdout.write(self.style.ERROR(
-                'Failed to retrieve data from the endpoint.'))
-            return
-        coin_data = response.json()
-
-        for coin in coin_data:
+        for coin_id in coins_set.coins:
             response = requests.get(
-                coingecko +
-                f'/coins/{coin.id}?localization=false&tickers=false&market_data=false&community_data=true&developer_data=true&sparkline=false')
+                COINGECKO +
+                f'/coins/{coin_id}?localization=false&tickers=false&market_data=false&community_data=true&developer_data=true&sparkline=false')
 
             if response.status_code != 200:
                 self.stdout.write(
                     self.style.ERROR('Failed to retrieve data from the endpoint.'))
                 return
             coin = response.json()
-            print(coin.id)
+            print(coin_id)
             # Extract relevant data from the coin object
             coin_id = coin["id"]
             symbol = coin["symbol"]
