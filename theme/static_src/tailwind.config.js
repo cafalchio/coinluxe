@@ -9,6 +9,7 @@ const colors = require('tailwindcss/colors')
 const aspectRatio = require('@tailwindcss/aspect-ratio')
 
 module.exports = {
+    mode: 'jit',
     darkMode: "class",
     content: [
         /**
@@ -37,7 +38,7 @@ module.exports = {
         /* JS 1: Ignore any JavaScript in node_modules folder. */
         // '!../../**/node_modules',
         /* JS 2: Process all JavaScript files in the project. */
-        '../../**/*.js',
+        // '../../**/*.js',
 
         /**
          * Python: If you use Tailwind CSS classes in Python, uncomment the following line
@@ -48,19 +49,17 @@ module.exports = {
     theme: {
         extend: {
             colors: {
-                // you can either spread `colors` to apply all the colors
-                ...colors,
+                transparent: 'transparent',
+                current: 'currentColor',
+                black: colors.black,
+                white: colors.white,
+                emerald: colors.emerald,
+                indigo: colors.indigo,
+                yellow: colors.yellow,
             },
-            aspectRatio: {
-                ...aspectRatio,
-            },
-            width: {
-            default: true, 
-            },
-            height: {
-            default: true, 
-            },
-    },
+
+
+        },
     },
     plugins: [
         /**

@@ -20,81 +20,111 @@
             to staying updated with the latest market trends, CoinLuxe has you covered.</p>
         </div>
         
-        
         <div class="flex flex-col justify-between gap-8 p-2 mt-4 lg:flex-row">
-            <div class"w-full md:w-1/2">
-                <div class="px-2 font-semibold text-gray-500">Loosers</div>
-                <div>Add content</div>
-            </div>
             <div class="w-full md:w-1/2">
-            <div class="px-2 font-semibold text-gray-500">Top Coins</div>
-            <table class="">
-                <thead class="">
-                    <tr>
-                        <th class="px-2 py-3 text-sm text-left bg-transparent dark:text-gray-200 md:px-4 md:text-xl"><div class="">Symbol</div></th>
-                        <th class="px-4 py-3 text-sm text-left bg-transparent dark:text-gray-200 md:text-xl"><div class="break-words">Price&nbsp€</div></th>
-                        <th class="px-4 py-3 text-sm text-left bg-transparent dark:text-gray-200 md:text-xl"><div class="">M&nbspCap</div></th>
-                        <th class="px-4 py-3 text-sm text-left bg-transparent dark:text-gray-200 md:text-xl"><div class="hidden lg:flex">Volume</div></th>
-                        <th class="px-4 py-3 text-sm text-left bg-transparent dark:text-gray-200 md:text-xl"><div class="">Daily</div></th>
-                    </tr>
-                </thead>
-                <tbody class="">
-                    {% for top_gainers in page_obj %}
-                    <tr class="cursor-pointer hover:shadow-md" onclick="location.href='{% url 'coin' pk=top_gainers.id %}'">
-                        
-                        <td class="px-4 py-2 font-medium border-b border-gray-100 dark:border-gray-700 ">
-                            <div class="flex items-start">
-                                <div class="flex flex-col items-center justify-center md:px-4">
-                                    <div class="py-0.5">
-                                        <img class="w-10 h-10" src="{{ top_gainers.image }}" alt="{{top_gainers.name}} Logo" />
-                                    </div>
-                                    <div class="text-xs text-gray-800 md:text-1xl dark:text-gray-200 ">
-                                        {{ top_gainers.formatted_symbol }}
+                <div class="px-2 font-semibold text-gray-500">Top Coins</div>
+                <table class="">
+                    <thead class="">
+                        <tr>
+                            <th class="px-2 py-3 text-sm text-left bg-transparent dark:text-gray-200 md:px-4 md:text-xl"><div class="">Symbol</div></th>
+                            <th class="px-4 py-3 text-sm text-left bg-transparent dark:text-gray-200 md:text-xl"><div class="break-words">Price&nbsp€</div></th>
+                            <th class="px-4 py-3 text-sm text-left bg-transparent dark:text-gray-200 md:text-xl"><div class="">M&nbspCap</div></th>
+                            <th class="px-4 py-3 text-sm text-left bg-transparent dark:text-gray-200 md:text-xl"><div class="hidden lg:flex">Volume</div></th>
+                            <th class="px-4 py-3 text-sm text-left bg-transparent dark:text-gray-200 md:text-xl"><div class="">Daily</div></th>
+                        </tr>
+                    </thead>
+                    <tbody class="">
+                        {% for top_gainers in page_obj %}
+                        <tr class="cursor-pointer hover:shadow-md" onclick="location.href='{% url 'coin' pk=top_gainers.id %}'">
+                            
+                            <td class="px-4 py-2 font-medium border-b border-gray-100 dark:border-gray-700 ">
+                                <div class="flex items-start">
+                                    <div class="flex flex-col items-center justify-center md:px-4">
+                                        <div class="py-0.5">
+                                            <img class="w-10 h-10" src="{{ top_gainers.image }}" alt="{{top_gainers.name}} Logo" />
+                                        </div>
+                                        <div class="text-xs text-gray-800 md:text-1xl dark:text-gray-200 ">
+                                            {{ top_gainers.formatted_symbol }}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </td>
-                    
-                        <td class="px-4 font-medium border-b border-gray-100 dark:border-gray-700 min-w-fit">
-                            <h5 class="text-sm tracking-tight text-gray-800 md:text-1xl dark:text-gray-200">{{ top_gainers.formatted_current_price }}</h5>
-                        </td>
-                    
-                        <td class="px-4 font-medium border-b border-gray-100 dark:border-gray-700">
-                            <h5 class="text-sm tracking-tight text-gray-800 md:text-1xl dark:text-gray-200">{{ top_gainers.formatted_market_cap }}</h5>
-                        </td>
-                    
-                        <td class="px-4 font-medium border-b border-gray-100 dark:border-gray-700">
-                            <h5 class="hidden text-sm tracking-tight text-gray-800 md:text-1xl dark:text-gray-200 md:flex">{{ top_gainers.formatted_total_volume }}</h5>
-                        </td>
-                    
-                        <td class="px-4 font-medium border-b border-gray-100 dark:border-gray-700">
-                            {% if top_gainers.integer_24h_change > 0 %}
-                            <div class="text-green-600">
-                                <h5 class="text-sm tracking-tight md:text-1xl">
-                                    +{{ top_gainers.formatted_price_change_24h }}% 
+                            </td>
+                        
+                            <td class="px-4 font-medium border-b border-gray-100 dark:border-gray-700 min-w-fit">
+                                <h5 class="text-sm tracking-tight text-gray-800 md:text-1xl dark:text-gray-200">{{ top_gainers.formatted_current_price }}</h5>
+                            </td>
+                        
+                            <td class="px-4 font-medium border-b border-gray-100 dark:border-gray-700">
+                                <h5 class="text-sm tracking-tight text-gray-800 md:text-1xl dark:text-gray-200">{{ top_gainers.formatted_market_cap }}</h5>
+                            </td>
+                        
+                            <td class="px-4 font-medium border-b border-gray-100 dark:border-gray-700">
+                                <h5 class="hidden text-sm tracking-tight text-gray-800 md:text-1xl dark:text-gray-200 md:flex">{{ top_gainers.formatted_total_volume }}</h5>
+                            </td>
+                        
+                            <td class="px-4 font-medium border-b border-gray-100 dark:border-gray-700">
+                                {% if top_gainers.integer_24h_change > 0 %}
+                                <div class="text-green-600">
+                                    <h5 class="text-sm tracking-tight md:text-1xl">
+                                        +{{ top_gainers.formatted_price_change_24h }}% 
+                                    </h5>
+                                </div>
+                                {% elif top_gainers.integer_24h_change < 0 %}
+                                <div class="text-red-500">    
+                                    <h5 class="text-sm tracking-tight md:text-1xl ">
+                                        {{ top_gainers.formatted_price_change_24h }}%
+                                    </h5>
+                                </div>
+                                {% else %}
+                                <h5 class="text-sm tracking-tight md:text-1xl dark:text-gray-200">
+                                    {{ top_gainers.formatted_price_change_24h }}
                                 </h5>
-                            </div>
-                            {% elif top_gainers.integer_24h_change < 0 %}
-                            <div class="text-red-500">    
-                                <h5 class="text-sm tracking-tight md:text-1xl ">
-                                    {{ top_gainers.formatted_price_change_24h }}%
-                                </h5>
-                            </div>
-                            {% else %}
-                            <h5 class="text-sm tracking-tight md:text-1xl dark:text-gray-200">
-                                {{ top_gainers.formatted_price_change_24h }}
-                            </h5>
-                            {% endif %}
-                        </td>
-                    
-                        <td class="px-4 py-3 font-medium border-b border-gray-100 dark:border-gray-700">
-                            <h5 class="hidden text-sm tracking-tight text-gray-800 md:text-1xl dark:text-gray-200 md:flex">{{ crypto.formatted_last_updated }}</h5>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
+                                {% endif %}
+                            </td>
+                        
+                            <td class="px-4 py-3 font-medium border-b border-gray-100 dark:border-gray-700">
+                                <h5 class="hidden text-sm tracking-tight text-gray-800 md:text-1xl dark:text-gray-200 md:flex">{{ crypto.formatted_last_updated }}</h5>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class"w-full md:w-1/2">
+
+                <div id="mc_embed_shell">
+                    <link href="//cdn-images.mailchimp.com/embedcode/classic-061523.css" rel="stylesheet" type="text/css">
+                <style type="text/css">
+                      #mc_embed_signup{background:inherited; false;clear:left; font:14px Helvetica,Arial,sans-serif; width: 80%;}
+                      /* Add your own Mailchimp form style overrides in your site stylesheet or in this style block.
+                         We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+              </style>
+              <div id="mc_embed_signup">
+                  <form action="https://herokuapp.us21.list-manage.com/subscribe/post?u=87750b75844c3427d19df0f45&amp;id=ab8a941a23&amp;f_id=00b061e1f0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank">
+                      <div id="mc_embed_signup_scroll"><h2>Subscribe</h2>
+                          <div class="indicates-required"><span class="asterisk">*</span> indicates required</div>
+                          <div class="mc-field-group"><label for="mce-EMAIL">Email Address <span class="asterisk">*</span></label><input type="email" name="EMAIL" class="required email" id="mce-EMAIL" required="" value=""></div>
+                      <div id="mce-responses" class="clear foot">
+                          <div class="response" id="mce-error-response" style="display: none;"></div>
+                          <div class="response" id="mce-success-response" style="display: none;"></div>
+                      </div>
+                  <div style="position: absolute; left: -5000px;" aria-hidden="true">
+                      /* real people should not fill this in and expect good things - do not remove this or risk form bot signups */
+                      <input type="text" name="b_87750b75844c3427d19df0f45_ab8a941a23" tabindex="-1" value="">
+                  </div>
+                      <div class="optionalParent">
+                          <div class="clear foot">
+                              <input type="submit" name="subscribe" id="mc-embedded-subscribe" class="button" value="Subscribe">
+                              <p style="margin: 0px auto;"><a href="http://eepurl.com/ixbEik" title="Mailchimp - email marketing made easy and fun"><span style="display: inline-block; background-color: transparent; border-radius: 4px;"><img class="refferal_badge" src="https://digitalasset.intuit.com/render/content/dam/intuit/mc-fe/en_us/images/intuit-mc-rewards-text-dark.svg" alt="Intuit Mailchimp" style="width: 220px; height: 40px; display: flex; padding: 2px 0px; justify-content: center; align-items: center;"></span></a></p>
+                          </div>
+                      </div>
+                  </div>
+              </form>
+              </div>
+              <script type="text/javascript" src="//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js"></script><script type="text/javascript">(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email';fnames[1]='FNAME';ftypes[1]='text';fnames[2]='LNAME';ftypes[2]='text';fnames[3]='ADDRESS';ftypes[3]='address';fnames[4]='PHONE';ftypes[4]='phone';fnames[5]='BIRTHDAY';ftypes[5]='birthday';}(jQuery));var $mcj = jQuery.noConflict(true);</script></div>
+            </div>
+
     </div>
 </div>
 {% endblock %}
