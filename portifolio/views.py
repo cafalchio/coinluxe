@@ -160,7 +160,7 @@ def sell_crypto(request, pk):
 
 @login_required(login_url="account_login")
 def portfolio_view(request):
-    template_name = "portifolio/portifolio.html"
+    template_name = "portifolio/bag.html"
     user = request.user
     try:
         portfolio = Portfolio.objects.get(owner=user)

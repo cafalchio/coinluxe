@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load tailwind_filters %}
+{% block content %}
+<h5 class="px-4 pt-4 text-xl font-bold text-gray-400 md:text-2xl">Add Crypto</h5>
+
+        <div class="row dark:text-gray-200">
+            <div class="col-12 col-md-6">
+                <form method="POST" action="{% url 'add_crypto' %}" class="mb-2 dark:text-gray-200">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <button type="submit" class="px-4 py-2 text-xs font-bold text-gray-800 bg-gray-200 rounded-lg dark:text-gray-200 md:text"  value="Submit">Add Crypto</button>
+                      </form>
+                        <a class="px-4 py-2 text-xs font-bold text-gray-800 bg-gray-200 rounded-lg md:text" href="{% url 'crypto_list' %}">Cancel</a>
+                    </div>
+                </form>
+            </div>            
+        </div>
+{% endblock %}

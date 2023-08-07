@@ -8,8 +8,21 @@ from . import coins_set
 
 logger = logging.getLogger(__name__)
 
+
 class Command(BaseCommand):
+    """This command will be used to both update coin prices hourly using a scheduler as well
+    as create new coins when requested by the admin, via command line or using the manage tool.
+
+    Argument:
+        --coin (str): An coin id to be added or updated using coingecko api
+
+    """
     help = "Update the crypto databases"
+
+
+    def add_arguments(self, parser):
+        parser.add_argument('--coin', type=str, help='A coin id to be updated')
+
 
     def get_coin_details(self, page=1):
         coingecko = "https://api.coingecko.com/api/v3"
@@ -20,7 +33,10 @@ class Command(BaseCommand):
             return None
         return response.json()
 
-    def handle(self, *args, **kwargs):
+
+    def handle(self, *args, **options):
+        
+        coin_selected = options['coin']
         
         for i in range(1, 4):
             coin_data = self.get_coin_details(i)
@@ -28,10 +44,17 @@ class Command(BaseCommand):
                 logger.warning("Error, trying again in 10s")
                 time.sleep(10)
                 continue
+            
             for coin in coin_data:
-                if coin["id"] not in coins_set.coins:
+                
+                if coin_selected and coin["id"] != coin_selected:
+                    print(coin["id"] )
                     continue
-                # Extract relevant data from the coin object
+                
+                if not coin_selected and coin["id"] not in coins_set.coins: # first config
+                    continue
+                
+                print(f"Updating for {coin_selected}")
                 coin_id = coin['id']
                 symbol = coin['symbol']
                 name = coin['name']
@@ -64,6 +87,7 @@ class Command(BaseCommand):
                     crypto_obj = CryptoCurrency.objects.get(id=coin_id)
                 except ObjectDoesNotExist:
                     crypto_obj = CryptoCurrency(id=coin_id)
+                    print(f"Created {coin_selected}")
 
                 crypto_obj.symbol = symbol
                 crypto_obj.name = name
@@ -93,3 +117,4 @@ class Command(BaseCommand):
                 crypto_obj.save() # Save the coin object in the database
             time.sleep(10)
         self.stdout.write(self.style.SUCCESS('Database update complete.'))
+        return "Database update complete."

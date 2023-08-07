@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% load tailwind_filters %}
+{% block content %}
+<h5 class="px-4 pt-4 text-xl font-bold text-gray-400 md:text-2xl">Add Crypto</h5>
+
+        <div class="col">
+            <a class="px-4 py-2 text-xs font-bold text-gray-800 bg-gray-200 rounded-lg md:text" href="{% url 'add_crypto' %}">ADD CRYPTO</a>
+        </div>
+{% endblock %}
