@@ -27,13 +27,9 @@
                 const price = parseFloat('{{ crypto.current_price }}'); 
                 const totalCost = (price * amount);
                 const credit = parseFloat('{{ credit.amount }}');
-                if (totalCost <= credit) {
-                    const confirmation = confirm(`Do you want to confirm the sell of ${amount} coins for ${totalCost.toFixed(2)}€ ? (2% fee)`);
-                    if (confirmation) {
-                        form.submit();
-                    }
-                } else {
-                    alert('Sorry insufficient coins to complete this order.'); 
+                const confirmation = confirm(`Do you want to confirm remove ${amount} coins`);
+                if (confirmation) {
+                    form.submit();
                 }
             });
         </script>

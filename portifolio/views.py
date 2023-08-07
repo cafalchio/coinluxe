@@ -18,6 +18,31 @@ def get_credits(request):
     return credits.amount if credits else 0.00
 
 
+# https://www.youtube.com/watch?v=hZYWtK2k1P8&t=222s
+
+
+@login_required(login_url="login")
+def add_credits(request):
+    stripe.api_key = settings.STRIPE_SECRET_KEY_TEST
+    metadata = {"user_id": str(request.user.id)}
+    if request.method == "POST":
+        checkout_session = stripe.checkout.Session.create(
+            payment_method_types=["card"],
+            line_items=[
+                {
+                    "price": settings.PRODUCT_PRICE,
+                    "quantity": 1,
+                },
+            ],
+            mode="payment",
+            customer_creation="always",
+            success_url=settings.REDIRECT_DOMAIN
+            + "/payment_successful?session_id={CHECKOUT_SESSION_ID}",
+            cancel_url=settings.REDIRECT_DOMAIN + "/payment_cancelled",
+            metadata=metadata,
+        )
+        return redirect(checkout_session.url, code=303)
+    return render(request, "portifolio/bag.html")
 
 
 def payment_successful(request):
@@ -91,7 +116,7 @@ def buy_crypto(request, pk):
             credit.amount -= Decimal(price)
             credit.save()
 
-            return redirect('portfolio')
+            return redirect('bag')
 
     else:
         form = BuyCryptoForm()
@@ -115,6 +140,8 @@ def sell_crypto(request, pk):
             sell_amount = form.cleaned_data['amount']
             value = crypto.current_price * float(sell_amount)  # total sell
             if holding.amount - float(sell_amount) >= 0:
+                holding.amount -= float(sell_amount)
+            elif holding.amount - float(sell_amount) < 0:
                 holding.amount = 0
             else:
                 form = SellCryptoForm()
@@ -122,7 +149,7 @@ def sell_crypto(request, pk):
             credit.amount += Decimal(value) - (Decimal(value) / 100) * 2
             credit.save()
 
-            return redirect('portifolio')
+            return redirect('bag')
 
     else:
         form = SellCryptoForm()
@@ -158,27 +185,3 @@ def portfolio_view(request):
 
     context = {'crypto_data': crypto_data}
     return render(request, template_name, context)
-
-
-@login_required(login_url="login")
-def add_credits(request):
-    stripe.api_key = settings.STRIPE_SECRET_KEY_TEST
-    metadata = {"user_id": str(request.user.id)}
-    if request.method == "POST":
-        checkout_session = stripe.checkout.Session.create(
-            payment_method_types=["card"],
-            line_items=[
-                {
-                    "price": settings.PRODUCT_PRICE,
-                    "quantity": 1,
-                },
-            ],
-            mode="payment",
-            customer_creation="always",
-            success_url=settings.REDIRECT_DOMAIN
-            + "/payment_successful?session_id={CHECKOUT_SESSION_ID}",
-            cancel_url=settings.REDIRECT_DOMAIN + "/payment_cancelled",
-            metadata=metadata,
-        )
-        return redirect(checkout_session.url, code=303)
-    return render(request, "portifolio/add_credits.html")

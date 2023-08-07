@@ -54,5 +54,12 @@
           Pay Now!
         </button>
       </form>
+      <form enctype="multipart/form-data" method="post" role="product_page">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="px-4 py-2 mt-4 font-bold text-white bg-green-600 rounded-md shadow-md hover:bg-green-700">
+          Add Credits and Buy Crypto
+        </button>
+      </form>
 </div>
 {% endblock %}
