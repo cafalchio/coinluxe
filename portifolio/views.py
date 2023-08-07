@@ -18,9 +18,6 @@ def get_credits(request):
     return credits.amount if credits else 0.00
 
 
-# https://www.youtube.com/watch?v=hZYWtK2k1P8&t=222s
-
-
 @login_required(login_url="login")
 def add_credits(request):
     stripe.api_key = settings.STRIPE_SECRET_KEY_TEST

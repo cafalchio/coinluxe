@@ -1,6 +1,5 @@
 from django.urls import path
 
-from products.views import add_product, delete_product, edit_product
 from .views import CoinDetailView, CryptoListView, ManageCryptos, add_crypto, delete_crypto, edit_crypto
 
 
