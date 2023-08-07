@@ -13,7 +13,7 @@ from .models import Coins, CryptoCurrency, PriceUpdate
 
 
 class CryptoListView(ListView):
-    paginate_by = 10
+    paginate_by = 15
     model = CryptoCurrency
     template_name = "api_backend/cryptos.html"
 
@@ -25,7 +25,6 @@ class CryptoListView(ListView):
                 Q(name__icontains=search_query) |
                 Q(symbol__icontains=search_query)
             )
-
         return queryset
 
 
@@ -77,9 +76,16 @@ def add_crypto(request):
             coin_id = form.cleaned_data['id']
             try:
                 message = call_command('update_coins', coin=coin_id)
+            except:
+                messages.error(request, message)
+            try:
                 messages.success(request, message)
             except:
-                messages.error(request, "Coin could not be added, try again later.")
+                messages.error(request, message)
+            try:
+                message = call_command('update_coins_charts', coin=coin_id)
+            except:
+                messages.error(request, message)
             return redirect(reverse('crypto_list'))
         else:
             messages.error(request,'Form Error, please try again.')

@@ -36,7 +36,8 @@ class Command(BaseCommand):
             response = self.get_coin_details(coin_id)
             if response.status_code != 200:
                 logger.warning(f'Failed to retrieve data for {coin_id}')
-                continue
+                if coin_selected:
+                    return "FAIL accessing API, try again later"
             coin = response.json()
             logger.debug(f"Getting {coin_id}")
             # Extract relevant data from the coin object
