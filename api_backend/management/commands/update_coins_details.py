@@ -3,22 +3,36 @@ import time
 import logging
 from django.core.management.base import BaseCommand
 import requests
-from api_backend.models import Coins
-from . import coins_set
+from api_backend.models import Coins, CryptoCurrency
 
 
 COINGECKO = "https://api.coingecko.com/api/v3"
 logger = logging.getLogger(__name__)
 
 class Command(BaseCommand):
-    
     help = "Update the crypto databases"
-    def handle(self, *args, **kwargs):
-        for i, coin_id in enumerate(coins_set.coins):
-            response = requests.get(
-                COINGECKO +
-                f'/coins/{coin_id}?localization=false&tickers=false&market_data=false&community_data=true&developer_data=true&sparkline=false')
-            logger.debug(f"Data for {coin_id}")
+    
+    def add_arguments(self, parser):
+        parser.add_argument('--coin', type=str, help='A coin id to be updated')
+        
+        
+    def get_coin_details(self, coin_id):
+        response = requests.get(COINGECKO +
+            f'/coins/{coin_id}?localization=false&tickers=false&market_data=false&community_data=true&developer_data=true&sparkline=false')
+        logger.debug(f"Data for {coin_id}")
+        return response
+    
+    
+    def handle(self, *args, **options):    
+        coin_selected = options['coin']
+        objects = CryptoCurrency.objects.all()
+        coins = objects.values_list("id", flat=True)
+        
+        if coin_selected:
+            coins = [coin for coin in coins if coin == coin_selected]
+            
+        for coin_id in coins:
+            response = self.get_coin_details(coin_id)
             if response.status_code != 200:
                 logger.warning(f"Coin {coin_id} Not Found!")
                 continue

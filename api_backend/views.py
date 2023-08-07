@@ -75,18 +75,14 @@ def add_crypto(request):
         form = CryptoCurrencyForm(request.POST, request.FILES)
         if form.is_valid():
             coin_id = form.cleaned_data['id']
-            print(coin_id)
-            message = call_command('update_coins', coin=coin_id)
-            # except Exception as e:
-            #     # Handle any exceptions that may occur during the execution of the command
-            #     messages.error(request, f'Could not add {coin_id}!')
-            #     return redirect(reverse('crypto_list'))
-            messages.success(request, message)
+            try:
+                message = call_command('update_coins', coin=coin_id)
+                messages.success(request, message)
+            except:
+                messages.error(request, "Coin could not be added, try again later.")
             return redirect(reverse('crypto_list'))
         else:
-            messages.error(request,
-                           ('Failed to add product. '
-                            'Please ensure the form is valid.'))
+            messages.error(request,'Form Error, please try again.')
     else:
         
         form = CryptoCurrencyForm()
