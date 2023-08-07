@@ -3,7 +3,7 @@
 
 <h5 class="px-4 pt-4 text-xl font-bold text-gray-400 md:text-2xl">Cryptocurrencies</h5>
 {% if user.is_superuser %}
-<div class="px-6 pt-4">    
+<div class="px-8 pt-4">    
     <a class="px-4 py-2 text-xs font-bold text-gray-800 bg-gray-200 rounded-lg md:text" href="{% url 'add_crypto' %}">ADD CRYPTO</a>
 </div>
 {% endif %}
@@ -77,10 +77,10 @@
                 </td>
                 {% if user.is_superuser %}
                 <td class="px-4 py-3 space-x-2 font-medium border-b border-gray-100 dark:border-gray-700">
-                    <a href="{% url 'edit_crypto' crypto_id=crypto.id %}" class="px-4 py-2 text-xs font-bold text-gray-800 bg-gray-200 rounded-lg md:text">
+                    <a href="{% url 'edit_crypto' crypto_id=crypto.id %}" class="px-4 py-2 text-xs font-bold text-gray-800 bg-gray-200 rounded-lg md:bg-neutral-50 md:text">
                         Edit
                     </a>
-                    <a href="{% url 'delete_crypto' crypto_id=crypto.id %}" class="px-4 py-2 text-xs font-bold text-gray-200 bg-red-600 rounded-lg md:text">
+                    <a href="{% url 'delete_crypto' crypto_id=crypto.id %}" class="px-4 py-2 text-xs font-bold text-gray-800 bg-red-500 rounded-lg md:bg-neutral-50 md:text">
                         Delete
                     </a> 
                 </td>
