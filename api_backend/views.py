@@ -1,4 +1,4 @@
-from django.shortcuts import redirect, render, reverse
+from django.shortcuts import get_object_or_404, redirect, render, reverse
 from django.views.generic import ListView, DetailView
 from django.views.generic.base import TemplateView
 from django.db.models import Q
@@ -7,7 +7,7 @@ import pandas as pd
 from django.contrib.auth.decorators import login_required
 from django.core.management import call_command
 
-from .forms import CryptoCurrencyForm
+from .forms import CryptoCurrencyEditForm, CryptoCurrencyForm
 from .utils import plot_chart
 from .models import Coins, CryptoCurrency, PriceUpdate
 
@@ -99,3 +99,47 @@ def add_crypto(request):
     }
 
     return render(request, template, context)
+
+
+@login_required
+def edit_crypto(request, crypto_id):
+    """ Edit a cryptocurrency in the crypto store """
+    if not request.user.is_superuser:
+        messages.error(request, 'Sorry, only store owners can do that.')
+        return redirect(reverse('home'))
+
+    product = get_object_or_404(CryptoCurrency, pk=crypto_id)
+    if request.method == 'POST':
+        form = CryptoCurrencyEditForm(request.POST, request.FILES, instance=product)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Successfully Updated Crypto!')
+            return redirect(reverse('coin', pk=crypto_id))
+        else:
+            messages.error(request,
+                           ('Failed to update crypto. '
+                            'Please ensure the form is valid.'))
+    else:
+        form = CryptoCurrencyEditForm(instance=product)
+        messages.info(request, f'You are editing {product.name}')
+
+    template = 'api_backend/edit_crypto.html'
+    context = {
+        'form': form,
+        'product': product,
+    }
+
+    return render(request, template, context)
+
+
+@login_required
+def delete_crypto(request, crypto_id):
+    """ Delete a product from the store """
+    if not request.user.is_superuser:
+        messages.error(request, 'Sorry, only store owners can do that.')
+        return redirect(reverse('crypto_list'))
+
+    crypto = get_object_or_404(CryptoCurrency, id=crypto_id)
+    crypto.delete()
+    messages.success(request, 'Coin deleted!')
+    return redirect(reverse('crypto_list'))

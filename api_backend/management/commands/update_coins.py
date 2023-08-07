@@ -35,7 +35,7 @@ class Command(BaseCommand):
         
         coin_selected = options['coin']
         
-        for i in range(2, 0, -1):
+        for i in range(1, 4):
             response = self.get_coin_details(i)
             if response.status_code == 200:
                 coin_data = response.json()

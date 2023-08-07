@@ -2,8 +2,10 @@
 {% block content %}
 
 <h5 class="px-4 pt-4 text-xl font-bold text-gray-400 md:text-2xl">Cryptocurrencies</h5>
-{% if user.is_superuser %}    
-<a class="px-4 py-2 text-xs font-bold text-gray-800 bg-gray-200 rounded-lg md:text" href="{% url 'manage_cryptos' %}">MANAGE CRYPTOS</a>
+{% if user.is_superuser %}
+<div class="px-6 pt-4">    
+    <a class="px-4 py-2 text-xs font-bold text-gray-800 bg-gray-200 rounded-lg md:text" href="{% url 'add_crypto' %}">ADD CRYPTO</a>
+</div>
 {% endif %}
 <div class="px-4 mt-2 md:px-0">
     <table class="w-full shrink">
@@ -15,6 +17,10 @@
                 <th class="px-4 py-3 text-sm font-semibold text-left bg-transparent dark:text-gray-200 md:text-2xl"><div class="hidden md:flex">Volume</div></th>
                 <th class="px-4 py-3 text-sm font-semibold text-left bg-transparent dark:text-gray-200 md:text-2xl"><div class="">Daily</div></th>
                 <th class="px-4 py-3 text-sm font-semibold text-left bg-transparent dark:text-gray-200 md:text-2xl"><div class="hidden md:flex">Updated</div></th>
+                {% if user.is_superuser %}
+                <th class="px-4 py-3 text-sm font-semibold text-left bg-transparent dark:text-gray-200 md:text-2xl"><div class="hidden md:flex">ADMIN</div></th>
+                {% endif %}
+
             </tr>
         </thead>
         <tbody class="shrink">
@@ -69,6 +75,16 @@
                 <td class="px-4 py-3 font-medium border-b border-gray-100 dark:border-gray-700">
                     <h5 class="hidden text-sm tracking-tight text-gray-800 md:text-1xl dark:text-gray-200 md:flex">{{ crypto.formatted_last_updated }}</h5>
                 </td>
+                {% if user.is_superuser %}
+                <td class="px-4 py-3 space-x-2 font-medium border-b border-gray-100 dark:border-gray-700">
+                    <a href="{% url 'edit_crypto' crypto_id=crypto.id %}" class="px-4 py-2 text-xs font-bold text-gray-800 bg-gray-200 rounded-lg md:text">
+                        Edit
+                    </a>
+                    <a href="{% url 'delete_crypto' crypto_id=crypto.id %}" class="px-4 py-2 text-xs font-bold text-gray-200 bg-red-600 rounded-lg md:text">
+                        Delete
+                    </a> 
+                </td>
+                {% endif %}
             </tr>
             
             {% endfor %}
