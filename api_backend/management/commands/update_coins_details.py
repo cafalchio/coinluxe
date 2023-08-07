@@ -14,15 +14,16 @@ class Command(BaseCommand):
     
     help = "Update the crypto databases"
     def handle(self, *args, **kwargs):
-        for coin_id in coins_set.coins:
-            logger.debug(f"Data for {coin_id}")
+        for i, coin_id in enumerate(coins_set.coins):
             print(coin_id)
             response = requests.get(
                 COINGECKO +
                 f'/coins/{coin_id}?localization=false&tickers=false&market_data=false&community_data=true&developer_data=true&sparkline=false')
+            logger.debug(f"Data for {coin_id}")
             if response.status_code != 200:
                 logger.warning(f"Coin {coin_id} Not Found!")
                 continue
+            print(f"Processing: {i}/{len(coins_set.coins)} : {coin_id}")
             coin = response.json()
             # Extract relevant data from the coin object
             coin_id = coin["id"]
