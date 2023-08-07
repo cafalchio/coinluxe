@@ -18,7 +18,6 @@ class Command(BaseCommand):
             try:
                 response = requests.get(
                     f"https://api.coingecko.com/api/v3/coins/{coin_id}/market_chart?vs_currency=eur&days=365")
-                print(f"Got data for {coin_id}")
             except BaseException as be:
                 logger.warning(f"error connecting to endpoint {be}")
                 continue
@@ -41,3 +40,4 @@ class Command(BaseCommand):
             time.sleep(6)  # to avoid max requests
 
         self.stdout.write(self.style.SUCCESS('Database update complete.'))
+        logger.info("Coins Charts database update complete.")
