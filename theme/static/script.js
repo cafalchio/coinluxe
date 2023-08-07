@@ -9,7 +9,6 @@ btn.addEventListener("click", () => {
 document.addEventListener("click", (event) => {
     const target = event.target;
     const isOutsideMenu = !menu.contains(target) && !btn.contains(target);
-  
     if (isOutsideMenu) {
       menu.classList.add("hidden");
     }

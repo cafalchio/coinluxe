@@ -32,7 +32,6 @@ class Command(BaseCommand):
                 if coin["id"] not in coins_set.coins:
                     continue
                 # Extract relevant data from the coin object
-                print(coin["id"])
                 coin_id = coin['id']
                 symbol = coin['symbol']
                 name = coin['name']
