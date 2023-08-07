@@ -7,6 +7,10 @@ The coinluxe website was designed to be a e-commerce where people can easily buy
 
 The Crypto e-comerce strategy is to sell cryptos with a small fee to the clients. The fees can be set per crypto, making it easy to be competitive in the market.
 A simple credit/debit-card payment, makes easy to users to buy cryptos and start their investiments in cryptocurrencies.
+
+# Marketing
+
+The market strategy is simple, users can register their emails to our mail list and they will receive strategies for investiment, and website promotions in fees and new coins added.
 ## Table of Contents
 
 # UX Design
