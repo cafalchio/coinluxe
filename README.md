@@ -3,6 +3,10 @@
 Embrace the future of finance with CoinLuxe. Start your crypto journey today and unlock the potential of decentralized technologies.
 The coinluxe website was designed to be a e-commerce where people can easily buy cryptos using credit or debit card. The motivation behind the creation of coinluxe was to facilitate the acquisition of cryptocurrencies at a small fee (0.01%), making it an ideal place to buy cryptocurrencies.
 
+# Strategy
+
+The Crypto e-comerce strategy is to sell cryptos with a small fee to the clients. The fees can be set per crypto, making it easy to be competitive in the market.
+A simple credit/debit-card payment, makes easy to users to buy cryptos and start their investiments in cryptocurrencies.
 ## Table of Contents
 
 # UX Design
