@@ -115,6 +115,7 @@ class Command(BaseCommand):
                 crypto_obj.last_updated = last_updated
                 logger.debug(f"Saving {coin_id} in DB")
                 crypto_obj.save() # Save the coin object in the database
-            time.sleep(10)
+            if not coin_selected:
+                time.sleep(6)
         self.stdout.write(self.style.SUCCESS('Database update complete.'))
         return "Database update complete."
