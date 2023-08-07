@@ -164,6 +164,7 @@ def sell_crypto(request, pk):
 def portfolio_view(request):
     template_name = "portifolio/bag.html"
     user = request.user
+    
     try:
         portfolio = Portfolio.objects.get(owner=user)
     except Portfolio.DoesNotExist:
@@ -182,6 +183,31 @@ def portfolio_view(request):
             })
     else:
         crypto_data = []
+    if crypto_data:
+        metadata = {"user_id": str(request.user.id)}
+        if request.method == "POST":
+            stripe.api_key = settings.STRIPE_SECRET_KEY_TEST
+            metadata = {"user_id": str(request.user.id)}
+            if request.method == "POST":
+                checkout_session = stripe.checkout.Session.create(
+                    payment_method_types=["card"],
+                    line_items=
+                    [
+                        {
+                            "price": settings.PRODUCT_PRICE,
+                            "quantity": 1,
+                        },
+                    ],
+                    mode="payment",
+                    customer_creation="always",
+                    success_url=settings.REDIRECT_DOMAIN
+                    + "/payment_successful?session_id={CHECKOUT_SESSION_ID}",
+                    cancel_url=settings.REDIRECT_DOMAIN + "/payment_cancelled",
+                    metadata=metadata,
+                )
+                return redirect(checkout_session.url, code=303)
+        context = {'crypto_data': crypto_data}
+        return render(request, "portifolio/bag.html", context)
 
     context = {'crypto_data': crypto_data}
     return render(request, template_name, context)
