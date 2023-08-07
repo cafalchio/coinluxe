@@ -115,7 +115,7 @@ def sell_crypto(request, pk):
             sell_amount = form.cleaned_data['amount']
             value = crypto.current_price * float(sell_amount)  # total sell
             if holding.amount - float(sell_amount) >= 0:
-                holding.amount -= float(sell_amount)
+                holding.amount = 0
             else:
                 form = SellCryptoForm()
             holding.save()
