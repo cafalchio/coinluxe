@@ -30,6 +30,7 @@ class CryptoCurrency(models.Model):
     atl_change_percentage = models.FloatField(null=True)
     atl_date = models.DateTimeField(null=True)
     last_updated = models.DateTimeField()
+    sell_price_multiplier = models.FloatField(editable=True, default=1.001)
 
     @property
     def formatted_current_price(self):

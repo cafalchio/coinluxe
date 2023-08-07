@@ -1,6 +1,13 @@
+from django.shortcuts import redirect, render, reverse
 from django.views.generic import ListView, DetailView
+from django.views.generic.base import TemplateView
 from django.db.models import Q
+from django.contrib import messages
 import pandas as pd
+from django.contrib.auth.decorators import login_required
+from django.core.management import call_command
+
+from .forms import CryptoCurrencyForm
 from .utils import plot_chart
 from .models import Coins, CryptoCurrency, PriceUpdate
 
@@ -46,3 +53,47 @@ class CoinDetailView(DetailView):
         context['crypto'] = crypto
 
         return context
+
+class ManageCryptos(TemplateView):    
+    template_name = "api_backend/manage_cryptos.html"
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
+
+
+@login_required
+def add_crypto(request):
+    
+    """ Add a product to the store """
+    if not request.user.is_superuser:
+        messages.error(request, 'Sorry, only store owners can do that.')
+        return redirect(reverse('home'))
+
+    if request.method == 'POST':
+        form = CryptoCurrencyForm(request.POST, request.FILES)
+        if form.is_valid():
+            coin_id = form.cleaned_data['id']
+            print(coin_id)
+            message = call_command('update_coins', coin=coin_id)
+            # except Exception as e:
+            #     # Handle any exceptions that may occur during the execution of the command
+            #     messages.error(request, f'Could not add {coin_id}!')
+            #     return redirect(reverse('crypto_list'))
+            messages.success(request, message)
+            return redirect(reverse('crypto_list'))
+        else:
+            messages.error(request,
+                           ('Failed to add product. '
+                            'Please ensure the form is valid.'))
+    else:
+        
+        form = CryptoCurrencyForm()
+
+    template = 'api_backend/add_crypto.html'
+    context = {
+        'form': form,
+    }
+
+    return render(request, template, context)

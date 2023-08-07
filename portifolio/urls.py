@@ -9,5 +9,5 @@ urlpatterns = [
     path("stripe_webhook/", stripe_webhook, name="stripe_webhook"),
     path("buy-crypto/<str:pk>/", buy_crypto, name="buy_crypto"),
     path("sell-crypto/<str:pk>/", sell_crypto, name="sell_crypto"),
-    path("", portfolio_view, name="portifolio")
+    path("", portfolio_view, name="bag")
 ]

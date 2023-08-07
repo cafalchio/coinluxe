@@ -2,41 +2,21 @@
 {% load static %}
 
 {% block content %}
-    {% if user.is_authenticated %}
         <div class="container p-4 mx-auto">
             <h1 class="mb-4 text-2xl font-bold">{{ crypto.name }}</h1>
             <h2 class="mb-4 text-2xl font-semibold">€ {{ crypto.current_price }}</h2>
             <form method="post" class="max-w-xs" id="buyCryptoForm">
                 {% csrf_token %}
-                <div class="mb-4 text-gray-900">
+                <div class="mb-4 text-gray-500">
                     <input type="hidden" id="id_crypto_id" name="crypto_id" value="{{ crypto.id }}">
                     <label for="id_amount" class="block mb-2 font-semibold">Amount:</label>
-                    <input type="{{ form.amount.field.widget.input_type }}" id="id_amount" name="{{ form.amount.html_name }}" step="any" class="font-bold text-gray-800 bg-gray-200 rounded-md dark:bg-gray-900 form-input">
+                    <input type="{{ form.amount.field.widget.input_type }}" id="id_amount" name="{{ form.amount.html_name }}" step="any" class="font-bold text-gray-800 bg-gray-200 rounded-md dark:bg-gray-900 dark:text-gray-200 form-input">
                 </div>
                 <button type="submit" class="px-4 py-2 font-bold text-white bg-green-600 rounded hover:bg-green-700">
-                    Buy {{ crypto.formatted_symbol }}
+                    Add {{ crypto.formatted_symbol }} to your shopping bag.
                 </button>
             </form>
         </div>
-        <script>
-            //check the credit
-            const form = document.getElementById('buyCryptoForm');
-            form.addEventListener('submit', function(event) {
-                event.preventDefault(); 
-                const amount = parseFloat(document.getElementById('id_amount').value);
-                const price = parseFloat('{{ crypto.current_price }}'); 
-                const totalCost = price * amount;
-                const credit = parseFloat('{{ credit.amount }}');
-                if (totalCost <= credit) {
-                    const confirmation = confirm(`Do you want to confirm the purchase of ${amount} coins for ${totalCost} price?`);
-                    if (confirmation) {
-                        form.submit();
-                    }
-                } else {
-                    alert('Sorry insufficient credit, please add credit to complete this order.'); 
-                }
-            });
-        </script>
-        
-    {% endif %}
+       
+
 {% endblock content %}

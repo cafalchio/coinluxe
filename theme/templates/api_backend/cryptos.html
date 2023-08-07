@@ -2,6 +2,9 @@
 {% block content %}
 
 <h5 class="px-4 pt-4 text-xl font-bold text-gray-400 md:text-2xl">Cryptocurrencies</h5>
+{% if user.is_superuser %}    
+<a class="px-4 py-2 text-xs font-bold text-gray-800 bg-gray-200 rounded-lg md:text" href="{% url 'manage_cryptos' %}">MANAGE CRYPTOS</a>
+{% endif %}
 <div class="px-4 mt-2 md:px-0">
     <table class="w-full shrink">
         <thead class="border-b border-gray-100 dark:border-gray-700">
