@@ -1,0 +1,1 @@
+gunicorn --bind unix:/home/cafalchio/Projects/coinluxe/coinluxe.sock coinluxe.wsgi:application  --workers=4

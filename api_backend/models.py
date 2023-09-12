@@ -103,7 +103,7 @@ class CryptoCurrency(models.Model):
 
 # Coin Detail
 class Coins(models.Model):
-    id = models.CharField(max_length=200, primary_key=True)
+    id = models.CharField(max_length=300, primary_key=True)
     symbol = models.CharField(max_length=100)
     name = models.CharField(max_length=100)
     block_time_in_minutes = models.PositiveIntegerField(default=0, null=True)
@@ -137,8 +137,8 @@ class Coins(models.Model):
 
 
 class PriceUpdate(models.Model):
-    id = models.CharField(max_length=200, primary_key=True)
-    price_time = models.JSONField(max_length=365, null=True)
+    id = models.CharField(max_length=300, primary_key=True)
+    price_time = models.JSONField(max_length=1000, null=True)
 
     @property
     def formatted_price_time(self):

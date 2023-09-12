@@ -13,7 +13,7 @@ from .models import Coins, CryptoCurrency, PriceUpdate
 
 
 class CryptoListView(ListView):
-    paginate_by = 15
+    paginate_by = 10
     model = CryptoCurrency
     template_name = "api_backend/cryptos.html"
 

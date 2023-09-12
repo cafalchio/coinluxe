@@ -3,38 +3,32 @@ import time
 import logging
 from django.core.management.base import BaseCommand
 import requests
-from api_backend.models import Coins, CryptoCurrency
-
+from api_backend.models import Coins
+from . import coins_set
 
 COINGECKO = "https://api.coingecko.com/api/v3"
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
+logging.basicConfig(level="INFO")
+
 
 class Command(BaseCommand):
     help = "Update the crypto databases"
-    
-    def add_arguments(self, parser):
-        parser.add_argument('--coin', type=str, help='A coin id to be updated')
-        
-        
     def get_coin_details(self, coin_id):
+        logger.info(f" Getting data for {coin_id}..")
         response = requests.get(COINGECKO +
-            f'/coins/{coin_id}?localization=false&tickers=false&market_data=false&community_data=true&developer_data=true&sparkline=false')
-        logger.debug(f"Data for {coin_id}")
+            f'/coins/{coin_id}?localization=false&tickers=false&market_data=false&community_data=true&developer_data=true&sparkline=false', 
+            timeout=1)
         return response
     
     
     def handle(self, *args, **options):    
-        coin_selected = options['coin']
-        objects = CryptoCurrency.objects.all()
-        coins = objects.values_list("id", flat=True)
-        
-        if coin_selected:
-            coins = [coin for coin in coins if coin == coin_selected]
-            
-        for coin_id in coins:
+        logger.info("Updating coins details")
+        for coin_id in list(coins_set.coins):
             response = self.get_coin_details(coin_id)
+            logger.info(f" Updating details for: {coin_id}")
             if response.status_code != 200:
-                logger.warning(f"Coin {coin_id} Not Found!")
+                logger.warning(f" Coin {coin_id} Not Found!")
                 continue
             coin = response.json()
             # Extract relevant data from the coin object
@@ -67,7 +61,8 @@ class Command(BaseCommand):
             coin_obj.market_cap_rank = market_cap_rank
 
             coin_obj.save()
+            logger.info(f" Saved {coin_id} detail to the database")
             time.sleep(6)  # to avoid max requests
 
-        self.stdout.write(self.style.SUCCESS('Database update complete.'))
-        logger.info("Coins Details database update complete.")
+        self.stdout.write(self.style.SUCCESS(' Database update complete.'))
+        logger.info(" Coins Details database update complete.")
