@@ -8,3 +8,5 @@ source .venv/bin/activate
 python manage.py update_coins
 python manage.py update_coins_details
 python manage.py update_coins_charts
+python manage.py update_prices
+python manage.py update_coins --save_pics True
