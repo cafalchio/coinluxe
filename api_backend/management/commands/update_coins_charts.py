@@ -13,14 +13,13 @@ logging.basicConfig(level="INFO")
 
 class Command(BaseCommand):
     help = "Update the crypto databases"
-    
+
     def get_coin_details(self, coin_id):
         response = requests.get(
-                    f"https://api.coingecko.com/api/v3/coins/{coin_id}/market_chart?vs_currency=eur&days=365",
-                    timeout=1)
+            f"https://api.coingecko.com/api/v3/coins/{coin_id}/market_chart?vs_currency=eur&days=365",
+            timeout=1)
         logger.info(f" Data for {coin_id}")
         return response
-    
 
     def handle(self, *args, **options):
 
@@ -43,5 +42,6 @@ class Command(BaseCommand):
             logger.info(" wait 6s..")
             time.sleep(6)  # to avoid max requests
 
-        self.stdout.write(self.style.SUCCESS('Historical data updated successful.'))
+        self.stdout.write(self.style.SUCCESS(
+            'Historical data updated successful.'))
         logger.info(" Historical data updated successful")

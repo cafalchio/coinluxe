@@ -7,22 +7,23 @@ from api_backend.models import Coins
 from . import coins_set
 
 COINGECKO = "https://api.coingecko.com/api/v3"
-formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+formatter = logging.Formatter(
+    '%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 logging.basicConfig(level="INFO")
 
 
 class Command(BaseCommand):
     help = "Update the crypto databases"
+
     def get_coin_details(self, coin_id):
         logger.info(f" Getting data for {coin_id}..")
         response = requests.get(COINGECKO +
-            f'/coins/{coin_id}?localization=false&tickers=false&market_data=false&community_data=true&developer_data=true&sparkline=false', 
-            timeout=1)
+                                f'/coins/{coin_id}?localization=false&tickers=false&market_data=false&community_data=true&developer_data=true&sparkline=false',
+                                timeout=1)
         return response
-    
-    
-    def handle(self, *args, **options):    
+
+    def handle(self, *args, **options):
         logger.info("Updating coins details")
         for coin_id in list(coins_set.coins):
             response = self.get_coin_details(coin_id)
