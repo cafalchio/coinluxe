@@ -131,22 +131,22 @@ LOGIN_REDIRECT_URL = '/'
 
 WSGI_APPLICATION = 'coinluxe.wsgi.application'
 
-# DATABASE_URL = os.environ.get("DATABASE_URL")
+DATABASE_URL = os.environ.get("DATABASE_URL")
 
-# DATABASES = {
-#     'default': dj_database_url.parse(DATABASE_URL)
-# }
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ.get('DATABASE'),
-        'USER': os.environ.get('DATABASE_USER'),
-        'PASSWORD': os.environ.get('DATABASE_USER_PASS'),
-        'HOST': 'localhost',  # Replace with your PostgreSQL server's address if necessary
-        # Leave empty to use the default PostgreSQL port (usually 5432)
-        'PORT': '5432',
-    }
+    'default': dj_database_url.parse(DATABASE_URL)
 }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': os.environ.get('DATABASE'),
+#         'USER': os.environ.get('DATABASE_USER'),
+#         'PASSWORD': os.environ.get('DATABASE_USER_PASS'),
+#         'HOST': 'localhost',  # Replace with your PostgreSQL server's address if necessary
+#         # Leave empty to use the default PostgreSQL port (usually 5432)
+#         'PORT': '5432',
+#     }
+# }
 
 
 # Password validation
