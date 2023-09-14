@@ -1,6 +1,6 @@
 import stripe
+from stripe.error import InvalidRequestError
 import logging
-import time
 from django.conf import settings
 from django.core.management.base import BaseCommand
 from api_backend.models import Coins, CryptoCurrency
@@ -26,7 +26,7 @@ class Command(BaseCommand):
                     url=coins.homepage,
                     images=[cryptos.image]
                 )
-            except stripe.error.InvalidRequestError:
+            except InvalidRequestError:
                 logger.warning(f" {coin_id} already exists")
 
         self.stdout.write(self.style.SUCCESS(
