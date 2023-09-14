@@ -1,4 +1,6 @@
 import plotly.express as px
+import stripe
+from django.conf import settings
 
 
 def plot_chart(df):
@@ -58,3 +60,19 @@ def plot_chart(df):
     chart = fig.to_html(config)
 
     return chart
+
+
+def price_from_product(coin_id):
+    pass
+
+
+def get_stripe_payment_link(coin_id):
+    # Set your secret key. Remember to switch to your live secret key in production.
+    # See your keys here: https://dashboard.stripe.com/apikeys
+    stripe.api_key = settings.STRIPE_SECRET_KEY_TEST
+
+    url = stripe.PaymentLink.create(
+        line_items=[{"price": "{{PRICE_ID}}", "quantity": 1}],
+        after_completion={"type": "redirect",
+                          "redirect": {"url": "https://example.com"}},
+    )

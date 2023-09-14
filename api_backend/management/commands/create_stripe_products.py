@@ -13,22 +13,32 @@ logging.basicConfig(level="INFO")
 
 
 class Command(BaseCommand):
-    help = "Create stripe coin as products"
+    help = "Create or update Stripe coin products"
 
     def handle(self, *args, **options):
         for coin_id in list(coins_set.coins):
-            cryptos = CryptoCurrency.objects.get(id=coin_id)
-            coins = Coins.objects.get(id=coin_id)
+            crypto = CryptoCurrency.objects.get(id=coin_id)
+            coin = Coins.objects.get(id=coin_id)
+
             try:
-                stripe.Product.create(
-                    id=coin_id,
-                    name=coin_id.capitalize(),
-                    url=coins.homepage,
-                    images=[cryptos.image]
+                existing_product = stripe.Product.retrieve(coin_id)
+                existing_product.name = coin_id.capitalize()
+                existing_product.images = [crypto.image]
+                existing_product.save()
+
+                price = stripe.Price.create(
+                    currency="eur",
+                    billing_scheme="per_unit",
+                    unit_amount_decimal=str(crypto.current_price),
+                    product=coin_id,
+                    active=True,
                 )
-            except InvalidRequestError:
-                logger.warning(f" {coin_id} already exists")
+                existing_product.default_price = price.id
+                existing_product.save()
+            except InvalidRequestError as e:
+                logger.error(
+                    f"Error creating or updating Stripe product for {coin_id}: {str(e)}")
 
         self.stdout.write(self.style.SUCCESS(
             'Coin Prices Updated on Stripe!'))
-        logger.info(" Coin Prices Updated on Stripe")
+        logger.info("Coin Prices Updated on Stripe")

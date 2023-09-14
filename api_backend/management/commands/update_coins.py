@@ -1,8 +1,8 @@
+import os
 import logging
 import time
-import os
-from django.core.management.base import BaseCommand
 import requests
+from django.core.management.base import BaseCommand
 from django.core.exceptions import ObjectDoesNotExist
 from api_backend.models import CryptoCurrency
 from django.conf import settings
@@ -51,7 +51,7 @@ class Command(BaseCommand):
         else:
             save_pics = False
 
-        for i in range(1, 5):
+        for i in range(1, 4):
             response = self.get_coin_details(i)
             if response.status_code == 200:
                 coin_data = response.json()
