@@ -20,6 +20,10 @@ class Command(BaseCommand):
             crypto = CryptoCurrency.objects.get(id=coin_id)
             coin = Coins.objects.get(id=coin_id)
 
+            if crypto.current_price < .01:
+                min_quantity = 100
+                total_price = crypto.current_price * quantity
+
             try:
                 existing_product = stripe.Product.retrieve(coin_id)
                 existing_product.name = coin_id.capitalize()
@@ -29,7 +33,7 @@ class Command(BaseCommand):
                 price = stripe.Price.create(
                     currency="eur",
                     billing_scheme="per_unit",
-                    unit_amount_decimal=str(crypto.current_price),
+                    unit_amount=int(total_price * 100),
                     product=coin_id,
                     active=True,
                 )

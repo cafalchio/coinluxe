@@ -2,6 +2,8 @@ import plotly.express as px
 import stripe
 from django.conf import settings
 
+stripe.api_key = settings.STRIPE_SECRET_KEY_TEST
+
 
 def plot_chart(df):
     fig = px.line(
@@ -62,17 +64,30 @@ def plot_chart(df):
     return chart
 
 
-def price_from_product(coin_id):
-    pass
+def get_price_id_from_product(coin_id):
+    product = stripe.Product.retrieve(coin_id)
+    return product.default_price
 
 
-def get_stripe_payment_link(coin_id):
-    # Set your secret key. Remember to switch to your live secret key in production.
-    # See your keys here: https://dashboard.stripe.com/apikeys
-    stripe.api_key = settings.STRIPE_SECRET_KEY_TEST
-
-    url = stripe.PaymentLink.create(
-        line_items=[{"price": "{{PRICE_ID}}", "quantity": 1}],
-        after_completion={"type": "redirect",
-                          "redirect": {"url": "https://example.com"}},
+def process_checkout(user_id, coin_id, quantity):
+    metadata = {"user_id": str(user_id)}
+    price_id = get_price_id_from_product(coin_id)
+    checkout_session = stripe.checkout.Session.create(
+        payment_method_types=["card"],
+        line_items=[
+            {
+                "price": price_id,
+                "quantity": str(quantity),
+            },
+        ],
+        mode="payment",
+        customer_creation="always",
+        # success_url=settings.REDIRECT_DOMAIN
+        success_url="https://www.coinluxe.cafabr.online",
+        # + "/payment_successful?session_id={CHECKOUT_SESSION_ID}",
+        # cancel_url=settings.REDIRECT_DOMAIN + "/payment_cancelled",
+        cancel_url="https://www.coinluxe.cafabr.online",
+        metadata=metadata,
     )
+    # return redirect(checkout_session.url, code=303)
+    # return render(request, "portifolio/bag.html")
