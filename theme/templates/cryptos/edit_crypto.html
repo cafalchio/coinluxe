@@ -2,18 +2,19 @@
 {% load tailwind_filters %}
 {% block content %}
     <div class="container mx-auto">
+        EDIT
         <div class="row">
             <div class="col-12 col-md-6">
                 <hr>
-                <h2 class="mb-4 text-3xl font-bold">Product Management</h2>
-                <h5 class="text-gray-500">Edit a Product</h5>
+                <h2 class="mb-4 text-3xl font-bold">crypto Management</h2>
+                <h5 class="text-gray-500">Edit a crypto</h5>
                 <hr>
             </div>
         </div>
 
         <div class="row">
             <div class="col-12 col-md-6">
-                <form method="POST" action="{% url 'edit_product' product.id %}" class="mb-2">
+                <form method="POST" action="{% url 'edit_crypto' crypto.id %}" class="mb-2">
                     {% csrf_token %}
                     <form method="post">
                         {% csrf_token %}

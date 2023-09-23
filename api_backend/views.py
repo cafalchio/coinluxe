@@ -64,7 +64,7 @@ class ManageCryptos(TemplateView):
 
 @login_required
 def add_crypto(request):
-    """ Add a product to the store """
+    """ Add a crypto to the store """
     if not request.user.is_superuser:
         messages.error(request, 'Sorry, only store owners can do that.')
         return redirect(reverse('home'))
@@ -107,10 +107,10 @@ def edit_crypto(request, crypto_id):
         messages.error(request, 'Sorry, only store owners can do that.')
         return redirect(reverse('home'))
 
-    product = get_object_or_404(CryptoCurrency, pk=crypto_id)
+    crypto = get_object_or_404(CryptoCurrency, pk=crypto_id)
     if request.method == 'POST':
         form = CryptoCurrencyEditForm(
-            request.POST, request.FILES, instance=product)
+            request.POST, instance=crypto)
         if form.is_valid():
             form.save()
             messages.success(request, 'Successfully Updated Crypto!')
@@ -120,13 +120,13 @@ def edit_crypto(request, crypto_id):
                            ('Failed to update crypto. '
                             'Please ensure the form is valid.'))
     else:
-        form = CryptoCurrencyEditForm(instance=product)
-        messages.info(request, f'You are editing {product.name}')
+        form = CryptoCurrencyEditForm(instance=crypto)
+        messages.info(request, f'You are editing {crypto.name}')
 
     template = 'cryptos/edit_crypto.html'
     context = {
         'form': form,
-        'product': product,
+        'crypto': crypto,
     }
 
     return render(request, template, context)
@@ -134,7 +134,7 @@ def edit_crypto(request, crypto_id):
 
 @login_required
 def delete_crypto(request, crypto_id):
-    """ Delete a product from the store """
+    """ Delete a crypto from the store """
     if not request.user.is_superuser:
         messages.error(request, 'Sorry, only store owners can do that.')
         return redirect(reverse('crypto_list'))

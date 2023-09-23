@@ -54,13 +54,13 @@ def payment_successful(request):
         print(f"{session} -> Session ID")
         print(f"{customer} -> costumer ")
     return render(request,
-                  "portifolio/payment_successful.html",
+                  "shopping_bag/payment_successful.html",
                   {"customer": customer})
 
 
 def payment_cancelled(request):
     stripe.api_key = settings.STRIPE_SECRET_KEY_TEST
-    return render(request, "portifolio/payment_cancelled.html")
+    return render(request, "shopping_bag/payment_cancelled.html")
 
 
 @csrf_exempt
@@ -121,7 +121,7 @@ def buy_crypto(request, pk):
     else:
         form = BuyCryptoForm()
 
-    return render(request, 'portifolio/buy_crypto.html',
+    return render(request, 'shopping_bag/buy_crypto.html',
                   {'form': form, 'crypto': crypto, 'credit': credit})
 
 
@@ -154,7 +154,7 @@ def sell_crypto(request, pk):
     else:
         form = SellCryptoForm()
 
-    return render(request, 'portifolio/sell_crypto.html',
+    return render(request, 'shopping_bag/sell_crypto.html',
                   {'form': form, 'crypto': crypto,
                    'credit': credit, 'holding': holding,
                    'hold_value': hold_value})
@@ -162,7 +162,7 @@ def sell_crypto(request, pk):
 
 @login_required(login_url="account_login")
 def portfolio_view(request):
-    template_name = "portifolio/bag.html"
+    template_name = "shopping_bag/bag.html"
     user = request.user
     
     try:
@@ -207,7 +207,7 @@ def portfolio_view(request):
                 )
                 return redirect(checkout_session.url, code=303)
         context = {'crypto_data': crypto_data}
-        return render(request, "portifolio/bag.html", context)
+        return render(request, "shopping_bag/bag.html", context)
 
     context = {'crypto_data': crypto_data}
     return render(request, template_name, context)
