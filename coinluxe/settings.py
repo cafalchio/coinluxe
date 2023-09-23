@@ -66,7 +66,7 @@ INSTALLED_APPS = [
     'storages',
     'api_backend',
     'portifolio',
-    'products',
+    # 'products',
 
 ]
 
