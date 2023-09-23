@@ -15,7 +15,7 @@ from .models import Coins, CryptoCurrency, PriceUpdate
 class CryptoListView(ListView):
     paginate_by = 10
     model = CryptoCurrency
-    template_name = "api_backend/cryptos.html"
+    template_name = "cryptos/cryptos.html"
 
     def get_queryset(self):
         queryset = CryptoCurrency.objects.order_by('-market_cap')
@@ -30,7 +30,7 @@ class CryptoListView(ListView):
 
 class CoinDetailView(DetailView):
     model = Coins
-    template_name = "api_backend/coin.html"
+    template_name = "cryptos/crypto_detail.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -53,18 +53,17 @@ class CoinDetailView(DetailView):
 
         return context
 
-class ManageCryptos(TemplateView):    
-    template_name = "api_backend/manage_cryptos.html"
-    
+
+class ManageCryptos(TemplateView):
+    template_name = "cryptos/manage_cryptos.html"
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
 
 
-
 @login_required
 def add_crypto(request):
-    
     """ Add a product to the store """
     if not request.user.is_superuser:
         messages.error(request, 'Sorry, only store owners can do that.')
@@ -88,12 +87,12 @@ def add_crypto(request):
                 messages.error(request, message)
             return redirect(reverse('crypto_list'))
         else:
-            messages.error(request,'Form Error, please try again.')
+            messages.error(request, 'Form Error, please try again.')
     else:
-        
+
         form = CryptoCurrencyForm()
 
-    template = 'api_backend/add_crypto.html'
+    template = 'cryptos/add_crypto.html'
     context = {
         'form': form,
     }
@@ -110,7 +109,8 @@ def edit_crypto(request, crypto_id):
 
     product = get_object_or_404(CryptoCurrency, pk=crypto_id)
     if request.method == 'POST':
-        form = CryptoCurrencyEditForm(request.POST, request.FILES, instance=product)
+        form = CryptoCurrencyEditForm(
+            request.POST, request.FILES, instance=product)
         if form.is_valid():
             form.save()
             messages.success(request, 'Successfully Updated Crypto!')
@@ -123,7 +123,7 @@ def edit_crypto(request, crypto_id):
         form = CryptoCurrencyEditForm(instance=product)
         messages.info(request, f'You are editing {product.name}')
 
-    template = 'api_backend/edit_crypto.html'
+    template = 'cryptos/edit_crypto.html'
     context = {
         'form': form,
         'product': product,

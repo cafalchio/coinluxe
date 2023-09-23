@@ -2,50 +2,51 @@
 {% load static %}
 
 {% block content %}
-  <div class="container px-4 pt-8 mx-auto text-gray-800 dark:text-gray-200">
-    <div class="flex items-center space-x-4 text-green-600">
-      <i class="text-3xl fa-solid fa-coins"></i>
-      <div class="text-2xl font-medium">Buy Credits</div>
-    </div>
-    <p class="pt-4 text-lg">Credits are the currency used to make purchases on the CoinLuxe Website. 
-      They enable you to pay for crypto and to keep the credits as Fiat. 
-      Follow the two simple steps below to purchase Credits.</p>
-    
-
-
-    {% if user.is_authenticated %}
-      
-      <form enctype="multipart/form-data" method="post" role="product_page">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button class="px-4 py-2 mt-4 font-bold text-white bg-green-600 rounded-md shadow-md hover:bg-green-700">
-          Add Credits and Buy Crypto
-        </button>
-      </form>
-      <br/>
-      <br/>
-      <div class="mt-4">
-        <h3 class="text-lg font-bold">Frequently Asked Questions</h3>
-        <div class="mt-4">
-          <h4 class="font-bold">How do I add credits to my account?</h4>
-          <p>To add credits, simply click on the "Add Credits and Buy Crypto" button above and follow the payment process.</p>
-        </div>
-        <div class="mt-4">
-          <h4 class="font-bold">Are there any fees for adding credits?</h4>
-          <p>There is no fee when adding Credits. Please check the payment details for more information.</p>
-        </div>
-        <div class="mt-4">
-          <h4 class="font-bold">Can I use credits to buy any type of crypto?</h4>
-          <p>Yes, you can use your credits to buy any available cryptocurrencies on our platform.</p>
-        </div>
-      </div>
-    {% else %}
-      <h2 class="mt-4">You're not logged in...</h2>
-      <a href="{% url 'account_login' %}" class="px-4 py-2 mt-4 font-bold text-white bg-gray-600 rounded hover:bg-gray-700">
-        Log in
-      </a>
-      <p class="mt-4">Please log in to add credits and come back later.</p>
-    {% endif %}
+<div class="container px-4 pt-8 mx-auto text-gray-800 dark:text-gray-200">
+  <div class="flex items-center space-x-4 text-green-600">
+    <i class="text-3xl fa-solid fa-coins"></i>
+    <div class="text-2xl font-medium">Buy Credits</div>
   </div>
+  <p class="pt-4 text-lg">Credits are the currency used to make purchases on the CoinLuxe Website.
+    They enable you to pay for crypto and to keep the credits as Fiat.
+    Follow the two simple steps below to purchase Credits.</p>
+
+
+
+  {% if user.is_authenticated %}
+
+  <form enctype="multipart/form-data" method="post" role="product_page">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="px-4 py-2 mt-4 font-bold text-white bg-green-600 rounded-md shadow-md hover:bg-green-700">
+      Add Credits and Buy Crypto (ref to prod)
+    </button>
+  </form>
+  <br />
+  <br />
+  <div class="mt-4">
+    <h3 class="text-lg font-bold">Frequently Asked Questions</h3>
+    <div class="mt-4">
+      <h4 class="font-bold">How do I add credits to my account?</h4>
+      <p>To add credits, simply click on the "Add Credits and Buy Crypto" button above and follow the payment process.
+      </p>
+    </div>
+    <div class="mt-4">
+      <h4 class="font-bold">Are there any fees for adding credits?</h4>
+      <p>There is no fee when adding Credits. Please check the payment details for more information.</p>
+    </div>
+    <div class="mt-4">
+      <h4 class="font-bold">Can I use credits to buy any type of crypto?</h4>
+      <p>Yes, you can use your credits to buy any available cryptocurrencies on our platform.</p>
+    </div>
+  </div>
+  {% else %}
+  <h2 class="mt-4">You're not logged in...</h2>
+  <a href="{% url 'account_login' %}" class="px-4 py-2 mt-4 font-bold text-white bg-gray-600 rounded hover:bg-gray-700">
+    Log in
+  </a>
+  <p class="mt-4">Please log in to add credits and come back later.</p>
+  {% endif %}
+</div>
 </div>
 {% endblock %}

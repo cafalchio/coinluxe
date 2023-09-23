@@ -19,6 +19,7 @@
             <p class="mr-2 text-xs text-gray-800 dark:text-gray-200 md:text-2xl">1 {{ coin.formatted_symbol }} = {{ crypto.formatted_current_price }} €</p>
         </div>
     </div>
+    
 
     <a href={{ coin.formatted_homepage }} target="_blank" class="p-4 py-2 mr-2 text-xs text-justify md:text-sm">
         {{ coin.formatted_homepage }} 
@@ -38,15 +39,17 @@
             BUY {{crypto.formatted_symbol}}
         </a>
     </div>
+    
     </br>
     <hr class="p-2">
+
     {% if coin.description %}
     <div class="flex py-2 font-bold md:text-2xl">Description:</div>
     <div class="justify-center py-2 text-sm text-justify md:text-xl">{{coin.description|safe}}</div>
     {% endif %}
     <hr class="p-2">
     <div class="flex font-bold md:text-2xl">Blockchain Site: </div>
-    <a href={{ coin.formatted_blockchain_site }} target="_blank" class="p-4 py-2 mr-2 text-sm text-justify text-gray-700 md:text">
+    <a href={{ coin.formatted_blockchain_site  }} target="_blank" class="p-4 py-2 mr-2 text-sm text-justify text-gray-700 md:text">
         {{ coin.formatted_blockchain_site }} 
     </a>
 

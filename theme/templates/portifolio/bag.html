@@ -6,15 +6,24 @@
     <table class="w-full shrink">
         <thead class="border-b border-gray-100 dark:border-gray-700">
             <tr>
-                <th class="px-2 py-3 text-sm font-semibold text-left bg-transparent dark:text-gray-100 md:px-4 md:text-2xl"><div class="">Symbol</div></th>
-                <th class="px-4 py-3 text-sm font-semibold text-left bg-transparent dark:text-gray-100 md:text-2xl"><div class="">Amount</div></th>
-                <th class="px-4 py-3 text-sm font-semibold text-left bg-transparent dark:text-gray-100 md:text-2xl"><div class="">Value</div></th>
-                <th class="px-4 py-3 text-sm text-left bg-transparent dark:text-gray-100 md:text-2xl"><div class=""></div></th>
+                <th
+                    class="px-2 py-3 text-sm font-semibold text-left bg-transparent dark:text-gray-100 md:px-4 md:text-2xl">
+                    <div class="">Symbol</div>
+                </th>
+                <th class="px-4 py-3 text-sm font-semibold text-left bg-transparent dark:text-gray-100 md:text-2xl">
+                    <div class="">Amount</div>
+                </th>
+                <th class="px-4 py-3 text-sm font-semibold text-left bg-transparent dark:text-gray-100 md:text-2xl">
+                    <div class="">Value</div>
+                </th>
+                <th class="px-4 py-3 text-sm text-left bg-transparent dark:text-gray-100 md:text-2xl">
+                    <div class=""></div>
+                </th>
             </tr>
         </thead>
         <tbody class="shrink">
             {% for data in crypto_data %}
-            <tr >
+            <tr>
                 <td class="px-4 py-3 font-medium border-b border-gray-4 dark:border-gray-700 ">
                     <div class="flex items-start">
                         <div class="flex flex-col items-center justify-center md:px-4">
@@ -26,10 +35,11 @@
                             </div>
                         </div>
                     </div>
-                </td> 
-            
+                </td>
+
                 <td class="px-4 py-3 font-medium border-b border-gray-100 dark:border-gray-700">
-                    <h5 class="text-sm tracking-tight text-gray-800 md:text-1xl dark:text-gray-100">{{ data.f_amount}}</h5>
+                    <h5 class="text-sm tracking-tight text-gray-800 md:text-1xl dark:text-gray-100">{{ data.f_amount}}
+                    </h5>
                 </td>
 
                 <td class="px-4 py-3 font-medium border-b border-gray-100 dark:border-gray-700">
@@ -37,7 +47,8 @@
                 </td>
                 <td class="px-4 py-3 font-medium border-b border-gray-100 dark:border-gray-700">
                     <div class="flex flex-row items-center justify-center py-2">
-                        <a  href="{% url 'sell_crypto' pk=data.crypto.id %}"class="px-4 py-2 text-xs font-bold text-white bg-green-600 rounded-lg hover:bg-green-700">
+                        <a href="{% url 'sell_crypto' pk=data.crypto.id %}"
+                            class="px-4 py-2 text-xs font-bold text-white bg-green-600 rounded-lg hover:bg-green-700">
                             Remove
                         </a>
                     </div>
@@ -51,9 +62,9 @@
         {% csrf_token %}
         {{ form.as_p }}
         <button class="px-4 py-2 mt-4 font-bold text-white bg-green-600 rounded-md shadow-md hover:bg-green-700">
-          Pay Now!
+            Pay Now! ref to prod
         </button>
-      </form>
+    </form>
 
 </div>
 {% endblock %}
