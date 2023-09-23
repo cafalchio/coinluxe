@@ -162,20 +162,14 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'theme', 'static'),
-]
-MEDIAFILES_DIRS = [
-    os.path.join(BASE_DIR, 'media'),
-]
-MEDIA_URL = "/media/"
-STATIC_URL = "/static/"
 
 SAVE_PICS = os.path.join(BASE_DIR, 'media', 'coin_pics')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
 
 if USE_AWS:
-    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
     AWS_S3_OBJECT_PARAMETERS = {
         'Expires': 'Thu, 31 Dec 2099 20:00:00 GMT',
         'CacheControl': 'max-age=94608000',
@@ -191,6 +185,16 @@ if USE_AWS:
     MEDIAFILES_LOCATION = 'media'
     STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{STATICFILES_LOCATION}/'
     MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{MEDIAFILES_LOCATION}/'
+
+else:
+    STATICFILES_DIRS = [
+        os.path.join(BASE_DIR, 'theme', 'static'),
+    ]
+    MEDIA_DIRS = [
+        os.path.join(BASE_DIR, 'mediafiles'),
+    ]
+    MEDIA_URL = "/media/"
+    STATIC_URL = "/static/"
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
