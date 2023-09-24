@@ -19,14 +19,14 @@
             </form>
         </div>
         <script>
-            //check the credit
+            //check the debit
             const form = document.getElementById('sellCryptoForm');
             form.addEventListener('submit', function(event) {
                 event.preventDefault(); 
                 const amount = parseFloat(document.getElementById('id_amount').value);
                 const price = parseFloat('{{ crypto.current_price }}'); 
                 const totalCost = (price * amount);
-                const credit = parseFloat('{{ credit.amount }}');
+                const debit = parseFloat('{{ debit.amount }}');
                 const confirmation = confirm(`Do you want to confirm remove ${amount} coins`);
                 if (confirmation) {
                     form.submit();
