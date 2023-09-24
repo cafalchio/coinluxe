@@ -9,6 +9,9 @@ class ToPay(models.Model):
         decimal_places=2,
         null=True,
         default=0)
+    
+    class Meta:
+        db_table = 'ToPay'
 
 
 class Bag(models.Model):
@@ -16,7 +19,9 @@ class Bag(models.Model):
     holdings = models.ManyToManyField(
         "api_backend.CryptoCurrency",
         through="Holding")
-
+    class Meta:
+        db_table = 'Bag'
+        
 
 class Holding(models.Model):
     portfolio = models.ForeignKey(Bag, on_delete=models.CASCADE)

@@ -10,7 +10,7 @@ def debit(request):
             debit_obj = ToPay.objects.filter(user=request.user).first()
             debit = debit_obj.amount
         except Exception as e:
-            logger.warning(f"No user registered {e}, type {type(e)}")
+            logger.info(f"{'*' * 30}Custom Error:\nNo user registered {e}, type {type(e)}")
             debit = "0.00"
         
         return {"debit": debit}
