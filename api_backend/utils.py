@@ -89,5 +89,3 @@ def process_checkout(user_id, coin_id, quantity):
         cancel_url="https://www.coinluxe.cafabr.online",
         metadata=metadata,
     )
-    # return redirect(checkout_session.url, code=303)
-    # return render(request, "portifolio/bag.html")

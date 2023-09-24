@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class PortifolioConfig(AppConfig):
+class BagConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
-    name = "portifolio"
+    name = "shopping_bag"

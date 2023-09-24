@@ -65,8 +65,7 @@ INSTALLED_APPS = [
     # storage s3
     'storages',
     'api_backend',
-    'portifolio',
-    # 'products',
+    'shopping_bag',
 
 ]
 
@@ -100,7 +99,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.media',
                 'theme.context_processor.theme',  # https://www.youtube.com/watch?v=K1e8kpoag0E
-                'portifolio.context_processors.credits',
+                'shopping_bag.context_processors.debit',
             ],
         },
     },
@@ -140,6 +139,12 @@ DATABASE_URL = os.environ.get("DATABASE_URL")
 DATABASES = {
     'default': dj_database_url.parse(DATABASE_URL)
 }
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": "mydatabase",
+#     }
+# }
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -202,7 +207,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 STRIPE_PUBLIC_KEY_TEST = os.environ.get("STRIPE_PUBLIC_KEY_TEST")
 STRIPE_SECRET_KEY_TEST = os.environ.get("STRIPE_SECRET_KEY_TEST")
 STRIPE_WEBHOOK_SECRET_TEST = os.environ.get("STRIPE_WEBHOOK_SECRET_TEST")
-REDIRECT_DOMAIN = "https://coinluxe.herokuapp.com/portifolio"
+REDIRECT_DOMAIN = "https://coinluxe.herokuapp.com/shopping_bag"
 PRODUCT_PRICE = "price_1NHoiiHDQ21gOZTqjAwPDuLt"
 SITE_NAME = 'Coinluxe'
 
