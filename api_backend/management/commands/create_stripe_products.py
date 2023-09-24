@@ -8,8 +8,8 @@ from . import coins_set
 
 stripe.api_key = settings.STRIPE_SECRET_KEY_TEST
 
-logger = logging.getLogger(__name__)
 logging.basicConfig(level="INFO")
+logger = logging.getLogger(__name__)
 
 
 class Command(BaseCommand):
@@ -33,7 +33,7 @@ class Command(BaseCommand):
                 price = stripe.Price.create(
                     currency="eur",
                     billing_scheme="per_unit",
-                    unit_amount=int(total_price * 100),
+                    unit_amount=str(int(crypto.current_price * 1000)), # 3 numbers after the unit
                     product=coin_id,
                     active=True,
                 )
