@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.csrf import csrf_exempt
 import stripe
+from django.contrib import messages
 from decimal import Decimal
 from api_backend.models import CryptoCurrency
 from .forms import BuyCryptoForm, SellCryptoForm
@@ -22,7 +23,6 @@ def get_debit(request):
 
 
 # https://www.youtube.com/watch?v=hZYWtK2k1P8&t=222s
-
 
 @login_required(login_url="login")
 def add_debit(request):
@@ -69,7 +69,6 @@ def payment_cancelled(request):
 @csrf_exempt
 def stripe_webhook(request):
     stripe.api_key = settings.STRIPE_SECRET_KEY_TEST
-    time.sleep(6)
     payload = request.body
     signature_header = request.META["HTTP_STRIPE_SIGNATURE"]
     event = None
@@ -105,9 +104,9 @@ def buy_crypto(request, pk):
         if form.is_valid():
             amount = form.cleaned_data['amount']
             price = crypto.current_price * float(amount)  # total price
-            shopping_bag, _ = shopping_bag.objects.get_or_create(owner=user)
+            user_shopping_bag, _ = Bag.objects.get_or_create(owner=user)
             holding, created = Holding.objects.get_or_create(
-                shopping_bag=shopping_bag, cryptocurrency=crypto)
+                shopping_bag=user_shopping_bag, cryptocurrency=crypto)
             if not holding.amount:
                 holding.amount = 0
             if created:
@@ -118,9 +117,8 @@ def buy_crypto(request, pk):
 
             debit.amount -= Decimal(price)
             debit.save()
-
+            messages.success(request, 'Coin added to your bag!')
             return redirect('bag')
-
     else:
         form = BuyCryptoForm()
 
@@ -169,12 +167,13 @@ def shopping_bag_view(request):
     template_name = "shopping_bag/bag.html"
     user = request.user
     try:
-        shopping_bag = Bag.objects.get(owner=user)
-    except shopping_bag.DoesNotExist:
-        shopping_bag = Bag.objects.create(owner=user)
+        shopping_bag, created = Bag.objects.get_or_create(owner=user)
+    except Exception as e:
+        shopping_bag = None
+
+    crypto_data = []
     if shopping_bag:
-        holdings = Bag.objects.filter(shopping_bag=shopping_bag)
-        crypto_data = []
+        holdings = Holding.objects.filter(portfolio=shopping_bag)
         for holding in holdings:
             value = holding.cryptocurrency.current_price
             value_eur = f"{holding.amount * value:.2f} €"
@@ -184,32 +183,28 @@ def shopping_bag_view(request):
                 'f_amount': holding.formatted_amount,
                 'value': value_eur,
             })
-    else:
-        crypto_data = []
+
     if crypto_data:
         metadata = {"user_id": str(request.user.id)}
         if request.method == "POST":
             stripe.api_key = settings.STRIPE_SECRET_KEY_TEST
             metadata = {"user_id": str(request.user.id)}
-            if request.method == "POST":
-                checkout_session = stripe.checkout.Session.create(
-                    payment_method_types=["card"],
-                    line_items=
-                    [
-                        {
-                            "price": settings.PRODUCT_PRICE,
-                            "quantity": 1,
-                        },
-                    ],
-                    mode="payment",
-                    customer_creation="always",
-                    success_url=settings.REDIRECT_DOMAIN
-                    + "/payment_successful?session_id={CHECKOUT_SESSION_ID}",
-                    cancel_url=settings.REDIRECT_DOMAIN + "/payment_cancelled",
-                    metadata=metadata,
-                )
-                return redirect(checkout_session.url, code=303)
-        context = {'crypto_data': crypto_data}
-        return render(request, "shopping_bag/bag.html", context)
+            checkout_session = stripe.checkout.Session.create(
+                payment_method_types=["card"],
+                line_items=[
+                    {
+                        "price": settings.PRODUCT_PRICE,
+                        "quantity": 1,
+                    },
+                ],
+                mode="payment",
+                customer_creation="always",
+                success_url=settings.REDIRECT_DOMAIN
+                + "/payment_successful?session_id={CHECKOUT_SESSION_ID}",
+                cancel_url=settings.REDIRECT_DOMAIN + "/payment_cancelled",
+                metadata=metadata,
+            )
+            return redirect(checkout_session.url, code=303)
+
     context = {'crypto_data': crypto_data}
     return render(request, template_name, context)

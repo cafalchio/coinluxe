@@ -31,7 +31,13 @@
         {% include 'navbar.html' %}
         <div class="container mx-auto text-gray-800 dark:text-gray-200">{% block content %} {% endblock%}</div>
         {% include 'footer.html' %}
-        
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
         {% block postloadjs%} 
         <script src="{% static 'script.js' %}"></script>
         {% endblock%}
