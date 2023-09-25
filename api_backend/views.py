@@ -114,7 +114,7 @@ def edit_crypto(request, crypto_id):
         if form.is_valid():
             form.save()
             messages.success(request, 'Successfully Updated Crypto!')
-            return redirect(reverse('coin', pk=crypto_id))
+            return redirect(reverse('crypto_list'))
         else:
             messages.error(request,
                            ('Failed to update crypto. '
@@ -128,7 +128,6 @@ def edit_crypto(request, crypto_id):
         'form': form,
         'crypto': crypto,
     }
-
     return render(request, template, context)
 
 

@@ -4,7 +4,7 @@ from .models import CryptoCurrency
 class CryptoCurrencyForm(forms.ModelForm):
     class Meta:
         model = CryptoCurrency
-        fields = ['id', 'sell_price_multiplier']
+        fields = "__all__"
         
 class CryptoCurrencyEditForm(forms.ModelForm):
     class Meta:
