@@ -24,7 +24,7 @@ class Bag(models.Model):
         
 
 class Holding(models.Model):
-    portfolio = models.ForeignKey(Bag, on_delete=models.CASCADE)
+    shopping_bag = models.ForeignKey(Bag, on_delete=models.CASCADE)
     cryptocurrency = models.ForeignKey(
         "api_backend.CryptoCurrency", on_delete=models.CASCADE
     )

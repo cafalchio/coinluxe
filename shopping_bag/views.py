@@ -1,3 +1,4 @@
+from gettext import translation
 import time
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
@@ -104,9 +105,10 @@ def buy_crypto(request, pk):
         if form.is_valid():
             amount = form.cleaned_data['amount']
             price = crypto.current_price * float(amount)  # total price
+            print(f"{'*' * 50}\nFORM {amount} price {price}")
             user_shopping_bag, _ = Bag.objects.get_or_create(owner=user)
-            holding, created = Holding.objects.get_or_create(
-                shopping_bag=user_shopping_bag, cryptocurrency=crypto)
+            
+            holding, created = Holding.objects.get_or_create(shopping_bag=user_shopping_bag, cryptocurrency=crypto)
             if not holding.amount:
                 holding.amount = 0
             if created:
@@ -127,35 +129,32 @@ def buy_crypto(request, pk):
 
 
 @login_required(login_url="account_login")
-def sell_crypto(request, pk):
-    pass
+def remove_crypto(request, pk):
     user = request.user
-    debit, _ = ToPay.objects.get_or_create(user=user)
     crypto = get_object_or_404(CryptoCurrency, id=pk)
-    shopping_bag, _ = shopping_bag.objects.get_or_create(owner=user)
+    shopping_bag, _ = Bag.objects.get_or_create(owner=user)
     holding, _ = Holding.objects.get_or_create(
-                shopping_bag=shopping_bag, cryptocurrency=crypto)
+        shopping_bag=shopping_bag)
     hold_value = f"{(crypto.current_price * holding.amount):.2f}"
+
     if request.method == 'POST':
         form = SellCryptoForm(request.POST)
         if form.is_valid():
             sell_amount = form.cleaned_data['amount']
-            value = crypto.current_price * float(sell_amount)  # total sell
+            value = crypto.current_price * float(sell_amount)  
             if holding.amount - float(sell_amount) >= 0:
                 holding.amount -= float(sell_amount)
-            elif holding.amount - float(sell_amount) < 0:
-                holding.amount = 0
             else:
-                form = SellCryptoForm()
+                form.add_error('amount', 'Insufficient funds')  
             holding.save()
+            debit, _ = ToPay.objects.get_or_create(user=user)
             debit.amount += Decimal(value) - (Decimal(value) / 100) * 2
             debit.save()
 
-            return redirect('bag')
-
+            return redirect('bag')  
     else:
         form = SellCryptoForm()
-    
+
     return render(request, 'shopping_bag/sell_crypto.html',
                   {'form': form, 'crypto': crypto,
                    'debit': debit, 'holding': holding,
@@ -166,45 +165,20 @@ def sell_crypto(request, pk):
 def shopping_bag_view(request):
     template_name = "shopping_bag/bag.html"
     user = request.user
-    try:
-        shopping_bag, created = Bag.objects.get_or_create(owner=user)
-    except Exception as e:
-        shopping_bag = None
-
+    shopping_bag, created = Bag.objects.get_or_create(owner=user)
     crypto_data = []
-    if shopping_bag:
-        holdings = Holding.objects.filter(portfolio=shopping_bag)
-        for holding in holdings:
-            value = holding.cryptocurrency.current_price
-            value_eur = f"{holding.amount * value:.2f} €"
-            crypto_data.append({
-                'crypto': holding.cryptocurrency,
-                'amount': holding.amount,
-                'f_amount': holding.formatted_amount,
-                'value': value_eur,
-            })
 
-    if crypto_data:
-        metadata = {"user_id": str(request.user.id)}
-        if request.method == "POST":
-            stripe.api_key = settings.STRIPE_SECRET_KEY_TEST
-            metadata = {"user_id": str(request.user.id)}
-            checkout_session = stripe.checkout.Session.create(
-                payment_method_types=["card"],
-                line_items=[
-                    {
-                        "price": settings.PRODUCT_PRICE,
-                        "quantity": 1,
-                    },
-                ],
-                mode="payment",
-                customer_creation="always",
-                success_url=settings.REDIRECT_DOMAIN
-                + "/payment_successful?session_id={CHECKOUT_SESSION_ID}",
-                cancel_url=settings.REDIRECT_DOMAIN + "/payment_cancelled",
-                metadata=metadata,
-            )
-            return redirect(checkout_session.url, code=303)
+    # Change the filter to use 'shopping_bag' instead of 'portfolio'
+    holdings = Holding.objects.filter(shopping_bag=shopping_bag)
 
+    for holding in holdings:
+        value = holding.cryptocurrency.current_price
+        value_eur = f"{holding.amount * value:.2f} €"
+        crypto_data.append({
+            'crypto': holding.cryptocurrency,
+            'amount': holding.amount,
+            'f_amount': holding.formatted_amount,
+            'value': value_eur,
+        })
     context = {'crypto_data': crypto_data}
     return render(request, template_name, context)

@@ -3,7 +3,7 @@
 
 {% block content %}
         <div class="container p-4 mx-auto">
-            <h1 class="mb-4 text-2xl font-bold">{{ crypto.name }}</h1>
+            <img src="{{crypto.image}}" class="w-10"><span class="mb-4 text-2xl font-bold">{{ crypto.name }}</span><span> {{ crypto.id }}</span>
             <h2 class="mb-4 text-2xl font-semibold">€ {{ crypto.current_price }}</h2>
             <form method="post" class="max-w-xs" id="buyCryptoForm">
                 {% csrf_token %}
