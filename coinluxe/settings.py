@@ -24,7 +24,7 @@ LOGGING = {
 logger = logging.getLogger('django')
 
 
-USE_AWS = os.environ.get('USE_AWS') == 'True'
+USE_AWS = bool(os.environ.get('USE_AWS')) == 'True'
 DEBUG = os.environ.get('DEGUB') == "True"
 logger.info(f"DEGUB: {os.environ.get('DEGUB') == 'True'}")
 logger.info(f"USING AWS: {os.environ.get('USE_AWS') == 'True'}")
@@ -170,13 +170,12 @@ USE_L10N = True
 USE_TZ = True
 
 
-SAVE_PICS = os.path.join(BASE_DIR, 'media', 'coin_pics')
+SAVE_PICS = os.path.join(BASE_DIR, 'media', 'coin_images')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 
 if USE_AWS:
-
     AWS_S3_OBJECT_PARAMETERS = {
         'Expires': 'Thu, 31 Dec 2099 20:00:00 GMT',
         'CacheControl': 'max-age=94608000',

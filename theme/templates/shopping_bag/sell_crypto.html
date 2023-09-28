@@ -6,6 +6,7 @@
         <div class="container p-4 mx-auto">
             <div class="py-0.5">
                 <img class="w-10 h-10" src="{{ crypto.image }}" alt="{{ crypto.name}} Logo" />
+                {{ amount }}
             </div>
             <h2 class="mb-4 text-2xl font-semibold">{{ crypto.formatted_symbol }}</h2>
             <form method="post" class="max-w-xs" id="sellCryptoForm">
@@ -29,10 +30,7 @@
                 const price = parseFloat('{{ crypto.current_price }}'); 
                 const totalCost = (price * amount);
                 const debit = parseFloat('{{ debit.amount }}');
-                const confirmation = confirm(`Do you want to confirm remove ${amount} coins`);
-                if (confirmation) {
-                    form.submit();
-                }
+                form.submit();
             });
         </script>
         

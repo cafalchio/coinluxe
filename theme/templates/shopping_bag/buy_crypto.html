@@ -5,7 +5,7 @@
         <div class="container p-4 mx-auto">
             <img src="{{crypto.image}}" class="w-10"><span class="mb-4 text-2xl font-bold">{{ crypto.name }}</span><span> {{ crypto.id }}</span>
             <h2 class="mb-4 text-2xl font-semibold">€ {{ crypto.current_price }}</h2>
-            <form method="post" class="max-w-xs" id="buyCryptoForm">
+            <form method="post" class="max-w-xs" id="buyCryptoForm" >
                 {% csrf_token %}
                 <div class="mb-4 text-gray-500">
                     <input type="hidden" id="id_crypto_id" name="crypto_id" value="{{ crypto.id }}">

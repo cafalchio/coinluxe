@@ -18,35 +18,34 @@ def get_debit(request):
     debit = ToPay.objects.filter(user=user).first()
     return debit.amount if debit else 0.00
 
+@login_required
+def pay(request):
+    stripe.api_key = settings.STRIPE_SECRET_KEY_TEST
+    user = request.user
+    shopping_bag, _ = Bag.objects.get_or_create(owner=user)
+    holdings = Holding.objects.filter(shopping_bag=shopping_bag)
+    line_items = []
+    for holding in holdings:
+        crypto = holding.cryptocurrency
+        try:
+            existing_product = stripe.Product.retrieve(crypto.id)
+            line_items.append({
+                "price": existing_product.default_price,
+                "quantity": int(holding.amount),
+            })
+        except stripe.error.StripeError as e:
+            print(f"Stripe API error: {e}")
+    try:
+        payment_link = stripe.PaymentLink.create(line_items=line_items)
+    except stripe.error.StripeError as e:
+        print(f"Stripe API error: {e}")
+    return redirect(payment_link.url)
+           
 
 # https://www.youtube.com/watch?v=hZYWtK2k1P8&t=222s
 
-@login_required(login_url="login")
-def add_debit(request):
-    # stripe.api_key = settings.STRIPE_SECRET_KEY_TEST
-    # metadata = {"user_id": str(request.user.id)}
-    # if request.method == "POST":
-    #     checkout_session = stripe.checkout.Session.create(
-    #         payment_method_types=["card"],
-    #         line_items=[
-    #             {
-    #                 "price": settings.PRODUCT_PRICE,
-    #                 "quantity": 1,
-    #             },
-    #         ],
-    #         mode="payment",
-    #         customer_creation="always",
-    #         success_url=settings.REDIRECT_DOMAIN
-    #         + "/payment_successful?session_id={CHECKOUT_SESSION_ID}",
-    #         cancel_url=settings.REDIRECT_DOMAIN + "/payment_cancelled",
-    #         metadata=metadata,
-    #     )
-    #     return redirect(checkout_session.url, code=303)
-    return render(request, "shopping_bag/bag.html")
-
-
 def payment_successful(request):
-    stripe.api_key = settings.STRIPE_SECRET_KEY_TEST
+    stripe.api_key = settings.STRIPE_PUBLIC_KEY_TEST
     checkout_session_id = request.GET.get("session_id", None)
     session = stripe.checkout.Session.retrieve(checkout_session_id)
     customer = stripe.Customer.retrieve(session.customer)
@@ -63,34 +62,6 @@ def payment_cancelled(request):
     return render(request, "shopping_bag/payment_cancelled.html")
 
 
-@csrf_exempt
-def stripe_webhook(request):
-    # stripe.api_key = settings.STRIPE_SECRET_KEY_TEST
-    # payload = request.body
-    # signature_header = request.META["HTTP_STRIPE_SIGNATURE"]
-    # event = None
-    # try:
-    #     event = stripe.Webhook.construct_event(
-    #         payload, signature_header, settings.STRIPE_WEBHOOK_SECRET_TEST
-    #     )
-    # except ValueError:
-    #     return HttpResponse(status=400)
-    # except stripe.error.SignatureVerificationError:
-    #     return HttpResponse(status=400)
-
-    # if event["type"] == "checkout.session.completed":
-    #     session = event["data"]["object"]
-    #     session_id = session.get("id", None)
-    #     time.sleep(1)
-    #     line_items = stripe.checkout.Session.list_line_items(session_id,
-    #                                                          limit=1)
-    #     item = line_items.data[0]
-    #     value = int(item.amount_total) / 100
-    #     debit.amount += Decimal(value)
-    #     debit.save()
-    return HttpResponse(status=200)
-
-
 @login_required(login_url="account_login")
 def add_to_bag(request, pk):
     user = request.user
@@ -99,13 +70,12 @@ def add_to_bag(request, pk):
     if request.method == 'POST':
         form = AddToBagForm(request.POST)
         if form.is_valid():
-            amount = form.cleaned_data['amount']
-            price = crypto.current_price * float(amount)
+            amount = float(form.cleaned_data['amount'])
             holding, created = Holding.objects.get_or_create(shopping_bag=shopping_bag, cryptocurrency=crypto)
             if created:
-                holding.amount = price
+                holding.amount = amount
             else:
-                holding.amount += price
+                holding.amount += amount
             holding.save()
             return redirect('bag')
     else:
@@ -119,22 +89,25 @@ def remove_crypto(request, pk):
     user = request.user
     crypto = get_object_or_404(CryptoCurrency, id=pk)
     shopping_bag, _ = Bag.objects.get_or_create(owner=user)
-    holdings = Holding.objects.filter(shopping_bag=shopping_bag, cryptocurrency=crypto)
+    holding = Holding.objects.filter(shopping_bag=shopping_bag, cryptocurrency=crypto).first()
+    if holding is None:
+        return redirect('crypto_list')
+    amount = holding.amount
     if request.method == 'POST':
         form = RemoveFromBagForm(request.POST)
         if form.is_valid():
             sell_amount = form.cleaned_data['amount']
-            if holdings.amount - float(sell_amount) > 0:
-                holdings.amount -= float(sell_amount)
-            elif holdings.amount - float(sell_amount) == 0:
-                Holding.objects.filter(shopping_bag=shopping_bag, cryptocurrency=crypto).delete()
+            if amount - float(sell_amount) > 0:
+                amount -= float(sell_amount)
+                holding.amount = amount
+                holding.save()
             else:
-                form.add_error('amount', 'Insufficient funds')  
-            holdings.save()
+                holding.delete() 
+                amount = 0
     else:
         form = RemoveFromBagForm()
     return render(request, 'shopping_bag/sell_crypto.html', 
-                {"crypto":  crypto})
+                  {"crypto":  crypto, "amount": amount, "form": form})
 
 
 
