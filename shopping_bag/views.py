@@ -133,15 +133,14 @@ def remove_crypto(request, pk):
     user = request.user
     crypto = get_object_or_404(CryptoCurrency, id=pk)
     shopping_bag, _ = Bag.objects.get_or_create(owner=user)
-    holding, _ = Holding.objects.get_or_create(
-        shopping_bag=shopping_bag)
+    print(f"{'*'*40}\n {Holding.objects.get_or_create(shopping_bag=shopping_bag)}")
+    holding, _ = Holding.objects.get_or_create(shopping_bag=shopping_bag)
     hold_value = f"{(crypto.current_price * holding.amount):.2f}"
-
     if request.method == 'POST':
         form = SellCryptoForm(request.POST)
         if form.is_valid():
             sell_amount = form.cleaned_data['amount']
-            value = crypto.current_price * float(sell_amount)  
+            value = crypto.current_price * float(sell_amount) 
             if holding.amount - float(sell_amount) >= 0:
                 holding.amount -= float(sell_amount)
             else:
@@ -165,13 +164,12 @@ def remove_crypto(request, pk):
 def shopping_bag_view(request):
     template_name = "shopping_bag/bag.html"
     user = request.user
-    shopping_bag, created = Bag.objects.get_or_create(owner=user)
+    shopping_bag, _ = Bag.objects.get_or_create(owner=user)
     crypto_data = []
-
-    # Change the filter to use 'shopping_bag' instead of 'portfolio'
     holdings = Holding.objects.filter(shopping_bag=shopping_bag)
-
     for holding in holdings:
+        if holding.amount <= 0:
+            continue
         value = holding.cryptocurrency.current_price
         value_eur = f"{holding.amount * value:.2f} €"
         crypto_data.append({
