@@ -1,7 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 
-class BuyCryptoForm(forms.Form):
+class AddToBagForm(forms.Form):
     crypto_id = forms.CharField(widget=forms.HiddenInput())
     amount = forms.DecimalField(label='Amount')
 
@@ -13,7 +13,7 @@ class BuyCryptoForm(forms.Form):
 
 
 
-class SellCryptoForm(forms.Form):
+class RemoveFromBagForm(forms.Form):
     crypto_id = forms.CharField(widget=forms.HiddenInput())
     amount = forms.DecimalField(label='Amount')
     

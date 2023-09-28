@@ -34,8 +34,8 @@
         {% endif %}
     </div>
     <div class="flex flex-row items-center justify-center py-2">
-        <a href="{% url 'buy_crypto' pk=crypto.id %}" class="px-4 py-2 text-xs font-bold text-white bg-green-600 rounded-lg hover:bg-green-700">
-            BUY {{crypto.formatted_symbol}}
+        <a href="{% url 'add_to_bag' pk=crypto.id %}" class="px-4 py-2 text-xs font-bold text-white bg-green-600 rounded-lg hover:bg-green-700">
+            ADD TO BAG {{crypto.formatted_symbol}}
         </a>
     </div>
     </br>

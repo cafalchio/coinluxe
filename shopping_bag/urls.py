@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import add_debit, get_debit, payment_cancelled, payment_successful, remove_cryptosell_crypto, shopping_bag_view, stripe_webhook, buy_crypto
+from .views import add_debit, add_to_bag, get_debit, payment_cancelled, payment_successful, remove_crypto, shopping_bag_view
 
 urlpatterns = [
     path("get-debit/", get_debit, name="get_debit"),
@@ -7,7 +7,7 @@ urlpatterns = [
     path("payment_successful/", payment_successful, name="payment_successful"),
     path("payment_cancelled/", payment_cancelled, name="payment_cancelled"),
     # path("stripe_webhook/", stripe_webhook, name="stripe_webhook"),
-    path("buy-crypto/<str:pk>/", buy_crypto, name="buy_crypto"),
+    path("add_to_bag/<str:pk>/", add_to_bag, name="add_to_bag"),
     path("sell-crypto/<str:pk>/", remove_crypto, name="sell_crypto"),
     path("", shopping_bag_view, name="bag")
 ]

@@ -4,13 +4,15 @@
 {% block content %}
     {% if user.is_authenticated %}
         <div class="container p-4 mx-auto">
-            <h1 class="mb-4 text-2xl font-bold">{{ crypto.name }}</h1>
-            <h2 class="mb-4 text-2xl font-semibold">€ {{ crypto.current_price }}</h2>
+            <div class="py-0.5">
+                <img class="w-10 h-10" src="{{ crypto.image }}" alt="{{ crypto.name}} Logo" />
+            </div>
+            <h2 class="mb-4 text-2xl font-semibold">{{ crypto.formatted_symbol }}</h2>
             <form method="post" class="max-w-xs" id="sellCryptoForm">
                 {% csrf_token %}
                 <div class="mb-4 text-gray-900">
                     <input type="hidden" id="id_crypto_id" name="crypto_id" value="{{ crypto.id }}">
-                    <label for="id_amount" class="block mb-2 font-semibold">Amount: {{ holding.amount }} Value: {{hold_value}}€</label>
+                    <label for="id_amount" class="block mb-2 font-semibold">Quantity: {{ holding.amount }}</label>
                     <input type="{{ form.amount.field.widget.input_type }}" id="id_amount" name="{{ form.amount.html_name }}" step="any" class="font-bold text-gray-800 bg-gray-200 rounded-md dark:bg-gray-900 form-input">
                 </div>
                 <button type="submit" class="px-4 py-2 font-bold text-white bg-green-600 rounded hover:bg-green-700">
