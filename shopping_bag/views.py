@@ -1,21 +1,18 @@
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
-from django.views.decorators.csrf import csrf_exempt
-import stripe
 from api_backend.models import CryptoCurrency
 from .forms import AddToBagForm, RemoveFromBagForm
-from .models import ToPay
+from .models import Paid
 from .models import Holding
 from .models import Bag
-
+import stripe
 
 
 @login_required
 def get_debit(request):
     user = request.user
-    debit = ToPay.objects.filter(user=user).first()
+    debit = Paid.objects.filter(user=user).first()
     return debit.amount if debit else 0.00
 
 @login_required

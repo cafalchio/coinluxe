@@ -1,4 +1,4 @@
-from .models import ToPay
+from .models import Paid
 import logging
 
 logger = logging.getLogger("django")
@@ -7,7 +7,7 @@ logger = logging.getLogger("django")
 def debit(request):
     if request.user.is_authenticated:
         try:
-            debit_obj = ToPay.objects.filter(user=request.user).first()
+            debit_obj = Paid.objects.filter(user=request.user).first()
             debit = debit_obj.amount
         except Exception as e:
             logger.info(f"{'*' * 30}Custom Error:\nNo user registered {e}, type {type(e)}")
