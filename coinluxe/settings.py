@@ -24,7 +24,7 @@ LOGGING = {
 logger = logging.getLogger('django')
 
 
-USE_AWS = bool(os.environ.get('USE_AWS')) == 'True'
+USE_AWS = os.environ.get('USE_AWS') == 'True'
 DEBUG = os.environ.get('DEGUB') == "True"
 logger.info(f"DEGUB: {os.environ.get('DEGUB') == 'True'}")
 logger.info(f"USING AWS: {os.environ.get('USE_AWS') == 'True'}")
@@ -62,7 +62,6 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     "widget_tweaks",
-    # storage s3
     'storages',
     'api_backend',
     'shopping_bag',
@@ -185,6 +184,7 @@ if USE_AWS:
     AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
     AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
     AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
+    AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
     STATICFILES_STORAGE = 'custom_storages.StaticStorage'
     STATICFILES_LOCATION = 'static'
     DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
