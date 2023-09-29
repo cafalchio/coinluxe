@@ -32,7 +32,7 @@ logger.info(f"USING AWS: {os.environ.get('USE_AWS') == 'True'}")
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY')
-ALLOWED_HOSTS = ['www.coinluxe.cafabr.online', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['www.coinluxe.cafabr.online', 'coinluxe.herokuapp.com', 'localhost', '127.0.0.1']
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
