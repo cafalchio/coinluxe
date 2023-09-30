@@ -1,7 +1,11 @@
 from django.conf import settings
+from django.core.mail import send_mail
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse
 from api_backend.models import CryptoCurrency
+from wallet.models import Wallet
 from .forms import AddToBagForm, RemoveFromBagForm
 from .models import Holding
 from .models import Bag
@@ -36,26 +40,45 @@ def pay(request):
         except stripe.error.StripeError as e:
             print(f"Stripe API error: {e}")
     try:
-        payment_link = stripe.PaymentLink.create(line_items=line_items)
+        payment_link = stripe.checkout.Session.create({
+            "success_url": request.build_absolute_uri(reverse('payment_successful')),
+            "cancel_url": request.build_absolute_uri(reverse('payment_cancelled')),
+            "line_items": line_items,
+        })
     except stripe.error.StripeError as e:
         print(f"Stripe API error: {e}")
-    return redirect(payment_link.url)
+
+    # Redirect the user to the Stripe checkout page
+    return HttpResponseRedirect(payment_link.url)
            
 
-# https://www.youtube.com/watch?v=hZYWtK2k1P8&t=222s
+def add_to_wallet(user, crypto, amount):
+    wallet, created = Wallet.objects.get_or_create(owner=user)
+    if created:
+        wallet.owner = user
+        wallet.cryptocurrency = crypto
+        wallet.amount=amount
+        wallet.save()
+    else:
+        if wallet.cryptocurrency.id == crypto.id:
+            wallet.amount += amount
+            wallet.save()
 
+@login_required
 def payment_successful(request):
-    stripe.api_key = settings.STRIPE_PUBLIC_KEY_TEST
-    checkout_session_id = request.GET.get("session_id", None)
-    session = stripe.checkout.Session.retrieve(checkout_session_id)
-    customer = stripe.Customer.retrieve(session.customer)
-    breakpoint()
-    if settings.DEBUG:
-        print(f"{session} -> Session ID")
-        print(f"{customer} -> costumer ")
-    return render(request,
-                  "shopping_bag/payment_successful.html",
-                  {"customer": customer})
+    user = request.user
+    shopping_bag = Bag.objects.get(owner=user)
+    holdings = Holding.objects.filter(shopping_bag=shopping_bag)    
+    for holding in holdings:
+        add_to_wallet(user, holding.cryptocurrency, holding.amount)
+    
+    # Send an email to the user
+    subject = 'Payment Successful'
+    message = 'Your payment was successful. The items have been added to your wallet.'
+    from_email = 'your@email.com'  
+    recipient_list = [user.email]
+    send_mail(subject, message, from_email, recipient_list)
+    return render(request, "shopping_bag/payment_successfull.html")
 
 
 def payment_cancelled(request):
