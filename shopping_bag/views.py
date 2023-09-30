@@ -11,14 +11,17 @@ import stripe
 
 @login_required
 def get_debit(request):
-    user = request.user
-    debit = Paid.objects.filter(user=user).first()
-    return debit.amount if debit else 0.00
+    shopping_bag, _ = Bag.objects.get_or_create(owner=request.user)
+    holdings = Holding.objects.filter(shopping_bag=shopping_bag)
+    debit = 0
+    for holding in holdings:
+        debit += holding.cryptocurrency.current_price
+    return debit
 
 @login_required
 def pay(request):
-    stripe.api_key = settings.STRIPE_SECRET_KEY_TEST
     user = request.user
+    stripe.api_key = settings.STRIPE_SECRET_KEY_TEST
     shopping_bag, _ = Bag.objects.get_or_create(owner=user)
     holdings = Holding.objects.filter(shopping_bag=shopping_bag)
     line_items = []
