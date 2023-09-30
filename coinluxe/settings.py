@@ -65,6 +65,7 @@ INSTALLED_APPS = [
     'storages',
     'api_backend',
     'shopping_bag',
+    'wallet',
 
 ]
 

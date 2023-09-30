@@ -3,7 +3,6 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 from api_backend.models import CryptoCurrency
 from .forms import AddToBagForm, RemoveFromBagForm
-from .models import Paid
 from .models import Holding
 from .models import Bag
 import stripe
@@ -50,6 +49,7 @@ def payment_successful(request):
     checkout_session_id = request.GET.get("session_id", None)
     session = stripe.checkout.Session.retrieve(checkout_session_id)
     customer = stripe.Customer.retrieve(session.customer)
+    breakpoint()
     if settings.DEBUG:
         print(f"{session} -> Session ID")
         print(f"{customer} -> costumer ")
@@ -115,28 +115,6 @@ def remove_crypto(request, pk):
 @login_required(login_url="account_login")
 def shopping_bag_view(request):
     template_name = "shopping_bag/bag.html"
-    user = request.user
-    shopping_bag, _ = Bag.objects.get_or_create(owner=user)
-    crypto_data = []
-    holdings = Holding.objects.filter(shopping_bag=shopping_bag)
-    for holding in holdings:
-        if holding.amount <= 0:
-            continue
-        value = holding.cryptocurrency.current_price
-        value_eur = f"{holding.amount * value:.2f} €"
-        crypto_data.append({
-            'crypto': holding.cryptocurrency,
-            'amount': holding.amount,
-            'f_amount': holding.formatted_amount,
-            'value': value_eur,
-        })
-    context = {'crypto_data': crypto_data}
-    return render(request, template_name, context)
-
-
-@login_required(login_url="account_login")
-def wallet_view(request):
-    template_name = "shopping_bag/wallet.html"
     user = request.user
     shopping_bag, _ = Bag.objects.get_or_create(owner=user)
     crypto_data = []

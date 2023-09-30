@@ -2,17 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-class Bag(models.Model):
+class Wallet(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    holdings = models.ManyToManyField(
-        "api_backend.CryptoCurrency",
-        through="Holding")
-    class Meta:
-        db_table = 'Bag'
-        
-
-class Holding(models.Model):
-    shopping_bag = models.ForeignKey(Bag, on_delete=models.CASCADE)
     cryptocurrency = models.ForeignKey(
         "api_backend.CryptoCurrency", on_delete=models.CASCADE
     )
