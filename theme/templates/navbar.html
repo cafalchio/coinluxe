@@ -22,6 +22,11 @@
                         href="{% url 'bag' %}"
                         >Shopping Bag</a
                     >
+                    <a
+                        class="px-3 py-2 font-bold text-gray-700 rounded-md hover:bg-gray-300"
+                        href="{% url 'wallet' %}"
+                        >Wallet</a
+                    >
                     {% endif %}
                     <form method="get" action="{% url 'crypto_list' %}">
                     <input
@@ -129,7 +134,16 @@
         >
 
         {% if user.is_authenticated %}
-
+        <a
+            href="{% url 'bag' %}"
+            class="block px-4 py-2 text-sm font-bold text-right text-gray-800 hover:bg-gray-300 "
+            >Shopping Bag</a
+        >
+        <a
+            href="{% url 'wallet' %}"
+            class="block px-4 py-2 text-sm font-bold text-right text-gray-800 hover:bg-gray-300 "
+            >Wallet</a
+        >
         <a
             href="{% url 'account_logout' %}"
             class="block px-4 py-2 text-sm font-bold text-right text-gray-800 "
