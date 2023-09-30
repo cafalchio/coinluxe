@@ -1,8 +1,8 @@
 from django.urls import path
-from .views import add_to_bag, pay, payment_cancelled, payment_successful, remove_crypto, shopping_bag_view
+from .views import add_to_bag, get_debit, pay, payment_cancelled, payment_successful, remove_crypto, shopping_bag_view
 
 urlpatterns = [
-    # path("get-debit/", get_debit, name="get_debit"),
+    path("get-debit/", get_debit, name="get_debit"),
     path("payment_successful/", payment_successful, name="payment_successful"),
     path("payment_cancelled/", payment_cancelled, name="payment_cancelled"),
     path("pay/", pay, name="pay"),
