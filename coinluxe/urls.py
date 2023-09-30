@@ -11,6 +11,7 @@ urlpatterns = [
     path('', include('home.urls')),
     path('cryptos/', include('api_backend.urls')),
     path('shopping_bag/', include('shopping_bag.urls')),
+    path('wallet/', include('wallet.urls')),
 ] + static(settings.MEDIA_URL)
 
 
