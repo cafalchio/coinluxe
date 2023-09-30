@@ -21,7 +21,4 @@ function validateInput() {
       alert("Please add your address.");
       return false;
   }
-  const linkElement = document.getElementById("transferButton");
-  const linkUrl = linkElement.getAttribute("href");
-  window.location.href = linkUrl;
 }
