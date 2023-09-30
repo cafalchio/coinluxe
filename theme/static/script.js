@@ -14,3 +14,14 @@ document.addEventListener("click", (event) => {
     }
 });
 
+function validateInput() {
+  const inputField = document.getElementById("validationInput");
+  const inputValue = inputField.value.trim(); 
+  if (inputValue === "") {
+      alert("Please add your address.");
+      return false;
+  }
+  const linkElement = document.getElementById("transferButton");
+  const linkUrl = linkElement.getAttribute("href");
+  window.location.href = linkUrl;
+}
