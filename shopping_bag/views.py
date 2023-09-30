@@ -40,11 +40,6 @@ def pay(request):
         except stripe.error.StripeError as e:
             print(f"Stripe API error: {e}")
 
-    payment_link = stripe.checkout.Session.create(
-        success_url="https://example.com/success",
-        line_items=line_items,
-        mode="payment",
-    )
     success_url = request.build_absolute_uri(reverse('payment_successful')) 
     cancel_url = request.build_absolute_uri(reverse('payment_cancelled'))
     payment_link = stripe.checkout.Session.create(line_items=line_items,
@@ -57,15 +52,17 @@ def pay(request):
 
 def add_to_wallet(user, crypto, amount):
     wallet, created = Wallet.objects.get_or_create(owner=user)
-    if not created:
-        existing_crypto = wallet.cryptocurrencies.filter(id=crypto.id).first()
-        if existing_crypto:
-            existing_crypto.cryptoamount_set.create(amount=amount)
-        else:
-            wallet.cryptocurrencies.add(crypto)
-            crypto_amount = CryptoAmount(wallet=wallet, cryptocurrency=crypto, amount=amount)
-            crypto_amount.save()
+    if created:
         wallet.save()
+    
+    existing_crypto = wallet.cryptocurrencies.filter(id=crypto.id).first()
+    if existing_crypto:
+        existing_crypto.cryptoamount_set.create(amount=amount)
+    else:
+        wallet.cryptocurrencies.add(crypto)
+        crypto_amount = CryptoAmount(wallet=wallet, cryptocurrency=crypto, amount=amount)
+        crypto_amount.save()
+    wallet.save()
     return True
 
         
@@ -90,7 +87,7 @@ def payment_successful(request):
         for item in message_items:
             message += f"- {item['crypto_name']}: {item['amount']} units\n"
     else:
-        message = 'Your payment was successful, but no items were added to your wallet.'
+        message = 'Your payment failed, no items were added to your wallet.'
 
     from_email = 'mcafalchio@gmail.com'  
     recipient_list = [user.email]
