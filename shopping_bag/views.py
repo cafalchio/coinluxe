@@ -56,19 +56,17 @@ def pay(request):
            
 
 def add_to_wallet(user, crypto, amount):
-    breakpoint()
     wallet, created = Wallet.objects.get_or_create(owner=user)
-
     if created:
         wallet.owner = user
-        wallet.cryptocurrency = crypto
-        wallet.amount=amount
         wallet.save()
-    else:
-        if wallet.cryptocurrency.id == crypto.id:
+    existing_cryptos = wallet.cryptocurrency.all()
+    for existing_crypto in existing_cryptos:
+        if existing_crypto.id == crypto.id:
             wallet.amount += amount
             wallet.save()
-
+            return 
+        
 @login_required
 def payment_successful(request):
     user = request.user
@@ -76,11 +74,12 @@ def payment_successful(request):
     holdings = Holding.objects.filter(shopping_bag=shopping_bag)    
     for holding in holdings:
         add_to_wallet(user, holding.cryptocurrency, holding.amount)
-    # subject = 'Payment Successful'
-    # message = 'Your payment was successful. The items have been added to your wallet.'
-    # from_email = 'your@email.com'  
-    # recipient_list = [user.email]
-    # send_mail(subject, message, from_email, recipient_list)
+        
+    subject = 'Payment Successful'
+    message = 'Your payment was successful. The items have been added to your wallet.'
+    from_email = 'your@email.com'  
+    recipient_list = [user.email]
+    send_mail(subject, message, from_email, recipient_list)
     return render(request, "shopping_bag/payment_successful.html")
 
 
