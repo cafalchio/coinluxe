@@ -65,7 +65,8 @@ def add_to_wallet(user, crypto, amount):
         if existing_crypto.id == crypto.id:
             wallet.amount += amount
             wallet.save()
-            return 
+            return True
+    return False
         
 @login_required
 def payment_successful(request):
@@ -74,10 +75,10 @@ def payment_successful(request):
     holdings = Holding.objects.filter(shopping_bag=shopping_bag)    
     for holding in holdings:
         add_to_wallet(user, holding.cryptocurrency, holding.amount)
-        
+        holding.delete()
     subject = 'Payment Successful'
     message = 'Your payment was successful. The items have been added to your wallet.'
-    from_email = 'your@email.com'  
+    from_email = 'mcafalchio@gmail.com'  
     recipient_list = [user.email]
     send_mail(subject, message, from_email, recipient_list)
     return render(request, "shopping_bag/payment_successful.html")
