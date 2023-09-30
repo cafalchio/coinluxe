@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.core.mail import send_mail
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from api_backend.models import CryptoCurrency
@@ -39,21 +39,26 @@ def pay(request):
             })
         except stripe.error.StripeError as e:
             print(f"Stripe API error: {e}")
-    try:
-        payment_link = stripe.checkout.Session.create({
-            "success_url": request.build_absolute_uri(reverse('payment_successful')),
-            "cancel_url": request.build_absolute_uri(reverse('payment_cancelled')),
-            "line_items": line_items,
-        })
-    except stripe.error.StripeError as e:
-        print(f"Stripe API error: {e}")
 
-    # Redirect the user to the Stripe checkout page
+    payment_link = stripe.checkout.Session.create(
+        success_url="https://example.com/success",
+        line_items=line_items,
+        mode="payment",
+    )
+    success_url = request.build_absolute_uri(reverse('payment_successful')) 
+    cancel_url = request.build_absolute_uri(reverse('payment_cancelled'))
+    payment_link = stripe.checkout.Session.create(line_items=line_items,
+                                                  success_url=success_url,
+                                                  cancel_url=cancel_url,
+                                                  mode="payment"
+                                                  )
     return HttpResponseRedirect(payment_link.url)
            
 
 def add_to_wallet(user, crypto, amount):
+    breakpoint()
     wallet, created = Wallet.objects.get_or_create(owner=user)
+
     if created:
         wallet.owner = user
         wallet.cryptocurrency = crypto
@@ -71,14 +76,12 @@ def payment_successful(request):
     holdings = Holding.objects.filter(shopping_bag=shopping_bag)    
     for holding in holdings:
         add_to_wallet(user, holding.cryptocurrency, holding.amount)
-    
-    # Send an email to the user
-    subject = 'Payment Successful'
-    message = 'Your payment was successful. The items have been added to your wallet.'
-    from_email = 'your@email.com'  
-    recipient_list = [user.email]
-    send_mail(subject, message, from_email, recipient_list)
-    return render(request, "shopping_bag/payment_successfull.html")
+    # subject = 'Payment Successful'
+    # message = 'Your payment was successful. The items have been added to your wallet.'
+    # from_email = 'your@email.com'  
+    # recipient_list = [user.email]
+    # send_mail(subject, message, from_email, recipient_list)
+    return render(request, "shopping_bag/payment_successful.html")
 
 
 def payment_cancelled(request):
