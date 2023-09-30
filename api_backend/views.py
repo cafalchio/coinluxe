@@ -13,7 +13,7 @@ from .models import Coins, CryptoCurrency, PriceUpdate
 
 
 class CryptoListView(ListView):
-    paginate_by = 10
+    paginate_by = 7
     model = CryptoCurrency
     template_name = "cryptos/cryptos.html"
 
@@ -26,6 +26,13 @@ class CryptoListView(ListView):
                 Q(symbol__icontains=search_query)
             )
         return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        max_pages = context['paginator'].num_pages
+        page_numbers = list(range(1, max_pages + 1))
+        context['page_numbers'] = page_numbers
+        return context
 
 
 class CoinDetailView(DetailView):

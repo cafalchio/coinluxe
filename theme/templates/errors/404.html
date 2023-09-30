@@ -1,22 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="h-screen w-full flex flex-col justify-center items-center bg-[#1A2238]">
-	<h1 class="font-extrabold tracking-widest text-white text-9xl">404</h1>
-	<div class="bg-[#FF6A3D] px-2 text-sm rounded rotate-12 absolute">
-		Page Not Found
-	</div>
-	<button class="mt-5">
-      <a
-        class="relative inline-block text-sm font-medium text-[#FF6A3D] group active:text-orange-500 focus:outline-none focus:ring"
-      >
-        <span
-          class="absolute inset-0 transition-transform translate-x-0.5 translate-y-0.5 group-hover:translate-y-0 group-hover:translate-x-0"
-        ></span>
 
-        <span class="relative block px-8 py-3 bg-[#1A2238] border border-current">
-          <router-link to="/">Go Home</router-link>
-        </span>
-      </a>
-    </button>
+<div class="relative h-screen bg-cover bg-center bg-no-repeat" style="background-image: url('https://images.unsplash.com/photo-1545972154-9bb223aac798?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=3050&q=80&exp=8&con=-15&sat=-75');">
+  <div class="mx-auto max-w-7xl px-6 py-32 text-center sm:py-40 lg:px-8">
+    <p class="text-base font-semibold leading-8 text-white">404</p>
+    <h1 class="mt-4 text-3xl font-bold tracking-tight text-white sm:text-5xl">Page not found</h1>
+    <p class="mt-4 text-base text-white/70 sm:mt-6">Sorry, we couldn’t find the page you’re looking for.</p>
+    <div class="mt-10 flex justify-center">
+      <a href="{% url 'home' %}" class="text-sm font-semibold leading-7 text-white"><span aria-hidden="true">&larr;</span> Back to home</a>
+    </div>
+  </div>
 </div>
 {% endblock %}
