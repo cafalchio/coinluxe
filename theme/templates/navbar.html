@@ -43,7 +43,7 @@
                 <div class="justify-center text-center text-green-800 ">
                 <a href="{% url 'bag' %}" class="items-center">
                     <span class=""><i class="fa-solid fa-shopping-bag"></i></span>
-                    <!-- <div class="text-xs">€{{debit}}</div></a> -->
+                    <div class="text-xs">€{{debit}}</div></a>
                 </div>
                 <a
                     class="px-3 py-2 font-bold text-gray-700 rounded-md hover:bg-gray-300"
@@ -94,7 +94,7 @@
 
             <div class="flex items-center md:hidden">
                 {% if user.is_authenticated %}
-                <!-- <a href="{% url 'bag' %}" class="text-xs"><span class="text-green-600"><i class="fa-solid fa-shopping-bag"></i> €{{ debit }}</span> -->
+                <a href="{% url 'bag' %}" class="text-xs"><span class="text-green-600"><i class="fa-solid fa-shopping-bag"></i> €{{ debit }}</span>
                 </a>
                 {% endif %}
                 <div class="px-3">

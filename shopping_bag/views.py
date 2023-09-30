@@ -9,14 +9,6 @@ from .models import Bag
 import stripe
 
 
-@login_required
-def get_debit(request):
-    shopping_bag, _ = Bag.objects.get_or_create(owner=request.user)
-    holdings = Holding.objects.filter(shopping_bag=shopping_bag)
-    debit = 0
-    for holding in holdings:
-        debit += holding.cryptocurrency.current_price
-    return debit
 
 @login_required
 def pay(request):
