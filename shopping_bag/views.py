@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from api_backend.models import CryptoCurrency
-from wallet.models import Wallet
+from wallet.models import CryptoAmount, Wallet
 from .forms import AddToBagForm, RemoveFromBagForm
 from .models import Holding
 from .models import Bag
@@ -57,27 +57,41 @@ def pay(request):
 
 def add_to_wallet(user, crypto, amount):
     wallet, created = Wallet.objects.get_or_create(owner=user)
-    if created:
-        wallet.owner = user
+    if not created:
+        existing_crypto = wallet.cryptocurrencies.filter(id=crypto.id).first()
+        if existing_crypto:
+            existing_crypto.cryptoamount_set.create(amount=amount)
+        else:
+            wallet.cryptocurrencies.add(crypto)
+            crypto_amount = CryptoAmount(wallet=wallet, cryptocurrency=crypto, amount=amount)
+            crypto_amount.save()
         wallet.save()
-    existing_cryptos = wallet.cryptocurrency.all()
-    for existing_crypto in existing_cryptos:
-        if existing_crypto.id == crypto.id:
-            wallet.amount += amount
-            wallet.save()
-            return True
-    return False
+    return True
+
         
 @login_required
 def payment_successful(request):
     user = request.user
     shopping_bag = Bag.objects.get(owner=user)
     holdings = Holding.objects.filter(shopping_bag=shopping_bag)    
+    message_items = []
     for holding in holdings:
-        add_to_wallet(user, holding.cryptocurrency, holding.amount)
+        added = add_to_wallet(user, holding.cryptocurrency, holding.amount)
+        if added:
+            message_items.append({
+                'crypto_name': holding.cryptocurrency.name,
+                'amount': holding.amount,
+            })
         holding.delete()
+
     subject = 'Payment Successful'
-    message = 'Your payment was successful. The items have been added to your wallet.'
+    if message_items:
+        message = 'Your payment was successful. The following items have been added to your wallet:\n'
+        for item in message_items:
+            message += f"- {item['crypto_name']}: {item['amount']} units\n"
+    else:
+        message = 'Your payment was successful, but no items were added to your wallet.'
+
     from_email = 'mcafalchio@gmail.com'  
     recipient_list = [user.email]
     send_mail(subject, message, from_email, recipient_list)

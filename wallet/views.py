@@ -1,23 +1,27 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from wallet.models import Wallet
+from wallet.models import CryptoAmount, Wallet
 
 @login_required(login_url="account_login")
 def wallet_view(request):
     template_name = "wallet/wallet.html"
     user = request.user
-    wallets, _ = Wallet.objects.get_or_create(owner=user)
+    wallet, _ = Wallet.objects.get_or_create(owner=user)
     crypto_data = []
-    
-    for wallet in wallets.cryptocurrency.all():
-        if wallet.amount <= 0:
+
+    for crypto_amount in CryptoAmount.objects.filter(wallet=wallet):
+        crypto = crypto_amount.cryptocurrency
+        amount = crypto_amount.amount
+
+        if amount <= 0:
             continue
-        value = wallet.cryptocurrency.current_price
-        value_eur = f"{wallet.amount * value:.2f} €"
+
+        value = crypto.current_price
+        value_eur = f"{amount * value:.2f} €"
+        
         crypto_data.append({
-            'crypto': wallet.cryptocurrency,
-            'amount': wallet.amount,
-            'f_amount': wallet.formatted_amount,
+            'crypto': crypto,
+            'amount': amount,
             'value': value_eur,
         })
 
