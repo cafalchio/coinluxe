@@ -22,3 +22,23 @@ function validateInput() {
       return false;
   }
 }
+
+function checkValue(e) {
+  // Check stripe max value and message user
+  const maxValue = 999999.99
+  let total = 0;
+  const values = document.querySelectorAll(".cvalue");
+
+  values.forEach(valueElement => {
+      total += parseFloat(valueElement.textContent);
+  });
+  const errorMessage = document.getElementById("errorMessage");
+  if (total > maxValue) {
+      e.preventDefault()
+      errorMessage.textContent = "Value too high to be processed here. Please contact us at webcoinluxe@gmail.com";
+      return false; 
+  } else {
+      errorMessage.textContent = "";
+      return true; 
+  }
+}
