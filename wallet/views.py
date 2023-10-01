@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.contrib.auth.decorators import login_required
 from wallet.models import CryptoAmount, Wallet
 
@@ -30,8 +30,10 @@ def wallet_view(request):
 
 
 @login_required(login_url="account_login")
-def wallet_withdraw(request, pk):
+def withdraw(request, pk):
     template_name = "wallet/wallet.html"
     user = request.user
-    wallet, _ = Wallet.objects.filter(user=user)
-    pass
+    wallet = get_object_or_404(Wallet, owner=user)
+    crypto_amount = get_object_or_404(CryptoAmount, pk=pk, wallet=wallet)
+    crypto_amount.delete()
+    return render(request, template_name, {'wallet': wallet})
