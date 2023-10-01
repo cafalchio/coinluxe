@@ -14,12 +14,11 @@ import stripe
 
 @login_required
 def get_debit(request):
-    breakpoint
     shopping_bag, _ = Bag.objects.get_or_create(owner=request.user)
     holdings = Holding.objects.filter(shopping_bag=shopping_bag)
     debit = 0
     for holding in holdings:
-        debit += holding.cryptocurrency.current_price
+        debit += holding.cryptocurrency.current_price * holding.amount
     return f"{debit:.2f}"
 
 @login_required
