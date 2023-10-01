@@ -1,12 +1,18 @@
 from django.db import models
 from django.contrib.auth.models import User
-from api_backend.models import CryptoCurrency
 
-class Wallet(models.Model):
+
+class CryptoWallet(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    cryptocurrencies = models.ManyToManyField(CryptoCurrency, through='CryptoAmount')
+    crypto_amounts = models.ManyToManyField(
+        "api_backend.CryptoCurrency",
+        through="CryptoCollection")
 
-class CryptoAmount(models.Model):
-    wallet = models.ForeignKey(Wallet, on_delete=models.CASCADE)
-    cryptocurrency = models.ForeignKey(CryptoCurrency, on_delete=models.CASCADE)
-    amount = models.FloatField(default=0)
+        
+
+class CryptoCollection(models.Model):
+    wallet = models.ForeignKey(CryptoWallet, on_delete=models.CASCADE)
+    cryptocurrency = models.ForeignKey(
+        "api_backend.CryptoCurrency", on_delete=models.CASCADE
+    )
+    amount = models.FloatField(null=True, default=0)

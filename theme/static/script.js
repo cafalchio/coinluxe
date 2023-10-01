@@ -14,16 +14,6 @@ document.addEventListener("click", (event) => {
     }
 });
 
-function validateInput(e) {
-  const inputField = document.getElementById("validationInput");
-  const inputValue = inputField.value.trim();
-  if (inputValue.length === 0 || inputValue.length < 5) {
-    e.preventDefault();
-    alert("Please enter a valid crypto address.");
-    return false;
-  }
-}
-
 function checkValue(e) {
   // Check stripe max value and message user
   const maxValue = 999999.99
