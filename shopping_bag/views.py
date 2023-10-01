@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from api_backend.models import CryptoCurrency
-from wallet.models import CryptoAmount, Wallet
+from wallet.models import CryptoCollection, CryptoWallet
 from .forms import AddToBagForm, RemoveFromBagForm
 from .models import Holding
 from .models import Bag
@@ -50,17 +50,13 @@ def pay(request):
            
 
 def add_to_wallet(user, crypto, amount):
-    wallet, created = Wallet.objects.get_or_create(owner=user)
+    wallet, _ = CryptoWallet.objects.get_or_create(owner=user)
+    crypto_amount, created = CryptoCollection.objects.get_or_create(wallet=wallet, cryptocurrency=crypto)
     if created:
-        wallet.save()
-    
-    existing_crypto = wallet.cryptocurrencies.filter(id=crypto.id).first()
-    if existing_crypto:
-        existing_crypto.cryptoamount_set.create(amount=amount)
+        crypto_amount.amount = amount
     else:
-        wallet.cryptocurrencies.add(crypto)
-        crypto_amount = CryptoAmount(wallet=wallet, cryptocurrency=crypto, amount=amount)
-        crypto_amount.save()
+        crypto_amount.amount += amount
+    crypto_amount.save()
     wallet.save()
     return True
 
