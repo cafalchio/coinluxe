@@ -14,12 +14,13 @@ document.addEventListener("click", (event) => {
     }
 });
 
-function validateInput() {
+function validateInput(e) {
   const inputField = document.getElementById("validationInput");
-  const inputValue = inputField.value.trim(); 
-  if (inputValue === "") {
-      alert("Please add your address.");
-      return false;
+  const inputValue = inputField.value.trim();
+  if (inputValue.length === 0 || inputValue.length < 5) {
+    e.preventDefault();
+    alert("Please enter a valid crypto address.");
+    return false;
   }
 }
 

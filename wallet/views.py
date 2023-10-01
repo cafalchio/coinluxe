@@ -27,3 +27,11 @@ def wallet_view(request):
 
     context = {'crypto_data': crypto_data}
     return render(request, template_name, context)
+
+
+@login_required(login_url="account_login")
+def wallet_withdraw(request, pk):
+    template_name = "wallet/wallet.html"
+    user = request.user
+    wallet, _ = Wallet.objects.filter(user=user)
+    pass
