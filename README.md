@@ -16,17 +16,17 @@ Our crypto e-commerce strategy is designed to provide an accessible and user-fri
 
 Key features of our strategy include:
 
-### Competitive Fee Structure: We offer competitive fees that can be customized for each cryptocurrency. This flexibility ensures that clients can enjoy cost-effective transactions while trading a wide range of digital assets.
+* Competitive Fee Structure: We offer competitive fees that can be customized for each cryptocurrency. This flexibility ensures that clients can enjoy cost-effective transactions while trading a wide range of digital assets.
 
-### User-Friendly Experience: Our platform is designed with simplicity in mind. We prioritize an intuitive and user-friendly interface, making it easy for both beginners and experienced traders to buy cryptocurrencies hassle-free.
+* User-Friendly Experience: Our platform is designed with simplicity in mind. We prioritize an intuitive and user-friendly interface, making it easy for both beginners and experienced traders to buy cryptocurrencies hassle-free.
 
-### Secure Transactions: We prioritize the security of transactions. Clients can confidently use their credit or debit cards to make purchases, knowing that their financial data and investments are protected.
+* Secure Transactions: We prioritize the security of transactions. Clients can confidently use their credit or debit cards to make purchases, knowing that their financial data and investments are protected.
 
-### Diverse Cryptocurrency Selection: We provide access to a diverse selection of cryptocurrencies, allowing clients to choose from a variety of digital assets to match their investment goals.
+* Diverse Cryptocurrency Selection: We provide access to a diverse selection of cryptocurrencies, allowing clients to choose from a variety of digital assets to match their investment goals.
 
-### Facebook campains to keep the user up to date and attract new users.
+* Facebook campains to keep the user up to date and attract new users.
 
-### Newsletter to inform and engage. We keep our users informed and always in contact with our regular newsletter.
+* Newsletter to inform and engage. We keep our users informed and always in contact with our regular newsletter.
 
 
 
