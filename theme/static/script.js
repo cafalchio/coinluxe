@@ -14,6 +14,7 @@ document.addEventListener("click", (event) => {
     }
 });
 
+
 function checkValue(e) {
   // Check stripe max value and message user
   const maxValue = 999999.99

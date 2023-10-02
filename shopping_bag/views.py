@@ -78,7 +78,7 @@ def payment_successful(request):
 
     subject = 'Payment Successful'
     if message_items:
-        message = 'Your payment was successful. The following items have been added to your wallet:\n'
+        message = 'Your payment was successful.\nThe following items have been added to your wallet:\n'
         for item in message_items:
             message += f"- {item['crypto_name']}: {item['amount']} units\n"
     else:

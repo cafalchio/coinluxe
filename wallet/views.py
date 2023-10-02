@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from flask import redirect
+from django.core.mail import send_mail
 from api_backend.models import CryptoCurrency
 from wallet.models import CryptoWallet, CryptoCollection
 
@@ -33,12 +33,26 @@ def wallet_view(request):
 
 @login_required(login_url="account_login")
 def withdrawal(request, pk):
+    template_name = "wallet/wallet.html"
     user = request.user
     wallet = CryptoWallet.objects.filter(owner=user).first()
     crypto = CryptoCurrency.objects.filter(id=pk).first()
     crypto_amounts = CryptoCollection.objects.filter(wallet=wallet)
+    message_items = []
     for crypto_amount in crypto_amounts:
         if crypto_amount.cryptocurrency == crypto:
+            message_items.append({
+                'crypto_name': crypto_amount.cryptocurrency.name,
+                'amount': crypto_amount.amount,
+            })
             crypto_amount.delete()
+    if message_items:
+        message = 'Your withdrawal was successful.\nThe following items have been withdrawal to your wallet:\n'
+        for item in message_items:
+            message += f"- {item['crypto_name']}: {item['amount']} units\n"
+    subject = 'Withdrawal Successful'
+    from_email = 'mcafalchio@gmail.com'  
+    recipient_list = [user.email]
+    send_mail(subject, message, from_email, recipient_list)
 
-    return redirect("wallet")
+    return render(request, template_name)
