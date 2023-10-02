@@ -76,15 +76,15 @@ The CoinLuxe website incorporates crypto images and crypto data obtained from Co
 
 ### Fonts
 
-The fonts used in this project are system fonts
+The fonts used in this project are system fonts to keep the user style and increase loading speed.
 
 ### Wireframes
 
 **Original Wireframes** The original wireframes were scatched on paper during the design process. 
 
 <img src="https://github.com/cafalchio/coinluxe/raw/main/media/readme/home.jpg" width="300" alt="homepage">
-<img src="https://github.com/cafalchio/coinluxe/raw/main/media/readme/details.jpg" width="400" alt="crypto_detail">
-<img src="https://github.com/cafalchio/coinluxe/raw/main/media/readme/cryptos.jpg" width="400" alt="cryptos">
+<img src="https://github.com/cafalchio/coinluxe/raw/main/media/readme/details.jpg" width="300" alt="crypto_detail">
+<img src="https://github.com/cafalchio/coinluxe/raw/main/media/readme/cryptos.jpg" width="300" alt="cryptos">
 
 # Agile Methodology
 
@@ -115,6 +115,8 @@ For security purposes, form validation was implemented in the following forms:
 
 - Login form
 - Signup form
+- Add to Bag
+- Remove from Bag
 
 ## Custom error pages:
 
@@ -131,7 +133,9 @@ The current features of the website are:
 ## Navbar
 
 - The website has a navigation bar that allows users to navigate to different sections of the website.
-- The navbar may include links to the home page, cryptocurrencies list, user account pages, and other relevant sections.
+- The navbar includes links to the home page, cryptocurrencies list, login, signup. If the user is logged, than also includes to: Shopping Bag and Wallet
+<img src="https://github.com/cafalchio/coinluxe/raw/main/media/readme/navbar.jpg" width="200" alt="navbar">
+<img src="https://github.com/cafalchio/coinluxe/raw/main/media/readme/navbar_logged.jpg" width="200" alt="navbar logged">
 
 ## Footer
 
