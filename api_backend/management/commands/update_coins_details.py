@@ -4,7 +4,7 @@ import logging
 from django.core.management.base import BaseCommand
 import requests
 from api_backend.models import Coins
-from . import coins_set
+from api_backend.models import AllCryptosList
 
 COINGECKO = "https://api.coingecko.com/api/v3"
 formatter = logging.Formatter(
@@ -29,7 +29,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         logger.info("Updating coins details")
-        for coin_id in list(coins_set.coins):
+        for coin_id in [obj.id for obj in AllCryptosList.objects.all()]:
             response = self.get_coin_details(coin_id)
             logger.info(f" Updating details for: {coin_id}")
             if response.status_code != 200:

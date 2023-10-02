@@ -4,7 +4,7 @@ import time
 import requests
 from django.core.management.base import BaseCommand
 from django.core.exceptions import ObjectDoesNotExist
-from api_backend.models import CryptoCurrency
+from api_backend.models import AllCryptosList, CryptoCurrency
 from django.conf import settings
 from . import coins_set
 
@@ -59,7 +59,7 @@ class Command(BaseCommand):
             if response.status_code == 200:
                 coin_data = response.json()
                 for coin in coin_data:
-                    if coin['id'] in list(coins_set.coins):
+                    if coin['id'] in [obj.id for obj in AllCryptosList.objects.all()]:
                         if save_pics:
                             self.save_images(coin['image'], coin['id'])
                         else:

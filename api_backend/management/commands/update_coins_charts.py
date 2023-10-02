@@ -3,8 +3,7 @@ import logging
 import time
 from django.core.management.base import BaseCommand
 import requests
-from api_backend.models import PriceUpdate
-from . import coins_set
+from api_backend.models import AllCryptosList, PriceUpdate
 
 COINGECKO = "https://api.coingecko.com/api/v3"
 logger = logging.getLogger(__name__)
@@ -38,7 +37,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
 
-        for coin_id in list(coins_set.coins):
+        for coin_id in [obj.id for obj in AllCryptosList.objects.all()]:
             response = self.get_coin_details(coin_id)
             if response.status_code != 200:
                 logger.warning(f' Failed to retrieve data for {coin_id}')

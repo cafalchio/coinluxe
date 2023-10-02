@@ -93,6 +93,7 @@ class CryptoCurrency(models.Model):
 
 # Coin Detail
 class Coins(models.Model):
+    """ Coins detail model """
     id = models.CharField(max_length=300, primary_key=True)
     symbol = models.CharField(max_length=100)
     name = models.CharField(max_length=100)
@@ -105,20 +106,24 @@ class Coins(models.Model):
 
     @property
     def formatted_symbol(self):
-        return f"{self.symbol.upper()}"
+        """ format symbol upper"""
+        return f"{str(self.symbol).upper()}"
 
     @property
     def formatted_homepage(self):
+        """ Load json to homepage list """
         homepage_list = json.loads(self.homepage)
         return homepage_list[0]
 
     @property
     def formatted_categories(self):
+        """ load json categories """
         categories = json.loads(self.categories)
         return categories
 
     @property
     def formatted_blockchain_site(self):
+        """ load json blockchain sites """
         blockchain_sites = json.loads(self.blockchain_site)
         return blockchain_sites[0]
 
@@ -127,13 +132,17 @@ class Coins(models.Model):
 
 
 class PriceUpdate(models.Model):
+    """ Price update model for timeseries """
     id = models.CharField(max_length=300, primary_key=True)
     price_time = models.JSONField(max_length=1000, null=True)
 
     @property
     def formatted_price_time(self):
+        """ format prices """
         price_time = json.loads(self.price_time)
         return price_time
 
-    def __str__(self):
-        return f"Coin: {self.coin}, Price: {self.price}, Date: {self.date}"
+
+class AllCryptosList(models.Model):
+    """ Cryptos to be updated """
+    id = models.CharField(max_length=100, primary_key=True)

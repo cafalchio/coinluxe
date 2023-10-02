@@ -3,7 +3,7 @@ from stripe.error import InvalidRequestError
 import logging
 from django.conf import settings
 from django.core.management.base import BaseCommand
-from api_backend.models import Coins, CryptoCurrency
+from api_backend.models import AllCryptosList, Coins, CryptoCurrency
 from . import coins_set
 
 stripe.api_key = settings.STRIPE_SECRET_KEY_TEST
@@ -19,7 +19,7 @@ class Command(BaseCommand):
     help = "Create or update Stripe coin products"
 
     def handle(self, *args, **options):
-        for coin_id in list(coins_set.coins):
+        for coin_id in [obj.id for obj in AllCryptosList.objects.all()]:
             crypto = CryptoCurrency.objects.get(id=coin_id)
             # coin = Coins.objects.get(id=coin_id)
             try:

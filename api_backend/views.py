@@ -84,29 +84,19 @@ def add_crypto(request):
         if form.is_valid():
             coin_id = form.cleaned_data['id']
             try:
-                message = call_command('update_coins', coin=coin_id)
-            except:
-                messages.error(request, message)
-            try:
-                messages.success(request, message)
-            except:
-                messages.error(request, message)
-            try:
-                message = call_command('update_coins_charts', coin=coin_id)
-            except:
-                messages.error(request, message)
-            return redirect(reverse('crypto_list'))
+                call_command('update_coins', coin=coin_id)
+                call_command('update_coins_charts', coin=coin_id)
+            except Exception as _:
+                return redirect(reverse('crypto_list'))
         else:
             messages.error(request, 'Form Error, please try again.')
     else:
-
         form = CryptoCurrencyForm()
 
     template = 'cryptos/add_crypto.html'
     context = {
         'form': form,
     }
-
     return render(request, template, context)
 
 
