@@ -66,6 +66,7 @@ Here's a table that lists the site goals and their corresponding user goals:
 ## Design
 
 A simple design to keep the focus on the list of cryptocurrencies and the information about it. With options of **Light Mode and Dark Mode**
+
 <img src="https://github.com/cafalchio/coinluxe/raw/main/media/readme/home_light.png" width="600" alt="homepage light">
 <img src="https://github.com/cafalchio/coinluxe/raw/main/media/readme/home_black.png" width="600" alt="homepage dark">
 
