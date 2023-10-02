@@ -13,20 +13,21 @@ logging.basicConfig(level="INFO")
 
 
 class Command(BaseCommand):
-    """This command will be used to both update coin prices hourly using a scheduler as well
-    as create new coins when requested by the admin, via command line or using the manage tool.
-
-    Argument:
-        --coin (str): An coin id to be added or updated using coingecko api
-
+    """ Django command class to update coins
+        run with python manage.py update_coin
+    
+        options: python manage.py update_coin --save_pics True - 
+                Save crypto logos in media
     """
     help = "Update the crypto databases"
 
     def add_arguments(self, parser):
         parser.add_argument('--save_pics', type=str,
-                            help='To just save pics, run --save_pics True')
+                            help='To just save pics, run python manage.py update_coin --save_pics True')
 
     def get_coin_details(self, page=1):
+        """ This function makes the api call to coingeko coins endpoint
+        """
         logger.info(f'Getting data for page {page}')
         coingecko = "https://api.coingecko.com/api/v3"
         coins = f'/coins/markets?vs_currency=eur&order=market_cap_desc&per_page=250&page={page}&sparkline=false&locale=en'
@@ -35,6 +36,8 @@ class Command(BaseCommand):
         return response
 
     def save_images(self, image_url, coin_id):
+        """ Will save image from img_url on /media
+        """
         image = requests.get(image_url, timeout=1).content
         name = coin_id + ".png"
         logger.info(f" saving {coin_id} image")
@@ -73,7 +76,7 @@ class Command(BaseCommand):
         return "Update Completed"
 
     def update_create_coin(self, coin):
-
+        # update or create coin on the db
         coin_id = coin['id']
         symbol = coin['symbol']
         name = coin['name']

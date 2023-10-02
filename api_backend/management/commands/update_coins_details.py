@@ -14,6 +14,9 @@ logging.basicConfig(level="INFO")
 
 
 class Command(BaseCommand):
+    """ Django command class to update crypto details
+        run with python manage.py update_coin_details
+    """
     help = "Update the crypto databases"
 
     def get_coin_details(self, coin_id):

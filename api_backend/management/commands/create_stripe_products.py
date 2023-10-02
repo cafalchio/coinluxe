@@ -13,6 +13,9 @@ logger = logging.getLogger(__name__)
 
 
 class Command(BaseCommand):
+    """ Django command class to update crypto prices
+        run with python manage.py create_stripe_products
+    """
     help = "Create or update Stripe coin products"
 
     def handle(self, *args, **options):
