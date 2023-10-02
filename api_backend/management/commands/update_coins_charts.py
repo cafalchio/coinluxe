@@ -9,15 +9,23 @@ from . import coins_set
 COINGECKO = "https://api.coingecko.com/api/v3"
 logger = logging.getLogger(__name__)
 logging.basicConfig(level="INFO")
-
+TRIES = 3
+TIME_BTW_TRIES = 60
 
 class Command(BaseCommand):
     help = "Update the crypto databases"
 
     def get_coin_details(self, coin_id):
-        response = requests.get(
-            f"https://api.coingecko.com/api/v3/coins/{coin_id}/market_chart?vs_currency=eur&days=365",
-            timeout=1)
+        for i in range(1, TRIES+1):
+            try:
+                response = requests.get(
+                    f"https://api.coingecko.com/api/v3/coins/{coin_id}/market_chart?vs_currency=eur&days=365",
+                    timeout=3)
+                break
+            except Exception as e:
+                logger.warning(f" Failed {i}/TRIES times to retrieve: {coin_id}")
+                logger.info(f" Sleeping for {TIME_BTW_TRIES}s befor the next try..")
+            
         logger.info(f" Data for {coin_id}")
         return response
 
@@ -39,8 +47,8 @@ class Command(BaseCommand):
             coin_obj.price_time = json.dumps(price_time)
 
             coin_obj.save()
-            logger.info(" wait 6s..")
-            time.sleep(6)  # to avoid max requests
+            logger.info(" wait 8s..")
+            time.sleep(8)  # to avoid max requests
 
         self.stdout.write(self.style.SUCCESS(
             'Historical data updated successful.'))
