@@ -13,6 +13,9 @@ TRIES = 3
 TIME_BTW_TRIES = 60
 
 class Command(BaseCommand):
+    """ Django command class to update crypto charts
+        run with python manage.py update_coin_charts
+    """
     help = "Update the crypto databases"
 
     def get_coin_details(self, coin_id):

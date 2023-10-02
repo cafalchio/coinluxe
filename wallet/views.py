@@ -47,7 +47,7 @@ def withdrawal(request, pk):
             })
             crypto_amount.delete()
     if message_items:
-        message = 'Your withdrawal was successful.\nThe following items have been withdrawal to your wallet:\n'
+        message = 'Your pictures was successful.\nThe following items have been withdrawal to your wallet:\n'
         for item in message_items:
             message += f"- {item['crypto_name']}: {item['amount']} units\n"
     subject = 'Withdrawal Successful'
