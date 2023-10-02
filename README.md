@@ -1,16 +1,28 @@
 # CoinLuxe
 
 Embrace the future of finance with CoinLuxe. Start your crypto journey today and unlock the potential of decentralized technologies.
-The coinluxe website was designed to be a e-commerce where people can easily buy cryptos using credit or debit card. The motivation behind the creation of coinluxe was to facilitate the acquisition of cryptocurrencies at a small fee (0.01%), making it an ideal place to buy cryptocurrencies.
+The coinluxe website was designed to be a e-commerce where people can easily buy cryptos using credit or debit card. The motivation behind the creation of coinluxe was to facilitate the acquisition of cryptocurrencies at a small fee, making it an ideal place to buy cryptocurrencies.
 
 # Strategy
 
-The Crypto e-comerce strategy is to sell cryptos with a small fee to the clients. The fees can be set per crypto, making it easy to be competitive in the market.
-A simple credit/debit-card payment, makes easy to users to buy cryptos and start their investiments in cryptocurrencies.
+By combining competitive fees, a user-friendly experience, secure transactions, a diverse cryptocurrency selection, and educational support, our crypto e-commerce platform is poised to become the ideal gateway for clients looking to enter the exciting world of cryptocurrencies and start their investment journey."
 
 # Marketing
 
-The market strategy is simple, users can register their emails to our mail list and they will receive strategies for investiment, and website promotions in fees and new coins added.
+Our crypto e-commerce strategy is designed to provide an accessible and user-friendly platform for clients to purchase cryptocurrencies. We aim to empower our users to kickstart their investment journey in the crypto market by offering a diverse payment methods.
+
+Key features of our strategy include:
+
+    ### Competitive Fee Structure: We offer competitive fees that can be customized for each cryptocurrency. This flexibility ensures that clients can enjoy cost-effective transactions while trading a wide range of digital assets.
+
+    ### User-Friendly Experience: Our platform is designed with simplicity in mind. We prioritize an intuitive and user-friendly interface, making it easy for both beginners and experienced traders to buy cryptocurrencies hassle-free.
+
+    ### Secure Transactions: We prioritize the security of transactions. Clients can confidently use their credit or debit cards to make purchases, knowing that their financial data and investments are protected.
+
+    ### Diverse Cryptocurrency Selection: We provide access to a diverse selection of cryptocurrencies, allowing clients to choose from a variety of digital assets to match their investment goals.
+
+
+
 ## Table of Contents
 
 # UX Design
@@ -52,13 +64,6 @@ USER GOALS:
 
 ## Design
 
-### Colour Scheme
-
-The palette was was choose o create a clean and simple design for the CoinLuxe website. 
-
-Clean and Minimalistic: White is often associated with cleanliness and  minimalism. It creates a sense of spaciousness and helps to accentuate  other elements on the website. By incorporating white into the design,  the CoinLuxe website achieves a clean and uncluttered appearance.
-
-Timeless Elegance: Black is a classic color that exudes sophistication  and elegance. It adds depth and contrast to the overall design, making  important elements or text stand out. The use of black in the color  palette enhances the website's visual appeal and provides a sense of  refinement.
 
 ### Images
 
@@ -70,7 +75,12 @@ The fonts used in this project are system fonts
 
 ### Wireframes
 
-The wireframes for this project were created using [Balsamiq](https://balsamiq.com/). The wireframes were created to provide a visual representation of the website's layout and functionality.
+**Original Wireframes** The original wireframes were scatched on paper during the design process. 
+
+![homepage](https://github.com/cafalchio/coinluxe/media/readme/home.jpg)
+![crypto_detail](https://github.com/cafalchio/coinluxe/media/readme/details.jpg)
+![cryptos](https://github.com/cafalchio/coinluxe/media/readme/cryptos.jpg)
+
 
 # Agile Methodology
 
@@ -82,7 +92,7 @@ The link to the project's Github project board can be found [here](https://githu
 
 PostgreSQL was used to create the database for this project. The database schema can be found below:
 
-
+![SCHEMA](https://github.com/cafalchio/coinluxe/media/readme/all_models.png)
 
 # Security
 
