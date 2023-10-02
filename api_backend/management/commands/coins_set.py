@@ -1,3 +1,5 @@
+# set of coins used on the page
+
 coins = [
     "bitcoin",
     "ethereum",
