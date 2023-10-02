@@ -1,14 +1,11 @@
 ---
 name: Custom issue template
 about: User Story
-title: User Story ..
+title: "##"
 labels: ''
 assignees: cafalchio
 
 ---
 
-##Title
-
-**As a user**...  , 
-**I want to**...  , 
-**so I can**...
+**As a user, I want to** 
+**,so I can**
