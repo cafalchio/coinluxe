@@ -1,11 +1,14 @@
 # CoinLuxe
 
+![Deployed Website](https://coinluxe.herokuapp.com/)
+
 Embrace the future of finance with CoinLuxe. Start your crypto journey today and unlock the potential of decentralized technologies.
-The coinluxe website was designed to be a e-commerce where people can easily buy cryptos using credit or debit card. The motivation behind the creation of coinluxe was to facilitate the acquisition of cryptocurrencies at a small fee, making it an ideal place to buy cryptocurrencies.
+The coinluxe website was designed to be a e-commerce where people can easily buy cryptos using credit or debit card. The motivation behind the creation of coinluxe was to facilitate the acquisition of cryptocurrencies at a small fee, making it an ideal place to buy cryptocurrencies. 
 
 # Strategy
 
-By combining competitive fees, a user-friendly experience, secure transactions, a diverse cryptocurrency selection, and educational support, our crypto e-commerce platform is poised to become the ideal gateway for clients looking to enter the exciting world of cryptocurrencies and start their investment journey."
+By combining competitive fees, a user-friendly experience, secure transactions, a diverse cryptocurrency selection, our crypto e-commerce platform is the ideal gateway for clients looking to enter the exciting world of cryptocurrencies and start their investment journey. With the crypto industry valued at 
+US$180 billion and increasing yearly, the coinluxe enters the market with a attractive alternative to crypto investment.
 
 # Marketing
 
@@ -13,13 +16,17 @@ Our crypto e-commerce strategy is designed to provide an accessible and user-fri
 
 Key features of our strategy include:
 
-    ### Competitive Fee Structure: We offer competitive fees that can be customized for each cryptocurrency. This flexibility ensures that clients can enjoy cost-effective transactions while trading a wide range of digital assets.
+### Competitive Fee Structure: We offer competitive fees that can be customized for each cryptocurrency. This flexibility ensures that clients can enjoy cost-effective transactions while trading a wide range of digital assets.
 
-    ### User-Friendly Experience: Our platform is designed with simplicity in mind. We prioritize an intuitive and user-friendly interface, making it easy for both beginners and experienced traders to buy cryptocurrencies hassle-free.
+### User-Friendly Experience: Our platform is designed with simplicity in mind. We prioritize an intuitive and user-friendly interface, making it easy for both beginners and experienced traders to buy cryptocurrencies hassle-free.
 
-    ### Secure Transactions: We prioritize the security of transactions. Clients can confidently use their credit or debit cards to make purchases, knowing that their financial data and investments are protected.
+### Secure Transactions: We prioritize the security of transactions. Clients can confidently use their credit or debit cards to make purchases, knowing that their financial data and investments are protected.
 
-    ### Diverse Cryptocurrency Selection: We provide access to a diverse selection of cryptocurrencies, allowing clients to choose from a variety of digital assets to match their investment goals.
+### Diverse Cryptocurrency Selection: We provide access to a diverse selection of cryptocurrencies, allowing clients to choose from a variety of digital assets to match their investment goals.
+
+### Facebook campains to keep the user up to date and attract new users.
+
+### Newsletter to inform and engage. We keep our users informed and always in contact with our regular newsletter.
 
 
 
@@ -28,39 +35,33 @@ Key features of our strategy include:
 # UX Design
 
 
-SITE GOALS:
+Here's a table that lists the site goals and their corresponding user goals:
 
-1. Site Goal: Provide a user-friendly and visually appealing platform that engages and captivates users.
-2. Site Goal: Offer comprehensive and accurate information about cryptocurrencies and related products to empower users in their decision-making process.
-3. Site Goal: Ensure a secure and seamless user authentication process for account access and personalized features.
-4. Site Goal: Streamline the account registration process, making it quick and hassle-free for new users.
-5. Site Goal: Implement intuitive pagination functionality for the cryptocurrency and product lists, enabling easy navigation and improved user experience.
-6. Site Goal: Safeguard user accounts by providing a secure and reliable password reset mechanism.
-7. Site Goal: Personalize the shopping experience by granting logged-in users access to specific product pages.
-8. Site Goal: Continuously enhance and optimize the platform to meet user needs and expectations in the dynamic cryptocurrency market.
-
-USER GOALS:
-
-1. User Goal: Visit Homepage for Platform Overview
-   - Site Goal: Provide an engaging and informative overview of the platform, highlighting its key features and benefits.
-2. User Goal: Explore List of Cryptocurrencies
-   - Site Goal: Present a comprehensive and up-to-date list of cryptocurrencies, allowing users to gather information and make informed decisions about their investments.
-3. User Goal: Browse Products and View Individual Product Pages
-   - Site Goal: Showcase a wide range of products related to cryptocurrencies, enabling users to explore different offerings and access detailed information about each product.
-4. User Goal: Log In to Account
-   - Site Goal: Facilitate user authentication and secure access to personalized features and account-related functionalities.
-5. User Goal: Sign Up for a New Account
-   - Site Goal: Streamline the account creation process, enabling users to register and become members of the platform easily.
-6. User Goal: Navigate Cryptocurrency List with Pagination
-   - Site Goal: Enhance user experience by implementing pagination functionality, allowing users to navigate through the cryptocurrency list conveniently.
-7. User Goal: Navigate Product List with Pagination
-   - Site Goal: Improve user experience by implementing pagination functionality, enabling users to browse through the product list efficiently.
-8. User Goal: Reset Account Password
-   - Site Goal: Provide a straightforward and secure mechanism for users to reset their account passwords if they forget them.
-9. User Goal: Access Specific Product Pages After Logging In
-   - Site Goal: Grant logged-in users access to specific product pages, ensuring a seamless and personalized shopping experience.
-10. User Goal: Navigate Cryptocurrency List with Pagination
-    - Site Goal: Enable users to browse through the cryptocurrency list effortlessly using pagination, ensuring a smooth and efficient user experience.
+| Site Goal                                       | User Goal                                      |
+|-------------------------------------------------|------------------------------------------------|
+| Provide an engaging platform overview           | Visit Homepage for Platform Overview           |
+| Present a list of cryptocurrencies              | Explore List of Cryptocurrencies              |
+| Enable users to edit cryptocurrency information | Edit Crypto                                   |
+| Allow users to remove cryptocurrencies          | Remove Crypto                                 |
+| Provide tools for managing cryptocurrency       | Manage Cryptos                                |
+| Send confirmation emails                         | Receive Confirmation Email                   |
+| Facilitate cryptocurrency withdrawals            | Withdrawal Crypto                             |
+| Enable cryptocurrency purchases                  | Buy Cryptos                                   |
+| Allow removal of items from a shopping bag       | Remove Crypto from Bag                        |
+| Allow adding items to a shopping bag             | Add Crypto to the Shopping Bag                |
+| Display historical price data                   | See Historical Prices                         |
+| Provide detailed cryptocurrency information     | See Crypto Details                            |
+| Present a comprehensive cryptocurrency list     | See Cryptocurrencies                          |
+| Send login-related emails                        | Receive Login Email                           |
+| Enable user login                               | Sign In                                      |
+| Allow user logout                               | Log Out                                      |
+| Provide a secure login process                   | Login                                        |
+| Offer a portfolio view                           | View Portfolio                                |
+| Facilitate cryptocurrency sales                 | Sell Crypto                                  |
+| Enable combined purchases of crypto and products| Buy Crypto and Products                       |
+| Streamline the registration process              | Sign Up for a New Account                    |
+| Allow registered users to log in                | Log In to Account                            |
+| Offer product browsing and detailed views        | Browse Products and View Individual Product Pages |
 
 ## Design
 
