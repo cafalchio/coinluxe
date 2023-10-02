@@ -47,7 +47,7 @@
                         <h5 class="text-sm tracking-tight text-gray-800 md:text-1xl dark:text-gray-100">{{ data.value}}</h5>
                     </td>
                     <td class="px-4 py-3 font-medium border-b border-gray-100 dark:border-gray-700">
-                        <input type="text" id="validationInput" placeholder="Enter your address" class="px-4 py-2 w-80 text-xs text-gray-700 border border-gray-300 rounded-lg bg-gray-50 focus:ring-transparent focus:border-gray-400">
+                        <input type="text" placeholder="Enter your address" class="px-4 py-2 w-80 text-xs text-gray-700 border border-gray-300 rounded-lg bg-gray-50 focus:ring-transparent focus:border-gray-400">
                         <a href="{% url 'withdrawal' pk=data.crypto.id %}" id="transferButton" class="px-4 py-2 text-xs font-bold text-white bg-green-600 rounded-lg hover:bg-green-700">
                             Transfer to Your Wallet!
                         </a>
