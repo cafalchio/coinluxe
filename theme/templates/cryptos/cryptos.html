@@ -25,7 +25,7 @@
         </thead>
         <tbody class="shrink">
             {% for crypto in page_obj %}
-            <tr class="cursor-pointer" onclick="location.href='{% url 'coin' pk=crypto.id %}'">
+            <tr class="cursor-pointer" onclick="location.href='/cryptos/{{crypto.id}}'">
                 <td class="px-4 py-3 font-medium border-b border-gray-4 dark:border-gray-700 ">
                     <div class="flex items-start">
                         <div class="flex flex-col items-center justify-center md:px-4">

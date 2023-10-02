@@ -7,7 +7,7 @@
     <div class="flex flex-row items-center justify-between space-x-2 font-bold">
         <div class="flex items-center">
             <div class="px-2 pt-1">
-                <img src="{{ MEDIA_URL }}coin_images/{{ coin.id }}.png" alt="{{ coin.name }}" class="w-10 h-10 md:w-24 md:h-24">
+                <img src="{{ coin.image }}" alt="{{ coin.name }}" class="w-10 h-10 md:w-24 md:h-24">
             </div>
             <div class="text-gray-800 dark:text-gray-200">
                 <p class="text-sm break-words md:text-3xl">{{ coin.name }}</p>
