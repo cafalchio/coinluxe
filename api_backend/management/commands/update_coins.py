@@ -24,7 +24,7 @@ class Command(BaseCommand):
     def add_arguments(self, parser):
         parser.add_argument('--save_pics', type=str,
                             help='To just save pics, run python manage.py update_coin --save_pics True')
-        parser.add_argument('coin_id', type=str, help='ID of the cryptocurrency to update')
+        parser.add_argument('coin_id', type=str, nargs='?', help='ID of the cryptocurrency to update (optional)')
         
     def get_coin_details(self, page=1):
         """ This function makes the api call to coingeko coins endpoint

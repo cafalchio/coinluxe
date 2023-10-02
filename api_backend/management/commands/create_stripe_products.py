@@ -20,7 +20,7 @@ class Command(BaseCommand):
 
 
     def add_arguments(self, parser):
-        parser.add_argument('coin_id', type=str, help='ID of the cryptocurrency to update')
+        parser.add_argument('coin_id', type=str, nargs='?', help='ID of the cryptocurrency to update (optional)')
 
 
     def handle(self, *args, **options):
