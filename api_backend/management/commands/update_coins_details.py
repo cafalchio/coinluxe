@@ -20,6 +20,7 @@ class Command(BaseCommand):
     help = "Update the crypto databases"
 
     def get_coin_details(self, coin_id):
+        """ get coin details from the api """
         logger.info(f" Getting data for {coin_id}..")
         response = requests.get(COINGECKO +
                                 f'/coins/{coin_id}?localization=false&tickers=false&market_data=false&community_data=true&developer_data=true&sparkline=false',

@@ -7,6 +7,7 @@ from wallet.models import CryptoWallet, CryptoCollection
 
 @login_required(login_url="account_login")
 def wallet_view(request):
+    """ Wallet view """
     template_name = "wallet/wallet.html"
     user = request.user
     wallet, _ = CryptoWallet.objects.get_or_create(owner=user)
@@ -34,6 +35,10 @@ def wallet_view(request):
 
 @login_required(login_url="account_login")
 def withdrawal(request, pk):
+    """ Withdrawal from wallet. Here is a mock class, on real crypto, 
+    this class will hold the logic to send the bought cryptos to the
+    user wallet 
+    """
     template_name = "wallet/wallet.html"
     user = request.user
     wallet = CryptoWallet.objects.filter(owner=user).first()

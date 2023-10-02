@@ -4,6 +4,7 @@ from shopping_bag.views import get_debit
 
 
 class IndexListView(ListView):
+    """View cryptos in home"""
     paginate_by = 10
     model = CryptoCurrency
     template_name = "home/index.html"

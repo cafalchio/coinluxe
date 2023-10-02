@@ -5,6 +5,7 @@ from random import randint
 
 
 class CryptoCurrency(models.Model):
+    """Crypto Model """
     id = models.CharField(max_length=100, primary_key=True)
     symbol = models.CharField(max_length=10)
     name = models.CharField(max_length=100)
@@ -34,6 +35,7 @@ class CryptoCurrency(models.Model):
 
     @property
     def formatted_current_price(self):
+        """format price with 2 decimals"""
         if self.current_price < 1 and self.current_price > 0.1:
             return '{:,.3f}'.format(self.current_price)
         elif self.current_price < 0.1 and self.current_price > 0.01:
@@ -44,6 +46,7 @@ class CryptoCurrency(models.Model):
 
     @property
     def formatted_market_cap(self):
+        """ format in billion, millions"""
         if self.market_cap >= 1000000000:
             return '{:,.2f} bi'.format(self.market_cap / 1000000000)
         elif self.market_cap >= 1000000:
@@ -53,40 +56,28 @@ class CryptoCurrency(models.Model):
 
     @property
     def formatted_price_change_24h(self):
+        """ price change updated format"""
         return f"{self.price_change_percentage_24h:.2f}"
 
     @property
     def integer_24h_change(self):
+        """ make the format price int"""
         return int(float(self.formatted_price_change_24h) * 100)
 
     @property
-    def selling_text(self):
-        negative_phrases = [
-            f"Buy {self.id.capitalize()} on the dip!",
-            f"Opportunity: {self.id.capitalize()} at a discount!",
-            f"Don't be discouraged! Buy {self.id.capitalize()} low."
-        ]
-        positive_phrases = [
-            f"Upward momentum for {self.id.capitalize()}. Buy now!",
-            f"Positive trend: {self.id.capitalize()} rising!",
-            f"Join the rally: Buy {self.id.capitalize()}!"
-        ]
-        if int(float(self.formatted_price_change_24h) * 100) < 0:
-            return negative_phrases[randint(0, 2)]
-        else:
-            return positive_phrases[randint(0, 2)]
-
-    @property
     def formatted_symbol(self):
-        return f"{self.symbol.upper()}"
+        """upper the symbol """
+        return f"{str(self.symbol).upper()}"
 
     @property
     def formatted_last_updated(self):
+        """ last updated time format"""
         updated_time = self.last_updated + timedelta(hours=1)
         return updated_time.strftime("%d %B - %H:%M:%S")
 
     @property
     def formatted_total_volume(self):
+        """ format in billion, millions"""
         if self.total_volume >= 1000000000:
             return '{:,.2f} bi'.format(self.total_volume / 1000000000)
         elif self.total_volume >= 1000000:
@@ -94,10 +85,9 @@ class CryptoCurrency(models.Model):
         else:
             return '{:,.2f}'.format(self.total_volume)
 
-    def __str__(self):
-        return self.name
 
     class Meta:
+        """ Meta """
         ordering = ['-market_cap']
 
 

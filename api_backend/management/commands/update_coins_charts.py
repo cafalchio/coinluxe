@@ -20,6 +20,7 @@ class Command(BaseCommand):
     help = "Update the crypto databases"
 
     def get_coin_details(self, coin_id):
+        """ get coin details from the api"""
         for i in range(1, TRIES+1):
             try:
                 response = requests.get(

@@ -14,6 +14,7 @@ import stripe
 
 @login_required
 def get_debit(request):
+    """get debit view"""
     shopping_bag, _ = Bag.objects.get_or_create(owner=request.user)
     holdings = Holding.objects.filter(shopping_bag=shopping_bag)
     debit = 0
@@ -24,6 +25,7 @@ def get_debit(request):
 
 @login_required
 def pay(request):
+    """receive stripe payment view"""
     user = request.user
     stripe.api_key = settings.STRIPE_SECRET_KEY_TEST
     shopping_bag, _ = Bag.objects.get_or_create(owner=user)
@@ -51,6 +53,7 @@ def pay(request):
 
 
 def add_to_wallet(user, crypto, amount):
+    """ Add crypto to Wallet"""
     wallet, _ = CryptoWallet.objects.get_or_create(owner=user)
     crypto_amount, created = CryptoCollection.objects.get_or_create(
         wallet=wallet, cryptocurrency=crypto)
@@ -65,6 +68,7 @@ def add_to_wallet(user, crypto, amount):
 
 @login_required
 def payment_successful(request):
+    """ Payment sucessful view"""
     user = request.user
     shopping_bag = Bag.objects.get(owner=user)
     holdings = Holding.objects.filter(shopping_bag=shopping_bag)
@@ -93,12 +97,14 @@ def payment_successful(request):
 
 
 def payment_cancelled(request):
+    """ payment canceled view"""
     stripe.api_key = settings.STRIPE_SECRET_KEY_TEST
     return render(request, "shopping_bag/payment_cancelled.html")
 
 
 @login_required(login_url="account_login")
 def add_to_bag(request, pk):
+    """ Add to bag view """
     user = request.user
     crypto = get_object_or_404(CryptoCurrency, id=pk)
     shopping_bag, _ = Bag.objects.get_or_create(owner=user)
@@ -122,6 +128,7 @@ def add_to_bag(request, pk):
 
 @login_required(login_url="account_login")
 def remove_crypto(request, pk):
+    """ Remove crypto view"""
     user = request.user
     crypto = get_object_or_404(CryptoCurrency, id=pk)
     shopping_bag, _ = Bag.objects.get_or_create(owner=user)
@@ -149,6 +156,7 @@ def remove_crypto(request, pk):
 
 @login_required(login_url="account_login")
 def shopping_bag_view(request):
+    """ Shopping bag view"""
     template_name = "shopping_bag/bag.html"
     user = request.user
     shopping_bag, _ = Bag.objects.get_or_create(owner=user)

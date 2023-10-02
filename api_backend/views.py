@@ -13,6 +13,7 @@ from .models import Coins, CryptoCurrency, PriceUpdate
 
 
 class CryptoListView(ListView):
+    """ Crypto list view"""
     paginate_by = 7
     model = CryptoCurrency
     template_name = "cryptos/cryptos.html"
@@ -36,6 +37,7 @@ class CryptoListView(ListView):
 
 
 class CoinDetailView(DetailView):
+    """Coin detail view"""
     model = Coins
     template_name = "cryptos/crypto_detail.html"
 
@@ -62,6 +64,7 @@ class CoinDetailView(DetailView):
 
 
 class ManageCryptos(TemplateView):
+    """Manage crypto view"""
     template_name = "cryptos/manage_cryptos.html"
 
     def get_context_data(self, **kwargs):
