@@ -77,9 +77,9 @@ The fonts used in this project are system fonts
 
 **Original Wireframes** The original wireframes were scatched on paper during the design process. 
 
-![homepage](https://github.com/cafalchio/coinluxe/media/readme/home.jpg)
-![crypto_detail](https://github.com/cafalchio/coinluxe/media/readme/details.jpg)
-![cryptos](https://github.com/cafalchio/coinluxe/media/readme/cryptos.jpg)
+![homepage](https://github.com/cafalchio/coinluxe/blob/main/media/readme/home.jpg)
+![crypto_detail](https://github.com/cafalchio/coinluxe/blob/main/media/readme/details.jpg)
+![cryptos](https://github.com/cafalchio/coinluxe/blob/main/media/readme/cryptos.jpg)
 
 
 # Agile Methodology
@@ -92,7 +92,7 @@ The link to the project's Github project board can be found [here](https://githu
 
 PostgreSQL was used to create the database for this project. The database schema can be found below:
 
-![SCHEMA](https://github.com/cafalchio/coinluxe/media/readme/all_models.png)
+![SCHEMA](https://github.com/cafalchio/coinluxe/blob/main/media/readme/all_models.png)
 
 # Security
 
