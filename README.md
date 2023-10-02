@@ -77,10 +77,9 @@ The fonts used in this project are system fonts
 
 **Original Wireframes** The original wireframes were scatched on paper during the design process. 
 
-![homepage](https://github.com/cafalchio/coinluxe/blob/main/media/readme/home.jpg)
-![crypto_detail](https://github.com/cafalchio/coinluxe/blob/main/media/readme/details.jpg)
-![cryptos](https://github.com/cafalchio/coinluxe/blob/main/media/readme/cryptos.jpg)
-
+<img src="https://github.com/cafalchio/coinluxe/raw/main/media/readme/home.jpg" width="300" alt="homepage">
+<img src="https://github.com/cafalchio/coinluxe/raw/main/media/readme/details.jpg" width="400" alt="crypto_detail">
+<img src="https://github.com/cafalchio/coinluxe/raw/main/media/readme/cryptos.jpg" width="400" alt="cryptos">
 
 # Agile Methodology
 
