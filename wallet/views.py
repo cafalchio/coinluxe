@@ -4,6 +4,7 @@ from django.core.mail import send_mail
 from api_backend.models import CryptoCurrency
 from wallet.models import CryptoWallet, CryptoCollection
 
+
 @login_required(login_url="account_login")
 def wallet_view(request):
     template_name = "wallet/wallet.html"
@@ -20,7 +21,7 @@ def wallet_view(request):
 
         value = crypto.current_price
         value_eur = f"{amount * value:.2f} €"
-        
+
         crypto_data.append({
             'crypto': crypto,
             'amount': amount,
@@ -51,7 +52,7 @@ def withdrawal(request, pk):
         for item in message_items:
             message += f"- {item['crypto_name']}: {item['amount']} units\n"
     subject = 'Withdrawal Successful'
-    from_email = 'mcafalchio@gmail.com'  
+    from_email = 'mcafalchio@gmail.com'
     recipient_list = [user.email]
     send_mail(subject, message, from_email, recipient_list)
 

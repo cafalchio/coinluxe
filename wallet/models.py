@@ -8,7 +8,6 @@ class CryptoWallet(models.Model):
         "api_backend.CryptoCurrency",
         through="CryptoCollection")
 
-        
 
 class CryptoCollection(models.Model):
     wallet = models.ForeignKey(CryptoWallet, on_delete=models.CASCADE)

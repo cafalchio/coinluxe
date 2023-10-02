@@ -7,9 +7,10 @@ class Bag(models.Model):
     holdings = models.ManyToManyField(
         "api_backend.CryptoCurrency",
         through="Holding")
+
     class Meta:
         db_table = 'Bag'
-        
+
 
 class Holding(models.Model):
     shopping_bag = models.ForeignKey(Bag, on_delete=models.CASCADE)
@@ -17,6 +18,7 @@ class Holding(models.Model):
         "api_backend.CryptoCurrency", on_delete=models.CASCADE
     )
     amount = models.FloatField(null=True, default=0)
+
     @property
     def formatted_amount(self):
         if self.amount >= 1000:

@@ -15,7 +15,7 @@ logging.basicConfig(level="INFO")
 class Command(BaseCommand):
     """ Django command class to update coins
         run with python manage.py update_coin
-    
+
         options: python manage.py update_coin --save_pics True - 
                 Save crypto logos in media
     """

@@ -12,6 +12,7 @@ logging.basicConfig(level="INFO")
 TRIES = 3
 TIME_BTW_TRIES = 60
 
+
 class Command(BaseCommand):
     """ Django command class to update crypto charts
         run with python manage.py update_coin_charts
@@ -26,9 +27,11 @@ class Command(BaseCommand):
                     timeout=3)
                 break
             except Exception as e:
-                logger.warning(f" Failed {i}/TRIES times to retrieve: {coin_id}")
-                logger.info(f" Sleeping for {TIME_BTW_TRIES}s befor the next try..")
-            
+                logger.warning(
+                    f" Failed {i}/TRIES times to retrieve: {coin_id}")
+                logger.info(
+                    f" Sleeping for {TIME_BTW_TRIES}s befor the next try..")
+
         logger.info(f" Data for {coin_id}")
         return response
 

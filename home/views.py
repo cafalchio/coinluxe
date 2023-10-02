@@ -12,12 +12,11 @@ class IndexListView(ListView):
         queryset = CryptoCurrency.objects.filter(
             market_cap__isnull=False).order_by('-market_cap')[:4]
         return queryset
-    
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         queryset = self.get_queryset()
-        try: 
+        try:
             debit = get_debit(self.request)
         except:
             debit = ""
@@ -25,5 +24,3 @@ class IndexListView(ListView):
             context['top_gainers'] = queryset
             context['debit'] = debit
         return context
-
-    

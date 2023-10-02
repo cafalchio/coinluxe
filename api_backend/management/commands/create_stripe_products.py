@@ -21,8 +21,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         for coin_id in list(coins_set.coins):
             crypto = CryptoCurrency.objects.get(id=coin_id)
-            coin = Coins.objects.get(id=coin_id)
-
+            # coin = Coins.objects.get(id=coin_id)
             try:
                 existing_product = stripe.Product.retrieve(coin_id)
                 existing_product.name = coin_id.capitalize()
@@ -32,7 +31,8 @@ class Command(BaseCommand):
                 price = stripe.Price.create(
                     currency="eur",
                     billing_scheme="per_unit",
-                    unit_amount=str(int(crypto.current_price * 100)), # 3 numbers after the unit
+                    # 3 numbers after the unit
+                    unit_amount=str(int(crypto.current_price * 100)),
                     product=coin_id,
                     active=True,
                 )

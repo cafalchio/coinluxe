@@ -18,7 +18,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Bag',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.BigAutoField(auto_created=True,
+                 primary_key=True, serialize=False, verbose_name='ID')),
             ],
             options={
                 'db_table': 'Bag',
@@ -27,20 +28,25 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Holding',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.BigAutoField(auto_created=True,
+                 primary_key=True, serialize=False, verbose_name='ID')),
                 ('amount', models.FloatField(default=0, null=True)),
-                ('cryptocurrency', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='api_backend.cryptocurrency')),
-                ('shopping_bag', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='shopping_bag.bag')),
+                ('cryptocurrency', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE, to='api_backend.cryptocurrency')),
+                ('shopping_bag', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE, to='shopping_bag.bag')),
             ],
         ),
         migrations.AddField(
             model_name='bag',
             name='holdings',
-            field=models.ManyToManyField(through='shopping_bag.Holding', to='api_backend.CryptoCurrency'),
+            field=models.ManyToManyField(
+                through='shopping_bag.Holding', to='api_backend.CryptoCurrency'),
         ),
         migrations.AddField(
             model_name='bag',
             name='owner',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL),
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL),
         ),
     ]

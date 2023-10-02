@@ -21,6 +21,7 @@ def get_debit(request):
         debit += holding.cryptocurrency.current_price * holding.amount
     return f"{debit:.2f}"
 
+
 @login_required
 def pay(request):
     user = request.user
@@ -39,7 +40,7 @@ def pay(request):
         except stripe.error.StripeError as e:
             print(f"Stripe API error: {e}")
 
-    success_url = request.build_absolute_uri(reverse('payment_successful')) 
+    success_url = request.build_absolute_uri(reverse('payment_successful'))
     cancel_url = request.build_absolute_uri(reverse('payment_cancelled'))
     payment_link = stripe.checkout.Session.create(line_items=line_items,
                                                   success_url=success_url,
@@ -47,11 +48,12 @@ def pay(request):
                                                   mode="payment"
                                                   )
     return HttpResponseRedirect(payment_link.url)
-           
+
 
 def add_to_wallet(user, crypto, amount):
     wallet, _ = CryptoWallet.objects.get_or_create(owner=user)
-    crypto_amount, created = CryptoCollection.objects.get_or_create(wallet=wallet, cryptocurrency=crypto)
+    crypto_amount, created = CryptoCollection.objects.get_or_create(
+        wallet=wallet, cryptocurrency=crypto)
     if created:
         crypto_amount.amount = amount
     else:
@@ -60,12 +62,12 @@ def add_to_wallet(user, crypto, amount):
     wallet.save()
     return True
 
-        
+
 @login_required
 def payment_successful(request):
     user = request.user
     shopping_bag = Bag.objects.get(owner=user)
-    holdings = Holding.objects.filter(shopping_bag=shopping_bag)    
+    holdings = Holding.objects.filter(shopping_bag=shopping_bag)
     message_items = []
     for holding in holdings:
         added = add_to_wallet(user, holding.cryptocurrency, holding.amount)
@@ -84,7 +86,7 @@ def payment_successful(request):
     else:
         message = 'Your payment failed, no items were added to your wallet.'
 
-    from_email = 'mcafalchio@gmail.com'  
+    from_email = 'mcafalchio@gmail.com'
     recipient_list = [user.email]
     send_mail(subject, message, from_email, recipient_list)
     return render(request, "shopping_bag/payment_successful.html")
@@ -104,7 +106,8 @@ def add_to_bag(request, pk):
         form = AddToBagForm(request.POST)
         if form.is_valid():
             amount = float(form.cleaned_data['amount'])
-            holding, created = Holding.objects.get_or_create(shopping_bag=shopping_bag, cryptocurrency=crypto)
+            holding, created = Holding.objects.get_or_create(
+                shopping_bag=shopping_bag, cryptocurrency=crypto)
             if created:
                 holding.amount = amount
             else:
@@ -122,7 +125,8 @@ def remove_crypto(request, pk):
     user = request.user
     crypto = get_object_or_404(CryptoCurrency, id=pk)
     shopping_bag, _ = Bag.objects.get_or_create(owner=user)
-    holding = Holding.objects.filter(shopping_bag=shopping_bag, cryptocurrency=crypto).first()
+    holding = Holding.objects.filter(
+        shopping_bag=shopping_bag, cryptocurrency=crypto).first()
     if holding is None:
         return redirect('crypto_list')
     amount = holding.amount
@@ -135,13 +139,12 @@ def remove_crypto(request, pk):
                 holding.amount = amount
                 holding.save()
             else:
-                holding.delete() 
+                holding.delete()
                 amount = 0
     else:
         form = RemoveFromBagForm()
-    return render(request, 'shopping_bag/sell_crypto.html', 
+    return render(request, 'shopping_bag/sell_crypto.html',
                   {"crypto":  crypto, "amount": amount, "form": form})
-
 
 
 @login_required(login_url="account_login")

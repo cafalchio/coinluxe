@@ -18,22 +18,28 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='CryptoCollection',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.BigAutoField(auto_created=True,
+                 primary_key=True, serialize=False, verbose_name='ID')),
                 ('amount', models.FloatField(default=0, null=True)),
-                ('cryptocurrency', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='api_backend.cryptocurrency')),
+                ('cryptocurrency', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE, to='api_backend.cryptocurrency')),
             ],
         ),
         migrations.CreateModel(
             name='CryptoWallet',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('crypto_amounts', models.ManyToManyField(through='wallet.CryptoCollection', to='api_backend.CryptoCurrency')),
-                ('owner', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                ('id', models.BigAutoField(auto_created=True,
+                 primary_key=True, serialize=False, verbose_name='ID')),
+                ('crypto_amounts', models.ManyToManyField(
+                    through='wallet.CryptoCollection', to='api_backend.CryptoCurrency')),
+                ('owner', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),
         migrations.AddField(
             model_name='cryptocollection',
             name='wallet',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='wallet.cryptowallet'),
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to='wallet.cryptowallet'),
         ),
     ]

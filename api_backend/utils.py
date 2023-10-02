@@ -10,7 +10,7 @@ def plot_chart(df):
     Create and customize a line chart based on a DataFrame.
 
     df : pandas.DataFrame
-        
+
     Returns:
     str
         An HTML representation of the customized line chart.
@@ -72,4 +72,3 @@ def plot_chart(df):
     chart = fig.to_html(config)
 
     return chart
-

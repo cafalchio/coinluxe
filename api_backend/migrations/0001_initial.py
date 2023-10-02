@@ -14,10 +14,12 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Coins',
             fields=[
-                ('id', models.CharField(max_length=300, primary_key=True, serialize=False)),
+                ('id', models.CharField(max_length=300,
+                 primary_key=True, serialize=False)),
                 ('symbol', models.CharField(max_length=100)),
                 ('name', models.CharField(max_length=100)),
-                ('block_time_in_minutes', models.PositiveIntegerField(default=0, null=True)),
+                ('block_time_in_minutes',
+                 models.PositiveIntegerField(default=0, null=True)),
                 ('description', models.TextField(null=True)),
                 ('homepage', models.JSONField(max_length=100, null=True)),
                 ('blockchain_site', models.JSONField(max_length=100, null=True)),
@@ -28,7 +30,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='CryptoCurrency',
             fields=[
-                ('id', models.CharField(max_length=100, primary_key=True, serialize=False)),
+                ('id', models.CharField(max_length=100,
+                 primary_key=True, serialize=False)),
                 ('symbol', models.CharField(max_length=10)),
                 ('name', models.CharField(max_length=100)),
                 ('image', models.URLField(null=True)),
@@ -62,7 +65,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='PriceUpdate',
             fields=[
-                ('id', models.CharField(max_length=300, primary_key=True, serialize=False)),
+                ('id', models.CharField(max_length=300,
+                 primary_key=True, serialize=False)),
                 ('price_time', models.JSONField(max_length=1000, null=True)),
             ],
         ),

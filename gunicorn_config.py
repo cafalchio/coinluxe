@@ -7,7 +7,7 @@ bind = 'unix:/home/cafalchio/Projects/coinluxe/coinluxe.sock'
 workers = multiprocessing.cpu_count()
 
 # Worker class for asynchronous handling
-#worker_class = 'gevent'
+# worker_class = 'gevent'
 
 # Use a high timeout to avoid worker restarts for long-running requests
 timeout = 60
@@ -19,8 +19,8 @@ max_requests = 1000
 accesslog = None
 
 # Enable Gevent monkey patching for better concurrency
-#import gevent.monkey
-#gevent.monkey.patch_all()
+# import gevent.monkey
+# gevent.monkey.patch_all()
 
 # Additional settings to consider based on your application:
 preload_app = True  # Preload application code for faster startup
