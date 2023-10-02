@@ -1,3 +1,4 @@
+
 import json
 import time
 import logging
@@ -19,17 +20,27 @@ class Command(BaseCommand):
     """
     help = "Update the crypto databases"
 
+    def add_arguments(self, parser):
+        parser.add_argument('coin_id', type=str, help='ID of the cryptocurrency to update')
+
+
     def get_coin_details(self, coin_id):
         """ get coin details from the api """
-        logger.info(f" Getting data for {coin_id}..")
+        logger.info(f" Getting data for {coin_id}..") 
         response = requests.get(COINGECKO +
                                 f'/coins/{coin_id}?localization=false&tickers=false&market_data=false&community_data=true&developer_data=true&sparkline=false',
                                 timeout=1)
         return response
 
     def handle(self, *args, **options):
+        coin_id = [options.get('coin_id')]
+        if coin_id:
+            coins = coin_id
+        else:
+            coins = [obj.id for obj in AllCryptosList.objects.all()]
+
         logger.info("Updating coins details")
-        for coin_id in [obj.id for obj in AllCryptosList.objects.all()]:
+        for coin_id in coins:
             response = self.get_coin_details(coin_id)
             logger.info(f" Updating details for: {coin_id}")
             if response.status_code != 200:

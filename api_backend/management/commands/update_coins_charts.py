@@ -18,6 +18,10 @@ class Command(BaseCommand):
     """
     help = "Update the crypto databases"
 
+    def add_arguments(self, parser):
+        parser.add_argument('coin_id', type=str, help='ID of the cryptocurrency to update')
+
+
     def get_coin_details(self, coin_id):
         """ get coin details from the api"""
         for i in range(1, TRIES+1):
@@ -36,8 +40,13 @@ class Command(BaseCommand):
         return response
 
     def handle(self, *args, **options):
+        coin_id = [options.get('coin_id')]
+        if coin_id:
+            coins = coin_id
+        else:
+            coins = [obj.id for obj in AllCryptosList.objects.all()]
 
-        for coin_id in [obj.id for obj in AllCryptosList.objects.all()]:
+        for coin_id in coins:
             response = self.get_coin_details(coin_id)
             if response.status_code != 200:
                 logger.warning(f' Failed to retrieve data for {coin_id}')

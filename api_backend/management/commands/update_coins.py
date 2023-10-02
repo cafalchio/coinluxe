@@ -6,7 +6,6 @@ from django.core.management.base import BaseCommand
 from django.core.exceptions import ObjectDoesNotExist
 from api_backend.models import AllCryptosList, CryptoCurrency
 from django.conf import settings
-from . import coins_set
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level="INFO")
@@ -21,10 +20,12 @@ class Command(BaseCommand):
     """
     help = "Update the crypto databases"
 
+
     def add_arguments(self, parser):
         parser.add_argument('--save_pics', type=str,
                             help='To just save pics, run python manage.py update_coin --save_pics True')
-
+        parser.add_argument('coin_id', type=str, help='ID of the cryptocurrency to update')
+        
     def get_coin_details(self, page=1):
         """ This function makes the api call to coingeko coins endpoint
         """
@@ -48,6 +49,12 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
 
+        coin_id = [options.get('coin_id')]
+        if coin_id:
+            coins = coin_id
+        else:
+            coins = [obj.id for obj in AllCryptosList.objects.all()]
+
         if options['save_pics']:
             save_pics = True
             logger.info(" SAVING PICS")
@@ -59,11 +66,13 @@ class Command(BaseCommand):
             if response.status_code == 200:
                 coin_data = response.json()
                 for coin in coin_data:
-                    if coin['id'] in [obj.id for obj in AllCryptosList.objects.all()]:
+                    if coin['id'] in coins:
                         if save_pics:
                             self.save_images(coin['image'], coin['id'])
+                            break
                         else:
                             self.update_create_coin(coin)
+                            break
                     else:
                         pass
             else:

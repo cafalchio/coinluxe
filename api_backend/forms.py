@@ -1,12 +1,13 @@
 from django import forms
-from .models import CryptoCurrency
+from .models import AllCryptosList, CryptoCurrency
 
 
-class CryptoCurrencyForm(forms.ModelForm):
-    """Crypto Form """
+class AllCryptosListForm(forms.ModelForm):
+    """ To add a crypto, just add the id of a real crypto and 
+    the management will update its fields """
     class Meta:
         """ Meta """
-        model = CryptoCurrency
+        model = AllCryptosList
         fields = "__all__"
 
 

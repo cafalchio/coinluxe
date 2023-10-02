@@ -5,11 +5,9 @@ from django.db.models import Q
 from django.contrib import messages
 import pandas as pd
 from django.contrib.auth.decorators import login_required
-from django.core.management import call_command
-
-from .forms import CryptoCurrencyEditForm, CryptoCurrencyForm
+from .forms import AllCryptosListForm, CryptoCurrencyEditForm
 from .utils import plot_chart
-from .models import Coins, CryptoCurrency, PriceUpdate
+from .models import AllCryptosList, Coins, CryptoCurrency, PriceUpdate
 
 
 class CryptoListView(ListView):
@@ -74,24 +72,27 @@ class ManageCryptos(TemplateView):
 
 @login_required
 def add_crypto(request):
-    """ Add a crypto to the store """
+    """ Cannot add crypto directly as there are 3 models and many fields,
+    including the historical data, so add an crypto id and the management system]
+    will add the fields later """
     if not request.user.is_superuser:
         messages.error(request, 'Sorry, only store owners can do that.')
         return redirect(reverse('home'))
 
     if request.method == 'POST':
-        form = CryptoCurrencyForm(request.POST, request.FILES)
+        form = AllCryptosListForm(request.POST)
         if form.is_valid():
-            coin_id = form.cleaned_data['id']
-            try:
-                call_command('update_coins', coin=coin_id)
-                call_command('update_coins_charts', coin=coin_id)
-            except Exception as _:
-                return redirect(reverse('crypto_list'))
+            id_value = form.cleaned_data['id'].lower()
+            if not AllCryptosList.objects.filter(id=id_value).exists():
+                form.save()  # Save the ID to the AllCryptosList model
+                messages.success(request, 'Cryptocurrency added, data will be added in the next update.')
+            else:
+                messages.error(request, 'Cryptocurrency with this ID already exists.')
+            return redirect(reverse('crypto_list'))
         else:
             messages.error(request, 'Form Error, please try again.')
     else:
-        form = CryptoCurrencyForm()
+        form = AllCryptosListForm()
 
     template = 'cryptos/add_crypto.html'
     context = {
@@ -140,5 +141,7 @@ def delete_crypto(request, crypto_id):
 
     crypto = get_object_or_404(CryptoCurrency, id=crypto_id)
     crypto.delete()
+    crypto_id = get_object_or_404(AllCryptosList, id=crypto_id)
+    crypto_id.delete()
     messages.success(request, 'Coin deleted!')
     return redirect(reverse('crypto_list'))
