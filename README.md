@@ -66,8 +66,8 @@ Here's a table that lists the site goals and their corresponding user goals:
 ## Design
 
 A simple design to keep the focus on the list of cryptocurrencies and the information about it. With options of **Light Mode and Dark Mode**
-<img src="https://github.com/cafalchio/coinluxe/raw/main/media/readme/home_light.jpg" width="200" alt="homepage light">
-<img src="https://github.com/cafalchio/coinluxe/raw/main/media/readme/home_dark.jpg" width="200" alt="homepage dark">
+<img src="https://github.com/cafalchio/coinluxe/raw/main/media/readme/home_light.png" width="200" alt="homepage light">
+<img src="https://github.com/cafalchio/coinluxe/raw/main/media/readme/home_dark.png" width="200" alt="homepage dark">
 
 ### Images
 
@@ -134,8 +134,8 @@ The current features of the website are:
 
 - The website has a navigation bar that allows users to navigate to different sections of the website.
 - The navbar includes links to the home page, cryptocurrencies list, login, signup. If the user is logged, than also includes to: Shopping Bag and Wallet
-<img src="https://github.com/cafalchio/coinluxe/raw/main/media/readme/navbar.jpg" width="200" alt="navbar">
-<img src="https://github.com/cafalchio/coinluxe/raw/main/media/readme/navbar_logged.jpg" width="200" alt="navbar logged">
+<img src="https://github.com/cafalchio/coinluxe/raw/main/media/readme/navbar.png" width="200" alt="navbar">
+<img src="https://github.com/cafalchio/coinluxe/raw/main/media/readme/navbar_logged.png" width="200" alt="navbar logged">
 
 ## Footer
 
