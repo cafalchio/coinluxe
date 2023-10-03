@@ -20,12 +20,6 @@ class Command(BaseCommand):
     """
     help = "Update the crypto databases"
 
-    def add_arguments(self, parser):
-        parser.add_argument(
-            'coin_id',
-            type=str,
-            nargs='?',
-            help='ID of the cryptocurrency to update (optional)')
 
     def get_coin_details(self, coin_id):
         """ get coin details from the api """
@@ -37,11 +31,8 @@ class Command(BaseCommand):
         return response
 
     def handle(self, *args, **options):
-        coin_id = [options.get('coin_id')]
-        if coin_id:
-            coins = coin_id
-        else:
-            coins = [obj.id for obj in AllCryptosList.objects.all()]
+
+        coins = [obj.id for obj in AllCryptosList.objects.all()]
 
         logger.info("Updating coins details")
         for coin_id in coins:

@@ -25,11 +25,6 @@ class Command(BaseCommand):
             '--save_pics',
             type=str,
             help='To just save pics, run python manage.py update_coin --save_pics True')
-        parser.add_argument(
-            'coin_id',
-            type=str,
-            nargs='?',
-            help='ID of the cryptocurrency to update (optional)')
 
     def get_coin_details(self, page=1):
         """ This function makes the api call to coingeko coins endpoint
@@ -54,11 +49,8 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
 
-        coin_id = [options.get('coin_id')]
-        if coin_id:
-            coins = coin_id
-        else:
-            coins = [obj.id for obj in AllCryptosList.objects.all()]
+
+        coins = [obj.id for obj in AllCryptosList.objects.all()]
 
         if options['save_pics']:
             save_pics = True
@@ -74,10 +66,8 @@ class Command(BaseCommand):
                     if coin['id'] in coins:
                         if save_pics:
                             self.save_images(coin['image'], coin['id'])
-                            break
                         else:
                             self.update_create_coin(coin)
-                            break
                     else:
                         pass
             else:

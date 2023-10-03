@@ -18,19 +18,9 @@ class Command(BaseCommand):
     """
     help = "Create or update Stripe coin products"
 
-    def add_arguments(self, parser):
-        parser.add_argument(
-            'coin_id',
-            type=str,
-            nargs='?',
-            help='ID of the cryptocurrency to update (optional)')
-
     def handle(self, *args, **options):
-        coin_id = [options.get('coin_id')]
-        if coin_id:
-            coins = coin_id
-        else:
-            coins = [obj.id for obj in AllCryptosList.objects.all()]
+
+        coins = [obj.id for obj in AllCryptosList.objects.all()]
 
         for coin_id in coins:
             crypto = CryptoCurrency.objects.get(id=coin_id)
