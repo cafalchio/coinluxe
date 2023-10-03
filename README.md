@@ -238,6 +238,7 @@ Our social media marketing is posted frequently on our facebook account.
 
 ## Python validation
 
+Pycodestyle was tested in all folders. Currently just the management part of the api_backend does not comply with the style in line characters. But the work around to comply would make the code much longer and complicated.  "– sometimes style guide recommendations just aren’t applicable. When in doubt, use your best judgment. Look at other examples and decide what looks best. " (pep8)
 
 ## LightHouse
 
@@ -281,7 +282,7 @@ The CSS validation was not made as Tailwind CSS was using in this project.
 * Receive Confirmation Email:
     Confirmation emails are sent to users when the users register and pay for cryptos.
 
-*Withdrawal (deliver) Crypto:
+* Withdrawal (deliver) Crypto:
     The mock withdrawal process for cryptocurrencies works as expected. The once clicked the cryptos are removed from the site.
 
 * Buy Cryptos:
@@ -318,9 +319,14 @@ The CSS validation was not made as Tailwind CSS was using in this project.
     Registered users can log in to their accounts without issues, gaining access to personalized features and data.
 
 
-
-
 # Bugs
+
+* During the development there were many bugs, currently there are few known bugs.
+
+- Add Crypto. The Add Crypto form was impossible to fill manually, as it needs all the crypto details that cannot be created. Market related data is based on real data. To work around, a model was created to keep all the cryptos id of cryptos that will be automatically updated by the scheduler.
+So once the id is in the list, the data will be added later.
+
+- The site uses the free Coingecko api. However, sometimes due to the free tier, the api call fails and timeout.
 
 
 # Deployment
@@ -533,6 +539,8 @@ The main languages used to build this project are:
 
 # Libraries
 
+ - TailWind: used to make the style and compile the css.
+
 # Credits
 
 https://picsvg.com/ 
@@ -544,6 +552,9 @@ https://looka.com
 https://github.com/ecabanasv/ci-pp5-ecommerce
 
 # Acknowledgments
+
+ - Thanks to Daisy (mentor) for the help
+ - To the hackathon and comunity neurodiversity for the motivation
 
 # Disclaimer
 
