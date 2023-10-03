@@ -174,7 +174,7 @@ The current features of the website are:
 
 - The pagination feature allows the user to navigate through the crypto list. The most important page, as the users can select the cryptos to explore and buy.
 
-<img src="https://github.com/cafalchio/coinluxe/raw/main/media/readme/crypto_list.png" width="400" alt="Cryptos list">
+<img src="https://github.com/cafalchio/coinluxe/raw/main/media/readme/crypto_list.png" width="800" alt="Cryptos list">
 
 
 
@@ -183,7 +183,7 @@ The current features of the website are:
 Another important page, here the user can see details of the crypto and the price x time graph.
 
 
-<img src="https://github.com/cafalchio/coinluxe/raw/main/media/readme/kas_details.png" width="400" alt="Graph details">
+<img src="https://github.com/cafalchio/coinluxe/raw/main/media/readme/kas_details.png" width="800" alt="Graph details">
 
 
 
@@ -191,7 +191,7 @@ Another important page, here the user can see details of the crypto and the pric
 
 The custom error page
 
-<img src="https://github.com/cafalchio/coinluxe/raw/main/media/readme/404.png" width="400" alt="Error page">
+<img src="https://github.com/cafalchio/coinluxe/raw/main/media/readme/404.png" width="800" alt="Error page">
 
 
 
@@ -226,9 +226,9 @@ Our marketing strategy revolves around two core pillars: our newsletter and our 
 
 Our social media marketing is posted frequently on our facebook account.
 
-<img src="https://github.com/cafalchio/coinluxe/raw/main/media/readme/facebook1.png" width="400" alt="Facebook account">
+<img src="https://github.com/cafalchio/coinluxe/raw/main/media/readme/facebook1.png" width="600" alt="Facebook account">
 
-<img src="https://github.com/cafalchio/coinluxe/raw/main/media/readme/face3.png" width="400" alt="Facebook account 2">
+<img src="https://github.com/cafalchio/coinluxe/raw/main/media/readme/face2.png" width="600" alt="Facebook account 2">
 
 
 ## Email Marketing
@@ -236,6 +236,25 @@ Our social media marketing is posted frequently on our facebook account.
 
 
 # Testing
+
+* Testing has taken place continuously throughout the development of the project. Each view was tested regularly. When the outcome was not as expected, debugging took place at that point.
+
+## Python validation
+
+
+## LightHouse
+
+
+## HTML validation
+
+
+## CSS validation
+
+
+## Manual testing
+
+
+# Bugs
 
 
 # Deployment
