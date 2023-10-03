@@ -65,10 +65,12 @@ Here's a table that lists the site goals and their corresponding user goals:
 
 ## Design
 
-A simple design to keep the focus on the list of cryptocurrencies and the information about it. With options of **Light Mode and Dark Mode**
+A simple design to keep the focus on the list of cryptocurrencies and the information about it. 
 
-<img src="https://github.com/cafalchio/coinluxe/raw/main/media/readme/home_light.png" width="600" alt="homepage light">
-<img src="https://github.com/cafalchio/coinluxe/raw/main/media/readme/home_black.png" width="600" alt="homepage dark">
+With options of **Light Mode and Dark Mode**
+
+<img src="https://github.com/cafalchio/coinluxe/raw/main/media/readme/home_light.png" width="800" alt="homepage light">
+<img src="https://github.com/cafalchio/coinluxe/raw/main/media/readme/home_black.png" width="800" alt="homepage dark">
 
 ### Images
 
@@ -135,24 +137,32 @@ The current features of the website are:
 
 - The website has a navigation bar that allows users to navigate to different sections of the website.
 - The navbar includes links to the home page, cryptocurrencies list, login, signup. If the user is logged, than also includes to: Shopping Bag and Wallet
-<img src="https://github.com/cafalchio/coinluxe/raw/main/media/readme/navbar.png" width="200" alt="navbar">
-<img src="https://github.com/cafalchio/coinluxe/raw/main/media/readme/navbar_logged.png" width="200" alt="navbar logged">
+<img src="https://github.com/cafalchio/coinluxe/raw/main/media/readme/navbar.png" width="600" alt="navbar">
+<img src="https://github.com/cafalchio/coinluxe/raw/main/media/readme/navbar_logged.png" width="600" alt="navbar logged">
 
 ## Footer
 
 - The website has a footer section that appears on every page.
-- The footer may contain links to important pages, social media links, and copyright information.
+- The footer may contain links to facebook page and github.
+
+<img src="https://github.com/cafalchio/coinluxe/raw/main/media/readme/footer.png" width="600" alt="navbar logged">
 
 ## Home Page
 
 - The home page serves as the main landing page of the website.
 - It may provide an overview of the website's purpose, features, and highlights.
 
+<img src="https://github.com/cafalchio/coinluxe/raw/main/media/readme/home_light.png" width="600" alt="homepage light">
+
+
 ## User Account Pages
 
 - The website includes user account functionality.
 - Users can create an account, log in, and access their personalized account pages.
-- Account pages may include features such as profile management, order history, and saved preferences.
+
+<img src="https://github.com/cafalchio/coinluxe/raw/main/media/readme/signup.png" width="400" alt="signup">
+<img src="https://github.com/cafalchio/coinluxe/raw/main/media/readme/signin.png" width="400" alt="signin">
+<img src="https://github.com/cafalchio/coinluxe/raw/main/media/readme/signout.png" width="400" alt="signout">
 
 ## Cryptocurrencies List
 
@@ -162,54 +172,38 @@ The current features of the website are:
 
 ## Pagination
 
-- The pagination feature allows the user to navigate through the crypto list. T
+- The pagination feature allows the user to navigate through the crypto list. The most important page, as the users can select the cryptos to explore and buy.
 
-
-
-## Search
-
-- Search for a specific cryptocurrency.
+<img src="https://github.com/cafalchio/coinluxe/raw/main/media/readme/crypto_list.png" width="400" alt="Cryptos list">
 
 
 
 ## Crypto detail
 
+Another important page, here the user can see details of the crypto and the price x time graph.
 
 
-
-
-## Add Product
-
-## Update Product
-
-
-
-## Delete Product
-
-
-
-## Product Detail
-
-
-
-## Buy Product
-
-
-
-## Toast messages
+<img src="https://github.com/cafalchio/coinluxe/raw/main/media/readme/kas_details.png" width="400" alt="Graph details">
 
 
 
 ## Error Page
 
-# Business Model
+The custom error page
 
+<img src="https://github.com/cafalchio/coinluxe/raw/main/media/readme/404.png" width="400" alt="Error page">
 
 
 
 # Marketing Strategy
 
+Our marketing strategy revolves around two core pillars: our newsletter and our Facebook page. We believe that by optimizing these channels, we can effectively reach and engage our target audience. Here's how we plan to make it better:
 
+* Engagement: To keep our subscribers engaged, we will introduce interactive elements such as polls, surveys, and quizzes, inviting them to participate actively.
+
+* Personalization: Our newsletters will be tailored to individual preferences and user behavior, ensuring that the content resonates with each recipient.
+
+* Frequency: We will maintain a consistent and well-balanced sending frequency to ensure our newsletters are informative without overwhelming our subscribers.
 
 ## SEO
 
