@@ -13,7 +13,11 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='AllCryptosList',
             fields=[
-                ('id', models.CharField(max_length=100, primary_key=True, serialize=False)),
+                ('id',
+                 models.CharField(
+                     max_length=100,
+                     primary_key=True,
+                     serialize=False)),
             ],
         ),
     ]

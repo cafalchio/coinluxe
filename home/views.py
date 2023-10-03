@@ -19,7 +19,7 @@ class IndexListView(ListView):
         queryset = self.get_queryset()
         try:
             debit = get_debit(self.request)
-        except:
+        except BaseException:
             debit = ""
         if queryset is not None:
             context['top_gainers'] = queryset

@@ -84,7 +84,8 @@ def payment_successful(request):
 
     subject = 'Payment Successful'
     if message_items:
-        message = 'Your payment was successful.\nThe following items have been added to your wallet:\n'
+        message = ('Your payment was successful.\n'
+                   'The following items have been added to your wallet:\n')
         for item in message_items:
             message += f"- {item['crypto_name']}: {item['amount']} units\n"
     else:
@@ -151,7 +152,7 @@ def remove_crypto(request, pk):
     else:
         form = RemoveFromBagForm()
     return render(request, 'shopping_bag/sell_crypto.html',
-                  {"crypto":  crypto, "amount": amount, "form": form})
+                  {"crypto": crypto, "amount": amount, "form": form})
 
 
 @login_required(login_url="account_login")

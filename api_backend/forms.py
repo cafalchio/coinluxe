@@ -3,7 +3,7 @@ from .models import AllCryptosList, CryptoCurrency
 
 
 class AllCryptosListForm(forms.ModelForm):
-    """ To add a crypto, just add the id of a real crypto and 
+    """ To add a crypto, just add the id of a real crypto and
     the management will update its fields """
     class Meta:
         """ Meta """

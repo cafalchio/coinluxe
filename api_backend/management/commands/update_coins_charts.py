@@ -19,12 +19,15 @@ class Command(BaseCommand):
     help = "Update the crypto databases"
 
     def add_arguments(self, parser):
-        parser.add_argument('coin_id', type=str, nargs='?', help='ID of the cryptocurrency to update (optional)')
-
+        parser.add_argument(
+            'coin_id',
+            type=str,
+            nargs='?',
+            help='ID of the cryptocurrency to update (optional)')
 
     def get_coin_details(self, coin_id):
         """ get coin details from the api"""
-        for i in range(1, TRIES+1):
+        for i in range(1, TRIES + 1):
             try:
                 response = requests.get(
                     f"https://api.coingecko.com/api/v3/coins/{coin_id}/market_chart?vs_currency=eur&days=365",

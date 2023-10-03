@@ -35,9 +35,9 @@ def wallet_view(request):
 
 @login_required(login_url="account_login")
 def withdrawal(request, pk):
-    """ Withdrawal from wallet. Here is a mock class, on real crypto, 
+    """ Withdrawal from wallet. Here is a mock class, on real crypto,
     this class will hold the logic to send the bought cryptos to the
-    user wallet 
+    user wallet
     """
     template_name = "wallet/wallet.html"
     user = request.user
@@ -53,7 +53,9 @@ def withdrawal(request, pk):
             })
             crypto_amount.delete()
     if message_items:
-        message = 'Your pictures was successful.\nThe following items have been withdrawal to your wallet:\n'
+        message = ('Your pictures was successful.\n'
+                   'The following items have been'
+                   'withdrawal to your wallet:\n')
         for item in message_items:
             message += f"- {item['crypto_name']}: {item['amount']} units\n"
     subject = 'Withdrawal Successful'

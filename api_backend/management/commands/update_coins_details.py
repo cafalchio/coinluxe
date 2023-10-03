@@ -21,15 +21,19 @@ class Command(BaseCommand):
     help = "Update the crypto databases"
 
     def add_arguments(self, parser):
-        parser.add_argument('coin_id', type=str, nargs='?', help='ID of the cryptocurrency to update (optional)')
-
+        parser.add_argument(
+            'coin_id',
+            type=str,
+            nargs='?',
+            help='ID of the cryptocurrency to update (optional)')
 
     def get_coin_details(self, coin_id):
         """ get coin details from the api """
-        logger.info(f" Getting data for {coin_id}..") 
-        response = requests.get(COINGECKO +
-                                f'/coins/{coin_id}?localization=false&tickers=false&market_data=false&community_data=true&developer_data=true&sparkline=false',
-                                timeout=1)
+        logger.info(f" Getting data for {coin_id}..")
+        response = requests.get(
+            COINGECKO +
+            f'/coins/{coin_id}?localization=false&tickers=false&market_data=false&community_data=true&developer_data=true&sparkline=false',
+            timeout=1)
         return response
 
     def handle(self, *args, **options):

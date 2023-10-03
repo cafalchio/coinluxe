@@ -1,6 +1,11 @@
 from django.urls import path
 
-from .views import CoinDetailView, CryptoListView, ManageCryptos, add_crypto, delete_crypto, edit_crypto
+from .views import (CoinDetailView,
+                    CryptoListView,
+                    ManageCryptos,
+                    add_crypto,
+                    delete_crypto,
+                    edit_crypto)
 
 
 urlpatterns = [

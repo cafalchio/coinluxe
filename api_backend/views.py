@@ -72,11 +72,12 @@ class ManageCryptos(TemplateView):
 
 @login_required
 def add_crypto(request):
-    """ Cannot add crypto directly as there are 3 models and many fields,
-    including the historical data, so add an crypto id and the management system]
+    """ Cannot add crypto directly as there are 3 models
+    and many fields,including the historical data, so add
+    an crypto id and the management system
     will add the fields later """
     if not request.user.is_superuser:
-        messages.error(request, 'Sorry, only store owners can do that.')
+        messages.error(request, 'Sorry, only store owners')
         return redirect(reverse('home'))
 
     if request.method == 'POST':
@@ -85,9 +86,12 @@ def add_crypto(request):
             id_value = form.cleaned_data['id'].lower()
             if not AllCryptosList.objects.filter(id=id_value).exists():
                 form.save()  # Save the ID to the AllCryptosList model
-                messages.success(request, 'Cryptocurrency added, data will be added in the next update.')
+                messages.success(
+                    request, ('Cryptocurrency added, data will'
+                              'be added in the next update.'))
             else:
-                messages.error(request, 'Cryptocurrency with this ID already exists.')
+                messages.error(
+                    request, 'Cryptocurrency with this ID already exists.')
             return redirect(reverse('crypto_list'))
         else:
             messages.error(request, 'Form Error, please try again.')

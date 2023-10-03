@@ -42,7 +42,7 @@ Here's a table that lists the site goals and their corresponding user goals:
 | Provide an engaging platform overview           | Visit Homepage for Platform Overview           |
 | Present a list of cryptocurrencies              | Explore List of Cryptocurrencies              |
 | Enable users to edit cryptocurrency information | Edit Crypto                                   |
-| Allow users to remove cryptocurrencies          | Remove Crypto                                 |
+| Allow admins to remove cryptocurrencies          | Remove Crypto                                 |
 | Provide tools for managing cryptocurrency       | Manage Cryptos                                |
 | Send confirmation emails                         | Receive Confirmation Email                   |
 | Facilitate cryptocurrency withdrawals            | Withdrawal Crypto                             |
@@ -52,13 +52,10 @@ Here's a table that lists the site goals and their corresponding user goals:
 | Display historical price data                   | See Historical Prices                         |
 | Provide detailed cryptocurrency information     | See Crypto Details                            |
 | Present a comprehensive cryptocurrency list     | See Cryptocurrencies                          |
-| Send login-related emails                        | Receive Login Email                           |
 | Enable user login                               | Sign In                                      |
 | Allow user logout                               | Log Out                                      |
 | Provide a secure login process                   | Login                                        |
-| Offer a portfolio view                           | View Portfolio                                |
-| Facilitate cryptocurrency sales                 | Sell Crypto                                  |
-| Enable combined purchases of crypto and products| Buy Crypto and Products                       |
+| Offer a wallet view                              | View Wallet                                 |
 | Streamline the registration process              | Sign Up for a New Account                    |
 | Allow registered users to log in                | Log In to Account                            |
 | Offer product browsing and detailed views        | Browse Products and View Individual Product Pages |
@@ -244,14 +241,83 @@ Our social media marketing is posted frequently on our facebook account.
 
 ## LightHouse
 
+Desktop
+<img src="https://github.com/cafalchio/coinluxe/raw/main/media/readme/desktop.png" width="600" alt="Lighthouse Desktop">
+
+Mobile
+<img src="https://github.com/cafalchio/coinluxe/raw/main/media/readme/mobile.png" width="600" alt="Lighthouse Mobile">
+
 
 ## HTML validation
 
+<img src="https://github.com/cafalchio/coinluxe/raw/main/media/readme/html_check.png" width="600" alt="Html check">
 
 ## CSS validation
 
+The CSS validation was not made as Tailwind CSS was using in this project.
 
 ## Manual testing
+
+* Visit Homepage for Platform Overview:
+    The homepage provides an engaging and informative overview of the platform, highlighting its key features and benefits without any issues.
+
+
+* Browse Cryptos and View Individual Crypto Pages:
+    Users can browse and access detailed pages for individual cryptos without disruptions.
+
+* Explore List of Cryptocurrencies:
+    The list of cryptos appears and the page navigation works for all pages.
+
+
+* Edit Crypto:
+    Editing cryptocurrency information in the user's portfolio works correctly. Changes are saved, and the user receives a confirmation message.
+
+* Remove Crypto from bag:
+    Removing a cryptocurrency from the user's bag functions as expected. The selected cryptocurrency is successfully deleted.
+
+* Manage Cryptos:
+    The management system for cryptocurrencies operates without issues. Admins manage their listings.
+
+* Receive Confirmation Email:
+    Confirmation emails are sent to users when the users register and pay for cryptos.
+
+*Withdrawal (deliver) Crypto:
+    The mock withdrawal process for cryptocurrencies works as expected. The once clicked the cryptos are removed from the site.
+
+* Buy Cryptos:
+    Purchasing cryptocurrencies through the platform is straightforward. Transactions are processed correctly, and users receive their purchased assets in their wallets.
+
+* Add Crypto to the Shopping Bag:
+    Adding cryptocurrencies to the shopping bag or cart functions correctly. The selected items are added, and users can proceed with their purchases.
+
+* See Historical Prices:
+    Viewing historical price charts and data for cryptocurrencies is error-free. Users can track price trends over time without issues.
+
+* See Crypto Details:
+    Accessing detailed information about specific cryptocurrencies works as intended. Users can explore market data, news, and performance metrics.
+
+* See Cryptocurrencies:
+    Browsing the list of available cryptocurrencies with brief descriptions is seamless. Users can gather information and make informed decisions.
+
+* Receive Login Email:
+    User receive email when sign in.
+
+* Sign In:
+    The user sign-in process is working as expected.
+
+* Log Out:
+    The log-out functionality works correctly. Users can sign out of their accounts, enhancing security and privacy.
+
+* Login:
+    The login system is user-friendly and secure, providing access to personalized features and data.
+
+* View wallet:
+    The wallet view displays user cryptocurrency holdings and amount.
+
+* Log In to Account:
+    Registered users can log in to their accounts without issues, gaining access to personalized features and data.
+
+
 
 
 # Bugs

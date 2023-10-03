@@ -85,7 +85,6 @@ class CryptoCurrency(models.Model):
         else:
             return '{:,.2f}'.format(self.total_volume)
 
-
     class Meta:
         """ Meta """
         ordering = ['-market_cap']
