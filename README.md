@@ -207,15 +207,28 @@ Our marketing strategy revolves around two core pillars: our newsletter and our 
 
 ## SEO
 
+* Our metatags provide a good foundation for SEO:
+    <meta name="description" content="CoinLuxe a unique place to buy and sell crypto." />
+    <meta name="keywords" content="cryptocurrency, exchange, crypto" />
+    <meta name="author" content="Matheus Cafalchio" />
+    <title>CoinLuxe</title>
 
+* Robots.txt: Ensure that your robots.txt file is correctly configured to control which parts of your site are accessible to search engine crawlers.
 
-## Content marketing
+* Sitemap.xml: Create and submit a sitemap.xml file to search engines like Google. This file lists all the pages on your site, making it easier for search engines to crawl and index your content.
 
+* Mobile friendly design
+
+* Page load speed
 
 
 ## Social Media Marketing
 
+Our social media marketing is posted frequently on our facebook account.
 
+<img src="https://github.com/cafalchio/coinluxe/raw/main/media/readme/facebook1.png" width="400" alt="Facebook account">
+
+<img src="https://github.com/cafalchio/coinluxe/raw/main/media/readme/face3.png" width="400" alt="Facebook account 2">
 
 
 ## Email Marketing
@@ -223,6 +236,7 @@ Our marketing strategy revolves around two core pillars: our newsletter and our 
 
 
 # Testing
+
 
 # Deployment
 
