@@ -2,6 +2,8 @@
 
 ![Deployed Website](https://coinluxe.herokuapp.com/)
 
+https://coinluxe.herokuapp.com/
+
 Embrace the future of finance with CoinLuxe. Start your crypto journey today and unlock the potential of decentralized technologies.
 The coinluxe website was designed to be a e-commerce where people can easily buy cryptos using credit or debit card. The motivation behind the creation of coinluxe was to facilitate the acquisition of cryptocurrencies at a small fee, making it an ideal place to buy cryptocurrencies. 
 
