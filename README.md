@@ -1,4 +1,9 @@
 # CoinLuxe
+
+# Disclaimer
+
+This project is for educational purposes only. All the content of the website is fictional and it is not intended to be used for commercial purposes.
+
 Django website
 <img src="https://github.com/cafalchio/coinluxe/raw/main/media/readme/home_black.png" width="800" alt="homepage dark">
 
@@ -555,10 +560,6 @@ https://github.com/ecabanasv/ci-pp5-ecommerce
 
  - Thanks to Daisy (mentor) for the help
  - To the hackathon and comunity neurodiversity for the motivation
-
-# Disclaimer
-
-This project is for educational purposes only. All the content of the website is fictional and it is not intended to be used for commercial purposes.
 
 # License
 
